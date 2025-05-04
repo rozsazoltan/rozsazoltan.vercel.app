@@ -1,0 +1,42 @@
+import { Image, Video } from "@/components/media";
+import Link from "next/link";
+
+import flexsearch from './flexsearch-dialog.png'
+
+import { rozsazoltan } from "@/app/blog/authors";
+
+export const meta = {
+  title: "New Site",
+  description: `Redesigned look with a renewed framework.`,
+  date: "2025-04-30T17:00:00.000Z",
+  authors: [rozsazoltan],
+  excerpt: (
+    <>
+      I'm publishing a new personal website built with Next.js and Tailwind CSS to share my own content. Among other things, I'll be sharing my thoughts, insights, interesting topics, and documentation for my own package.
+    </>
+  ),
+};
+
+## Starting Point
+
+The foundation of the website is based on <Link href="https://tailwindcss.com">tailwindcss.com</Link>, which I significantly modified. I do not and do not plan to generate any revenue from the use of the source code. I left their original sponsorship messages in place in the documentation section.
+
+### New Code Animation
+
+The code animation on the homepage had to be completely rewritten to support not just HTML, but any kind of code. The original animation required very precise, manual class assignments for each typed character, and it was quite difficult to display multiple colors - it only worked for class attributes in HTML. The new animation accepts any kind of code and allows for before/after hooks for each step.
+
+<Video src={`/blog-videos/2025-04-30-new-site/hero-code-animation-block.webm`} />
+
+### Flex Search instead of Algolia
+
+The design has been stripped down, but I retained much of the original layout, which I really like.
+
+I replaced the original <Link href="https://algolia.com">Algolia</Link> search with <Link href="https://github.com/nextapps-de/flexsearch">FlexSearch</Link>. While Algolia is one of the most widely used services for content-based search, I felt it was a bit overkill for a personal website. FlexSearch is a completely open-source, free alternative that works without any external indexing service. The indexing is handled during the build process by a custom script I wrote, which includes both documentation and blog pages in the results.
+
+<Image src={flexsearch} alt="Use Open Source FlexSearch instead of Algolia" />
+
+---
+
+## Purpose of the site
+
+The purpose of this site is to share my own experiences, explain interesting concepts, and document my own packages. I don't believe every package needs its own dedicated website - I created most of these primarily for private use, but I believe they could be useful to others as well.
