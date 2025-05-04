@@ -1,0 +1,63 @@
+import Image from "next/image";
+import rozsazoltanLogoMark from "./img/rozsazoltan-mark.svg";
+import rozsazoltanLogoType from "./img/rozsazoltan-logotype.svg";
+import rozsazoltanLogoTypeWhite from "./img/rozsazoltan-logotype-white.svg";
+
+export const title = "Brand";
+export const description = "Zoltán Rózsa brand assets and usage guidelines.";
+
+### Mark
+
+<div className="pt-5 pb-8">
+  <a href={rozsazoltanLogoMark.src} download>
+    <span className="sr-only">Download mark</span>
+    <div className="max-w-xl">
+      <div className="relative" style={{ paddingTop: `${(33 / 262) * 100}%` }}>
+        <Image
+          className="absolute inset-0 h-full w-full object-contain object-left"
+          src={rozsazoltanLogoMark}
+          alt=""
+          width={54}
+          height={33}
+          style={{ margin: 0 }}
+        />
+      </div>
+    </div>
+  </a>
+</div>
+
+<a href={rozsazoltanLogoMark.src} download>
+  Download mark
+</a>
+
+### Logotype
+
+<div className="pt-5 pb-8">
+  <a href={rozsazoltanLogoType.src} download>
+    <span className="sr-only">Download logotype</span>
+    <div className="max-w-xl">
+      <div className="relative" style={{ paddingTop: `${(33 / 262) * 100}%` }}>
+        <Image
+          className="absolute inset-0 block h-full w-full dark:hidden"
+          src={rozsazoltanLogoType}
+          alt=""
+          width={262}
+          height={33}
+          style={{ margin: 0 }}
+        />
+        <Image
+          className="absolute inset-0 hidden h-full w-full dark:block"
+          src={rozsazoltanLogoTypeWhite}
+          alt=""
+          width={262}
+          height={33}
+          style={{ margin: 0 }}
+        />
+      </div>
+    </div>
+  </a>
+</div>
+
+<a href="/brand/rozsazoltan-logotype.zip" download>
+  Download logotype
+</a>
