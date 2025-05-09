@@ -126,7 +126,7 @@ let darkModeScript = js`
 `;
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://rozsazoltan.vercel.io"),
+  metadataBase: new URL("https://rozsazoltan.vercel.app"),
   title: {
     default: "rozsazoltan - Software Developer",
     template: "%s - Zoltán Rózsa",
