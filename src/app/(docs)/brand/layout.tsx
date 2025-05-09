@@ -11,8 +11,8 @@ export const metadata: Metadata = {
     type: "article",
     title: "Brand",
     description: "Zoltán Rózsa brand assets and usage guidelines.",
-    images: "https://rozsazoltan.github.io/api/og?path=/brand",
-    url: "https://rozsazoltan.github.io/brand",
+    images: "https://rozsazoltan.vercel.io/api/og?path=/brand",
+    url: "https://rozsazoltan.vercel.io/brand",
   },
 };
 

@@ -27,7 +27,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   }
 
   return {
-    metadataBase: new URL("https://rozsazoltan.github.io"),
+    metadataBase: new URL("https://rozsazoltan.vercel.io"),
     title: post.meta.title,
     description: post.meta.description,
     openGraph: {

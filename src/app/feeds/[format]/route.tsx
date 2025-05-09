@@ -2,7 +2,7 @@ import { getBlogPostBySlug, getBlogPostSlugs, nonNullable } from "@/app/blog/api
 import { Feed } from "feed";
 import { notFound } from "next/navigation";
 
-const BASE_URL = "https://rozsazoltan.github.io";
+const BASE_URL = "https://rozsazoltan.vercel.io";
 const BLOG_URL = `${BASE_URL}/blog`;
 
 export async function generateStaticParams() {
