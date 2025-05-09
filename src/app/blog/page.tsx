@@ -13,8 +13,8 @@ export const metadata: Metadata = {
     type: "article",
     title: "Latest updates - Blog",
     description: "News, personal guides, and updates related to packages.",
-    images: "https://rozsazoltan.github.io/api/og?path=/blog",
-    url: "https://rozsazoltan.github.io/blog",
+    images: "https://rozsazoltan.vercel.io/api/og?path=/blog",
+    url: "https://rozsazoltan.vercel.io/blog",
   },
 };
 

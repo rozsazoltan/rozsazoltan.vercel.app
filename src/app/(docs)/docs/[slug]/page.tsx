@@ -28,7 +28,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   let title = `${post.title} - ${sectionAndTitle?.section ?? ""}`;
 
   return {
-    metadataBase: new URL("https://rozsazoltan.github.io"),
+    metadataBase: new URL("https://rozsazoltan.vercel.io"),
     title,
     description: post.description,
     openGraph: {
