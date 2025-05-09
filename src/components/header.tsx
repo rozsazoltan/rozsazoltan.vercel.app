@@ -163,7 +163,6 @@ export function Header(props: React.PropsWithChildren) {
           <Link href="/showcase" className="text-sm/6 text-gray-950 dark:text-white">
             Showcase
           </Link>
-
           <Link href="https://github.com/rozsazoltan/rozsazoltan.vercel.app" aria-label="GitHub repository">
             <GitHubLogo className="size-5 fill-black/40 dark:fill-gray-400" />
           </Link>
