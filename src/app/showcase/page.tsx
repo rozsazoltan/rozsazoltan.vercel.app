@@ -11,8 +11,8 @@ export const metadata: Metadata = {
     type: "article",
     title: "Showcase",
     description: "...",
-    images: "https://rozsazoltan.vercel.io/api/og?path=/showcase",
-    url: "https://rozsazoltan.vercel.io/showcase",
+    images: "https://rozsazoltan.vercel.app/api/og?path=/showcase",
+    url: "https://rozsazoltan.vercel.app/showcase",
   },
 };
 
