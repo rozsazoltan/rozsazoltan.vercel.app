@@ -106,7 +106,7 @@ const birthday = "Wed Aug 15, 2001";
   ];
 
   return (
-    <div>
+    <div className="max-w-svw">
       <div
         aria-hidden="true"
         className="flex h-16 items-end px-2 font-mono text-xs/6 whitespace-pre text-black/30 max-sm:px-4 sm:h-24 dark:text-white/50"
@@ -204,14 +204,14 @@ function Example({ step }: { step: number }) {
       transition={TRANSITION}
       className={clsx(
         "@container rounded-3xl bg-black/5 p-2 outline outline-white/15 backdrop-blur-md dark:bg-white/10",
-        step > 3 && ! [6, 7].includes(step) ? "w-[584px]" : "w-[262px] xl:ml-[3rem]",
+        step > 3 && ! [6, 7].includes(step) ? "w-[calc(100vw-var(--spacing)*16)] md:-translate-y-16 md:w-[584px]" : "w-[262px] md:ml-[3rem]",
       )}
     >
       <motion.div
         className={clsx(
           "relative flex w-full flex-col rounded-2xl bg-white outline outline-black/5 dark:bg-gray-950",
           step > 0 ? "items-center gap-4 p-7" : null,
-          step > 3 && ! [6, 7].includes(step) ? "md:flex-row" : null,
+          step > 3 && ! [6, 7].includes(step) ? "@xs:flex-row" : null,
         )}
         layout={true}
         transition={TRANSITION}
@@ -245,7 +245,7 @@ function Example({ step }: { step: number }) {
           layout="position"
           transition={TRANSITION}
           className={clsx(
-            "size-48 shadow-xl transition-[border-radius] duration-350 dark:outline-1 dark:-outline-offset-1 dark:outline-white/10",
+            "max-w-1/2 h-auto size-48 shadow-xl transition-[border-radius] duration-350 dark:outline-1 dark:-outline-offset-1 dark:outline-white/10",
             step > 1 ? "rounded-3xl" : null,
           )}
           src={cover.src}
@@ -274,7 +274,7 @@ function Example({ step }: { step: number }) {
             transition={TRANSITION}
             layout="position"
             className={clsx(
-              "transition-colors duration-350",
+              "max-md:text-sm max-md:mb-1 transition-colors duration-350",
             )}
           >
             I enjoy coding and playing chess.
@@ -283,15 +283,16 @@ function Example({ step }: { step: number }) {
             layout="position"
             transition={TRANSITION}
             className={clsx(
-              "transition-colors duration-350",
+              "max-md:text-sm transition-colors duration-350",
             )}
           >
             <motion.span layout="position" transition={TRANSITION}>
-              <span>{birthday}</span>
+              <span className="inline-block">{birthday}</span>
               {step > 9 && (
                 <motion.span
                   transition={TRANSITION}
                   layout="position"
+                  className="inline-block"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
