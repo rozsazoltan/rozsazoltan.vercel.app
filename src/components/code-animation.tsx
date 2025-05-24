@@ -352,7 +352,7 @@ export const CodeAnimation: React.FC<{
 
       const width = span.getBoundingClientRect().width;
       setCharWidth(width);
-
+      
       codeRef.current.removeChild(span);
     }
   }, [code]);
@@ -370,7 +370,7 @@ export const CodeAnimation: React.FC<{
               <span
                 key={index}
                 className={clsx(
-                  "line",
+                  "line relative",
                 )}
                 ref={codeRef}
               >
@@ -379,7 +379,7 @@ export const CodeAnimation: React.FC<{
                   <span
                     className="absolute after:animate-typing after:mt-1 after:inline-block after:h-[1.2em] after:w-px after:border-r-2 after:border-sky-400 after:bg-transparent after:content-['']"
                     style={{
-                      left: `${(typingChar + 3.5) * charWidth}px`,
+                      left: `${(typingChar - 1) * charWidth}px`,
                     }}
                   />
                 )}
