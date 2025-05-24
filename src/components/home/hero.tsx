@@ -204,7 +204,7 @@ function Example({ step }: { step: number }) {
       transition={TRANSITION}
       className={clsx(
         "@container rounded-3xl bg-black/5 p-2 outline outline-white/15 backdrop-blur-md dark:bg-white/10",
-        step > 3 && ! [6, 7].includes(step) ? "w-[calc(100vw-var(--spacing)*16)] md:-translate-y-16 md:w-[584px]" : "w-[262px] md:ml-[3rem]",
+        step > 3 && ! [6, 7].includes(step) ? "w-[calc(100vw-var(--spacing)*16)] md:w-[584px]" : "w-[262px] md:ml-[3rem]",
       )}
     >
       <motion.div
