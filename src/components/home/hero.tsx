@@ -286,7 +286,7 @@ function Example({ step }: { step: number }) {
               "max-md:text-sm transition-colors duration-350",
             )}
           >
-            <motion.span layout="position" transition={TRANSITION}>
+            <motion.span layout="position" transition={TRANSITION} className="space-x-1">
               <span className="inline-block">{birthday}</span>
               {step > 9 && (
                 <motion.span
