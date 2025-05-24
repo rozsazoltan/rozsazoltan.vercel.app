@@ -269,7 +269,7 @@ function Example({ step }: { step: number }) {
             )}
           >
             Rózsa Zoltán
-          </motion.span>
+          </motion.span>{" "}
           <motion.span
             transition={TRANSITION}
             layout="position"
@@ -278,7 +278,7 @@ function Example({ step }: { step: number }) {
             )}
           >
             I enjoy coding and playing chess.
-          </motion.span>
+          </motion.span>{" "}
           <motion.span
             layout="position"
             transition={TRANSITION}
