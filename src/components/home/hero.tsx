@@ -245,7 +245,7 @@ function Example({ step }: { step: number }) {
           layout="position"
           transition={TRANSITION}
           className={clsx(
-            "max-w-1/2 h-auto size-48 shadow-xl transition-[border-radius] duration-350 dark:outline-1 dark:-outline-offset-1 dark:outline-white/10",
+            "max-lg:max-w-1/2 h-auto size-48 shadow-xl transition-[border-radius] duration-350 dark:outline-1 dark:-outline-offset-1 dark:outline-white/10",
             step > 1 ? "rounded-3xl" : null,
           )}
           src={cover.src}
