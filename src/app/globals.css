@@ -75,7 +75,7 @@
 
     &::before {
       position: absolute;
-      left: 0;
+      left: calc(--spacing(9) * -1);
       content: counter(line);
       width: --spacing(6);
       text-align: right;
