@@ -30,6 +30,18 @@ $ npm install tailwindcss @tailwindcss/cli
 
 * [Install Tailwind CLI](https://tailwindcss.com/docs/installation/tailwind-cli)
 
+<div className="bg-blue-50 dark:bg-blue-950/50 border-l-4 border-blue-500/50 p-4">
+  <strong>Note:</strong> Remember, the new separate official CLI command is: `npx @tailwindcss/cli`.
+
+  ```sh
+    # [!code filename:Terminal]
+    # [!code --:2]
+  $ npx tailwindcss -i input.css -o output.css
+    # [!code ++:2]
+  $ npx @tailwindcss/cli -i input.css -o output.css
+  ```
+</div>
+
 ### Separated package for PostCSS integration
 
 Once the CLI was separated, it became obvious that the PostCSS plugin should also be isolated. It was moved into a separate package named `@tailwindcss/postcss`, which only needs to be installed by those integrating Tailwind via PostCSS.
@@ -43,7 +55,7 @@ $ npm install tailwindcss @tailwindcss/postcss postcss
 * [Custom guide to Next.js - Install Tailwind CSS using PostCSS](https://tailwindcss.com/docs/installation/framework-guides/nextjs)
 * [Custom guide to Laravel Mix - Install Tailwind CSS using PostCSS](https://tailwindcss.com/docs/installation/framework-guides/laravel/mix)
 
-<div className="bg-blue-100 dark:bg-blue-900 border-l-4 border-blue-500 p-4">
+<div className="bg-blue-50 dark:bg-blue-950/50 border-l-4 border-blue-500/50 p-4">
   <strong>Note:</strong> Accordingly, in your PostCSS configuration, you should now load the separated package as the plugin instead of the main package.
 
   ```js
@@ -102,7 +114,7 @@ $ npx tailwindcss init -p
 
 * [Problem installing Tailwind CSS after `npx tailwindcss init -p` command](https://stackoverflow.com/a/79380522/15167500)
 
-<div className="bg-blue-100 dark:bg-blue-900 border-l-4 border-blue-500 p-4">
+<div className="bg-blue-50 dark:bg-blue-950/50 border-l-4 border-blue-500/50 p-4">
   <strong>Note:</strong> If you follow a similar old - now outdated - installation step, you will end up installing Tailwind CSS v4 instead of v3, but you won't install any of the additional packages mentioned above. If you want to [use the PostCSS plugin as described in the v3 documentation](https://v3.tailwindcss.com/docs/installation/using-postcss), it won't work, and you will receive a warning indicating that something went wrong:
 
   > [postcss] It looks like you're trying to use tailwindcss directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration
