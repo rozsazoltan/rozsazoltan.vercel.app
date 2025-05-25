@@ -370,7 +370,7 @@ export const CodeAnimation: React.FC<{
               <span
                 key={index}
                 className={clsx(
-                  "line relative",
+                  "line",
                 )}
                 ref={codeRef}
               >
