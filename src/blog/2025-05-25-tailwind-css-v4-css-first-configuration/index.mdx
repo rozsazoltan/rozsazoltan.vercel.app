@@ -1,0 +1,25 @@
+import Link from "next/link";
+import { rozsazoltan } from "@/app/blog/authors";
+
+export const meta = {
+  title: "How to switch to a CSS-first configuration in Tailwind CSS v4 and above",
+  description: `...`,
+  date: "2025-05-25T16:00:00.000Z",
+  authors: [rozsazoltan],
+  excerpt: (
+    <>
+      With the release of the new stable v4 version in January 2025, significant changes were introduced. One of the major updates is the deprecation of the legacy JavaScript-based configuration—which has existed since the beginning - in favor of a new CSS-first configuration based on CSS directives. As a result, switching to this new approach requires a deep dive into the differences between the old and new configuration methods.
+    </>
+  ),
+};
+
+## What is the CSS-first configuration
+
+### Easier installation, fewer files
+
+It means completely removing the well-known `tailwind.config.js` file. With Tailwind CSS v4, everything is fully customizable using new syntax directly within your CSS files. This also simplifies the installation process - there's no longer a need for an `init` step, which is why it's no longer present in v4.
+
+### Introduction of separated packages for compatibility with different systems
+
+As a result - and unless you're using the CLI - the CLI has been fully separated from the core package into its own standalone package. To stay consistent with this change, the PostCSS plugin has also been moved to a separate package. Starting with v4, there's even a dedicated Vite plugin, also provided as a new package.
+You can read more about it here:
