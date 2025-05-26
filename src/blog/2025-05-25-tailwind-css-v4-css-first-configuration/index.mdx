@@ -8,7 +8,7 @@ export const meta = {
   authors: [rozsazoltan],
   excerpt: (
     <>
-      With the release of the new stable v4 version in January 2025, significant changes were introduced. One of the major updates is the deprecation of the legacy JavaScript-based configuration—which has existed since the beginning - in favor of a new CSS-first configuration based on CSS directives. As a result, switching to this new approach requires a deep dive into the differences between the old and new configuration methods.
+      With the release of the new stable v4 version in January 2025, significant changes were introduced. One of the major updates is the deprecation of the legacy JavaScript-based configuration - which has existed since the beginning - in favor of a new CSS-first configuration based on CSS directives. As a result, switching to this new approach requires a deep dive into the differences between the old and new configuration methods.
     </>
   ),
 };
@@ -22,4 +22,250 @@ It means completely removing the well-known `tailwind.config.js` file. With Tail
 ### Introduction of separated packages for compatibility with different systems
 
 As a result - and unless you're using the CLI - the CLI has been fully separated from the core package into its own standalone package. To stay consistent with this change, the PostCSS plugin has also been moved to a separate package. Starting with v4, there's even a dedicated Vite plugin, also provided as a new package.
-You can read more about it here:
+You can read more about it here: <Link href="/blog/2025-05-20-tailwind-css-v4-separated-packages">
+Tailwind CSS v4: more packages and new Vite support</Link>
+
+## Syntax
+
+### New import, end of `@tailwind`
+
+The first and most important change is how Tailwind CSS is implemented into your CSS. Previously, you had to include three separate `@tailwind` directives to add the necessary parts. Now, they've been consolidated, and all you need to do is this:
+
+```css
+/* [!code filename:main.css] */
+/* [!code --:4] */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* [!code ++:2] */
+@import "tailwindcss";
+```
+
+This shortens the otherwise more verbose inclusion of the following parts:
+```css
+/* [!code filename:main.css] */
+/* [!code --:4] */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* [!code ++:6] */
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
+```
+
+### CSS layers
+
+If you're only superficially familiar with CSS, the use of native [`@import`](https://developer.mozilla.org/en-US/docs/Web/CSS/@import#syntax) now gives you the opportunity to understand the importance, [priority](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer#description), and application of [layers](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer). In CSS, a priority hierarchy can be established between layers - the stronger layer will always override the weaker one.
+
+However, there's one important thing to note: styles not placed inside any layer - so-called unlayered styles - are stronger than all layered styles.
+
+Therefore, starting with v4, it's recommended to place your own custom styles under the `base` layer, and to make more frequent use of Tailwind CSS's `@utility` directive.
+```css
+/* [!code filename:CSS] */
+/* [!code --:4] */
+* {
+  padding: 0;
+}
+
+/* [!code ++:6] */
+@layer base {
+  * {
+    padding: 0;
+  }
+}
+```
+
+* [From v4 the reset style cannot be overridden by Tailwind CSS classes](https://stackoverflow.com/q/79441698/15167500)
+
+### Customize theme
+
+In the `tailwind.config.js` file, the theme or theme.extend properties were typically used for this purpose. Now that the file has been removed, you need to familiarize yourself with the alternatives.
+
+The following directives collectively replace full theme configuration - meaning you won't be able to solve everything using just `@theme`.
+
+* [Functions and directives](https://tailwindcss.com/docs/functions-and-directives#utility-directive)
+
+&nbsp;
+
+Use the [`@theme`](https://tailwindcss.com/docs/functions-and-directives#theme-directive) directive primarily to customize core settings - based on the available [list of namespaces](https://tailwindcss.com/docs/theme#theme-variable-namespaces). Learn more about customizing your theme in the [theme variables documentation](https://tailwindcss.com/docs/theme).
+
+* [How to use custom color themes in Tailwind CSS v4](https://stackoverflow.com/a/79499827/15167500)
+
+```css
+/* [!code filename:CSS] */
+@theme {
+  --font-display: "Satoshi", "sans-serif";
+
+  --breakpoint-3xl: 120rem;
+
+  --color-avocado-100: oklch(0.99 0 0);
+  --color-avocado-200: oklch(0.98 0.04 113.22);
+  --color-avocado-300: oklch(0.94 0.11 115.03);
+  --color-avocado-400: oklch(0.92 0.19 114.08);
+  --color-avocado-500: oklch(0.84 0.18 117.33);
+  --color-avocado-600: oklch(0.53 0.12 118.34);
+
+  --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
+  --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+
+  /* ... */
+}
+```
+
+&nbsp;
+
+You can declare your own variants using [`@custom-variant`](https://tailwindcss.com/docs/functions-and-directives#custom-variant-directive). Learn more about adding custom variants in the [adding custom variants documentation](https://tailwindcss.com/docs/adding-custom-styles#adding-custom-variants).
+
+* [Specially `@custom-variant` examples: How to access all the direct children of a div in Tailwind CSS?](https://stackoverflow.com/a/79426418/15167500)
+
+```css
+/* [!code filename:CSS] */
+@custom-variant theme-midnight (&:where([data-theme="midnight"] *));
+```
+```html
+<!-- [!code filename:HTML] -->
+<!-- [!code word:theme-midnight\:bg-orange-500] -->
+<div class="bg-sky-500 theme-midnight:bg-orange-500">...</div>
+```
+
+&nbsp;
+
+These variants can then be used within CSS via the Tailwind CSS [`@variant`](https://tailwindcss.com/docs/functions-and-directives#variant-directive) directive. Learn more using variants in the [using variants documentation](https://tailwindcss.com/docs/adding-custom-styles#using-variants).
+
+* [Tailwind CSS `@screen` how to use - from v4: `@custom-variant` and `@variant` directives](https://stackoverflow.com/a/79431283/15167500)
+* [How can I convert print: and screen: to the new `@theme` style?](https://stackoverflow.com/a/79432129/15167500)
+
+```css
+/* [!code filename:CSS] */
+/* [!code word:@variant\ dark] */
+.my-element {
+  background: white;
+
+  @variant dark {
+    background: black;
+  }
+}
+```
+
+&nbsp;
+
+You can also create new dynamic utilities with [`@utility`](https://tailwindcss.com/docs/functions-and-directives#utility-directive). Learn more about registering custom utilities in the [adding custom utilities documentation](https://tailwindcss.com/docs/adding-custom-styles#adding-custom-utilities).
+
+* [How can overflow-clip-margin be implemented as a utility?](https://stackoverflow.com/a/79635952/15167500)
+
+```css
+/* [!code filename:CSS] */
+@utility tab-4 {
+  tab-size: 4;
+}
+```
+
+### Plugins
+
+After installing plugins, you can reference them by name using the `@plugin` directive:
+
+```css
+/* [!code filename:CSS] */
+@plugin "@tailwindcss/typography";
+```
+
+If the given plugin supports configuration, you can do it here:
+
+```css
+/* [!code filename:CSS] */
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+  root: ":root";
+  include: ;
+  exclude: ;
+  prefix: ;
+  logs: true;
+}
+```
+
+<div className="bg-blue-50 dark:bg-blue-950/50 border-l-4 border-blue-500/50 p-4">
+  <strong>Note:</strong> As an example, I highlighted a popular Tailwind CSS plugin that showcases the versatility of the new plugin configuration in a comprehensive way.
+
+  * [How to can customize DaisyUI plugin](https://daisyui.com/docs/config/)
+</div>
+
+<div className="bg-yellow-50 dark:bg-yellow-950/50 border-l-4 border-yellow-500/50 p-4">
+  <strong>Highlight:</strong> Want to write your own plugin? Currently, the Tailwind CSS documentation doesn't cover this area extensively. Here's the syntax for the parameters accepted by the CSS-first approach:
+
+  * [How can I pass parameters to a Tailwind CSS plugin in a CSS-first configuration?](https://github.com/tailwindlabs/tailwindcss/discussions/15997#discussioncomment-11994018)
+  * [tailwindlabs/tailwindcss PR #14264 - Support plugin options in CSS](https://github.com/tailwindlabs/tailwindcss/pull/14264)
+</div>
+
+## Is `tailwind.config.js` gone forever?
+
+No. Although from v4 onward it is referred to as the _legacy JavaScript-based configuration_, implying that sooner or later it will be completely deprecated.
+
+In v4, it is still possible to use it - although it does not fully replace the alternatives mentioned earlier. The theme property can still be used for customization. To do this, you need to use the [`@config`](https://tailwindcss.com/docs/functions-and-directives#config-directive) directive and provide the relative path from the current file to your `tailwind.config.js` file:
+
+```css
+/* [!code filename:CSS] */
+@config "../../tailwind.config.js";
+```
+
+<div className="bg-red-50 dark:bg-red-950/50 border-l-4 border-red-500/50 p-4">
+  <strong>Important:</strong> Dark mode (the `dark` property) and plugins (the `plugins` property) can no longer be applied from the configuration file. The `corePlugins`, `safelist`, and `separator` options from the JavaScript-based config are not supported in v4.0. Only the default styles can be overridden from there. Keep this in mind and perform the migration correctly.
+</div>
+
+### Dark mode
+
+In v3, the behavior of dark mode (dark variant) could still be controlled using the dark property. From v4 onward, it is enabled by default based on the browser's prefers-color-scheme. To switch to manual control, you simply need to override the default variant using the [`@custom-variant`](https://tailwindcss.com/docs/dark-mode#toggling-dark-mode-manually) directive.
+
+```css
+/* [!code filename:main.css] */
+@import "tailwindcss";
+
+/* [!code highlight:2] */
+@custom-variant dark (&:where(.dark, .dark *));
+```
+
+```html
+<!-- [!code filename:HTML] -->
+<!-- [!code word:dark\:bg-black] -->
+<!-- [!code word:dark] -->
+<html class="dark">
+  <body>
+    <div class="bg-white dark:bg-black">
+      <!-- ... -->
+    </div>
+  </body>
+</html>
+```
+
+Or with the `data-theme` attribute:
+
+```css
+/* [!code filename:main.css] */
+@import "tailwindcss";
+
+/* [!code highlight:2] */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+```
+
+```html
+<!-- [!code filename:HTML] -->
+<!-- [!code word:dark\:bg-black] -->
+<!-- [!code word:data-theme=\"dark\"] -->
+<html data-theme="dark">
+  <body>
+    <div class="bg-white dark:bg-black">
+      <!-- ... -->
+    </div>
+  </body>
+</html>
+```
+
+&nbsp;
+
+I'll leave a few useful links to help you fully master customization:
+
+* [Blog: Tailwind CSS v4.0 was released at Janaury 2025](https://tailwindcss.com/blog/tailwindcss-v4)
+* [Docs: Upgrade guide](https://tailwindcss.com/docs/upgrade-guide)
+* [Docs: Theme variables](https://tailwindcss.com/docs/theme)
