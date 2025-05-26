@@ -174,11 +174,11 @@ export function RawHighlightedCode({
         }),
         transformerNotationWordHighlight({
           classActiveWord:
-            "highlighted-word relative before:absolute before:-inset-x-0.5 before:-inset-y-0.25 before:-z-10 before:block before:rounded-sm before:bg-[lab(19.93_-1.66_-9.7)] [.highlighted-word_+_&]:before:rounded-l-none",
+            "highlighted-word relative before:absolute before:-inset-x-0.5 before:-inset-y-0.25 before:-z-10 before:block before:rounded-sm before:bg-[lab(22.93_-1.66_-9.7)] [.highlighted-word_+_&]:before:rounded-l-none",
         }),
         highlightClasses({
           highlightedClassName:
-            "highlighted-word relative before:absolute before:-inset-x-0.5 before:-inset-y-0.25 before:-z-10 before:block before:rounded-sm before:bg-[lab(19.93_-1.66_-9.7)] [.highlighted-word_+_&]:before:rounded-l-none",
+            "highlighted-word relative before:absolute before:-inset-x-0.5 before:-inset-y-0.25 before:-z-10 before:block before:rounded-sm before:bg-[lab(22.93_-1.66_-9.7)] [.highlighted-word_+_&]:before:rounded-l-none",
         }),
       ],
     })
