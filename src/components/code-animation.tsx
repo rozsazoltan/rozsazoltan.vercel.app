@@ -364,7 +364,7 @@ export const CodeAnimation: React.FC<{
       "*:inset-ring *:inset-ring-white/10 dark:*:inset-ring-white/5"
     )}>
       <pre tabIndex={0} className="hljs language-handlebars">
-        <code>
+        <code ref={codeRef}>
           {highlightedCode.map((line, index) => {
             return (
               <span
@@ -372,7 +372,6 @@ export const CodeAnimation: React.FC<{
                 className={clsx(
                   "line",
                 )}
-                ref={codeRef}
               >
                 <span dangerouslySetInnerHTML={{ __html: line }} />
                 {isTyping && typingLine === index && (
