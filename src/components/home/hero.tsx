@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import { motion } from "framer-motion";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import GridContainer from "../grid-container";
 import { SearchButton } from "../search";
 import cover from "./cover.png";
@@ -12,22 +12,15 @@ import LinkButton from "./link-button";
 import { CodeAnimation } from '../code-animation';
 import type { Step } from '../code-animation';
 
-const SYMBOL = { color: "var(--color-slate-400)" };
-const ELEMENT = { color: "var(--color-green-400)" };
-const KEYWORD = { color: "var(--color-slate-300)" };
-const STRING = { color: "var(--color-blue-300)" };
-const JS_KEYWORD = { color: "var(--color-red-400)" };
-const JS_CONST = { color: "var(--color-fuchsia-300)" };
-const VUE_INLINE = { color: "var(--color-blue-300)", opacity: .88 };
-const HTML_INLINE = { color: "var(--color-blue-200)" };
-
-const birthday = "Wed Aug 15, 2001";
+const unix = "Thu Jan 01, 1970";
+const unixDocs = "https://developer.mozilla.org/en-US/docs/Glossary/Unix_time";
 const today = new Date().toLocaleDateString("en-US", {
   weekday: "short",
   month: "short",
   day: "numeric",
   year: "numeric",
 });
+const todayDocs = "https://www.google.com/search?q=today";
 
 const Hero: React.FC = () => {
   let [step, setStep] = useState(0);
@@ -52,7 +45,7 @@ const Hero: React.FC = () => {
   });
 
   const initialCode = `<script setup>
-const birthday = "Wed Aug 15, 2001";
+const unix = "${unix}";
 ###step9###
 </script>
 
@@ -62,7 +55,7 @@ const birthday = "Wed Aug 15, 2001";
     <div###step3###>
       <span###step5###>Rózsa Zoltán</span>
       <span>I enjoy coding and playing chess.</span>
-      <span>{{ birthday }}###step10###</span>
+      <span>{{ unix }}###step10###</span>
     </div>
   </div>
 </template>###step4######step6######step8###`;
@@ -287,7 +280,9 @@ function Example({ step }: { step: number }) {
             )}
           >
             <motion.span layout="position" transition={TRANSITION} className="space-x-1">
-              <span className="inline-block">{birthday}</span>
+              <span className="inline-block">
+                <a href={unixDocs} target="_blank">{unix}</a>
+              </span>
               {step > 9 && (
                 <motion.span
                   transition={TRANSITION}
@@ -296,7 +291,7 @@ function Example({ step }: { step: number }) {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
-                  {" - "}{today}
+                  {" - "}<a href={todayDocs} target="_blank">{today}</a>
                 </motion.span>
               )}
             </motion.span>
