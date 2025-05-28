@@ -175,8 +175,13 @@ export function RandomPromo() {
   const [PromoComponent, setPromoComponent] = useState<ReactElement | null>(null);
 
   useEffect(() => {
-    const random = Math.random();
-    setPromoComponent(random < 0.5 ? <CoursePromo /> : <BookPromo />);
+    const components = [
+      BlogPromo,      
+      BookPromo,
+      CoursePromo,
+    ]
+    const RandomComponent = components[Math.floor(Math.random() * components.length)]
+    setPromoComponent(<RandomComponent />);
   }, []);
 
   return PromoComponent;
