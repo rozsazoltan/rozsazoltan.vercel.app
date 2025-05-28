@@ -44,6 +44,36 @@ function Sponsor({ name }: { name: string }) {
   )
 }
 
+export function BlogPromo() {
+  return (
+    <a href="/blog" className="group">
+      <div className="mt-12 flex flex-col items-center justify-center">
+        <div className="relative origin-center -translate-x-3 rotate-6 p-6 duration-500 group-hover:rotate-0">
+          <div className="absolute top-4 left-0 h-px w-full bg-[linear-gradient(to_right,_transparent_0%,_var(--gradient-bg)_9.27%,_var(--gradient-bg)_90.7%,_transparent_100%)] [--gradient-bg:var(--color-black)]/15 dark:[--gradient-bg:var(--color-white)]/10"></div>
+          <div className="absolute top-0 left-4 h-full w-px bg-[linear-gradient(to_bottom,_transparent_0%,_var(--gradient-bg)_9.27%,_var(--gradient-bg)_90.7%,_transparent_100%)] [--gradient-bg:var(--color-black)]/15 dark:[--gradient-bg:var(--color-white)]/10"></div>
+          <Image
+            src="/api/og?path=/blog"
+            alt="Refactoring UI"
+            width={128}
+            height={171.2}
+            className="shadow-[-5px_10px_15px_-3px_var(--shadow-color),_-5px_4px_6px_-4px_var(--shadow-color)] duration-500 [--shadow-color:var(--color-black)]/10 dark:[--shadow-color:var(--color-black)]"
+          />
+          <div className="absolute top-0 right-4 h-full w-px bg-[linear-gradient(to_bottom,_transparent_0%,_var(--gradient-bg)_9.27%,_var(--gradient-bg)_90.7%,_transparent_100%)] [--gradient-bg:var(--color-black)]/15 dark:[--gradient-bg:var(--color-white)]/10"></div>
+          <div className="absolute bottom-4 left-0 h-px w-full bg-[linear-gradient(to_right,_transparent_0%,_var(--gradient-bg)_9.27%,_var(--gradient-bg)_90.7%,_transparent_100%)] [--gradient-bg:var(--color-black)]/15 dark:[--gradient-bg:var(--color-white)]/10"></div>
+        </div>
+      </div>
+      <p className="text-[0.815rem]/6 font-semibold text-rose-500 dark:text-rose-400">
+        Just me, building stuff I believe in
+      </p>
+      <p className="mt-1.5 text-base/5 font-semibold text-gray-950 dark:text-white">Because coding isn't just work.</p>
+      <p className="mt-3 text-[0.8125rem]/5 text-gray-600 dark:text-gray-400">
+        Detailed guides, opinions, and tips about popular frameworks and languages. And much more - whatever comes to mind.
+      </p>
+      <Sponsor name="Zoltán Rózsa" />
+    </a>
+  );
+}
+
 export function BookPromo() {
   return (
     <a href="https://www.refactoringui.com/?ref=sidebar" className="group">
@@ -108,7 +138,7 @@ export function CoursePromo() {
         </div>
       </div>
       <p className="text-[0.8125rem]/6 font-semibold text-sky-500 dark:text-sky-400">5-day mini-course</p>
-      <p className="mt-1.5 text-base/5 font-semibold text-gray-950 dark:text-white">Build UIs that don’t suck.</p>
+      <p className="mt-1.5 text-base/5 font-semibold text-gray-950 dark:text-white">Build UIs that don't suck.</p>
       <p className="mt-3 text-[0.8125rem]/5 text-gray-600 dark:text-gray-400">
         Short, tactical video lessons from the creator of Tailwind CSS, delivered directly to your inbox every day for a
         week.
@@ -145,8 +175,13 @@ export function RandomPromo() {
   const [PromoComponent, setPromoComponent] = useState<ReactElement | null>(null);
 
   useEffect(() => {
-    const random = Math.random();
-    setPromoComponent(random < 0.5 ? <CoursePromo /> : <BookPromo />);
+    const components = [
+      BlogPromo,      
+      BookPromo,
+      CoursePromo,
+    ]
+    const RandomComponent = components[Math.floor(Math.random() * components.length)]
+    setPromoComponent(<RandomComponent />);
   }, []);
 
   return PromoComponent;
