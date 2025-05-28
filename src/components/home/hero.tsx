@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import { motion } from "framer-motion";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import GridContainer from "../grid-container";
 import { SearchButton } from "../search";
 import cover from "./cover.png";
@@ -11,15 +11,6 @@ import LinkButton from "./link-button";
 
 import { CodeAnimation } from '../code-animation';
 import type { Step } from '../code-animation';
-
-const SYMBOL = { color: "var(--color-slate-400)" };
-const ELEMENT = { color: "var(--color-green-400)" };
-const KEYWORD = { color: "var(--color-slate-300)" };
-const STRING = { color: "var(--color-blue-300)" };
-const JS_KEYWORD = { color: "var(--color-red-400)" };
-const JS_CONST = { color: "var(--color-fuchsia-300)" };
-const VUE_INLINE = { color: "var(--color-blue-300)", opacity: .88 };
-const HTML_INLINE = { color: "var(--color-blue-200)" };
 
 const birthday = "Wed Aug 15, 2001";
 const today = new Date().toLocaleDateString("en-US", {
