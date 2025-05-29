@@ -4,6 +4,8 @@ import localFont from "next/font/local";
 import { SearchProvider } from "@/components/search";
 import { ThemeProvider } from "@/components/theme-toggle";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = localFont({
   src: [
@@ -171,6 +173,8 @@ export default async function RootLayout({
         <SearchProvider>
           <ThemeProvider>
             <div className="isolate">{children}</div>
+            <Analytics />
+            <SpeedInsights />
           </ThemeProvider>
         </SearchProvider>
       </body>
