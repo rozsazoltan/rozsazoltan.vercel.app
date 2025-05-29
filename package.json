@@ -17,6 +17,7 @@
     "@tailwindcss/postcss": "^4.1.4",
     "@types/mdx": "^2.0.13",
     "@vercel/analytics": "^1.5.0",
+    "@vercel/speed-insights": "^1.2.0",
     "clsx": "^2.1.1",
     "dedent": "^1.5.3",
     "feed": "^4.2.2",
