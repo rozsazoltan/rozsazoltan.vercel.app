@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { rozsazoltan } from "@/app/blog/authors";
+import { TipGood, TipBad, TipCompat, TipInfo, TipLearn, TipHighlight, TipWarning, TipStar } from "@/components/tips";
 
 export const meta = {
   title: "Tailwind CSS v4: more packages and new Vite support",
@@ -24,39 +25,39 @@ Starting with v4, the `tailwind.config.js` file is no longer needed (more on tha
 It made sense to separate the CLI into its own package, now named `@tailwindcss/cli`, which only needs to be installed by those who want to use the Tailwind CLI.
 
 ```sh
-  # [!code filename:Terminal]
-$ npm install tailwindcss @tailwindcss/cli
+# [!code filename:Terminal]
+npm install tailwindcss @tailwindcss/cli
 ```
 
 * [Install Tailwind CLI](https://tailwindcss.com/docs/installation/tailwind-cli)
 
-<div className="bg-blue-50 dark:bg-blue-950/50 border-l-4 border-blue-500/50 p-4">
-  <strong>Note:</strong> Remember, the new separate official CLI command is: `npx @tailwindcss/cli`.
+<TipLearn>
+  Remember, the new separate official CLI command is: `npx @tailwindcss/cli`.
 
   ```sh
     # [!code filename:Terminal]
     # [!code --:2]
-  $ npx tailwindcss -i input.css -o output.css
+  npx tailwindcss -i input.css -o output.css
     # [!code ++:2]
-  $ npx @tailwindcss/cli -i input.css -o output.css
+  npx @tailwindcss/cli -i input.css -o output.css
   ```
-</div>
+</TipLearn>
 
 ### Separated package for PostCSS integration
 
 Once the CLI was separated, it became obvious that the PostCSS plugin should also be isolated. It was moved into a separate package named `@tailwindcss/postcss`, which only needs to be installed by those integrating Tailwind via PostCSS.
 
 ```sh
-  # [!code filename:Terminal]
-$ npm install tailwindcss @tailwindcss/postcss postcss
+# [!code filename:Terminal]
+npm install tailwindcss @tailwindcss/postcss postcss
 ```
 
 * [Install Tailwind CSS using PostCSS](https://tailwindcss.com/docs/installation/using-postcss)
 * [Custom guide to Next.js - Install Tailwind CSS using PostCSS](https://tailwindcss.com/docs/installation/framework-guides/nextjs)
 * [Custom guide to Laravel Mix - Install Tailwind CSS using PostCSS](https://tailwindcss.com/docs/installation/framework-guides/laravel/mix)
 
-<div className="bg-blue-50 dark:bg-blue-950/50 border-l-4 border-blue-500/50 p-4">
-  <strong>Note:</strong> Accordingly, in your PostCSS configuration, you should now load the separated package as the plugin instead of the main package.
+<TipLearn>
+  Accordingly, in your PostCSS configuration, you should now load the separated package as the plugin instead of the main package.
 
   ```js
   // [!code filename:postcss.config.mjs]
@@ -76,21 +77,21 @@ $ npm install tailwindcss @tailwindcss/postcss postcss
 
   ```sh
     # [!code filename:Terminal]
-  $ npm uninstall postcss-import autoprefixer
+  npm uninstall postcss-import autoprefixer
   ```
-</div>
+</TipLearn>
 
 ### New Vite plugin
 
 Up to v3, Vite users could install Tailwind CSS via PostCSS. But this changed in v4, which introduced a dedicated plugin for direct Vite integration under the new package name `@tailwindcss/vite`. This means Vite users no longer need to rely on PostCSS to use Tailwind CSS.
 
 ```sh
-  # [!code filename:Terminal]
-  # If your Vite project does not exist yet
-$ npm create vite@latest my-app-name
-$ cd my-app-name
+# [!code filename:Terminal]
+# If your Vite project does not exist yet
+npm create vite@latest my-app-name
+cd my-app-name
 
-$ npm install tailwindcss @tailwindcss/vite
+npm install tailwindcss @tailwindcss/vite
 ```
 
 * [Scaffolding Your First Vite Project](https://vite.dev/guide/#scaffolding-your-first-vite-project)
@@ -104,34 +105,34 @@ $ npm install tailwindcss @tailwindcss/vite
 Accordingly, all official installation guides have been updated. However, caution is needed when following outdated, unofficial tutorials found online. Running `npm install tailwindcss` now installs the new v4 version, which no longer includes the `init` process and doesn't use `tailwind.config.js`, even if you create it manually.
 
 ```sh
-  # [!code filename:Terminal]
-  # Do not use it; just an example of incorrect usage starting from January 2025
-$ npm install tailwindcss postcss autoprefixer
-$ npx tailwindcss init -p
+# [!code filename:Terminal]
+# Do not use it; just an example of incorrect usage starting from January 2025
+npm install tailwindcss postcss autoprefixer
+npx tailwindcss init -p
 
 > Error: tailwindcss not recognized
 ```
 
 * [Problem installing Tailwind CSS after `npx tailwindcss init -p` command](https://stackoverflow.com/a/79380522/15167500)
 
-<div className="bg-blue-50 dark:bg-blue-950/50 border-l-4 border-blue-500/50 p-4">
-  <strong>Note:</strong> If you follow a similar old - now outdated - installation step, you will end up installing Tailwind CSS v4 instead of v3, but you won't install any of the additional packages mentioned above. If you want to [use the PostCSS plugin as described in the v3 documentation](https://v3.tailwindcss.com/docs/installation/using-postcss), it won't work, and you will receive a warning indicating that something went wrong:
+<TipWarning>
+  If you follow a similar old - now outdated - installation step, you will end up installing Tailwind CSS v4 instead of v3, but you won't install any of the additional packages mentioned above. If you want to [use the PostCSS plugin as described in the v3 documentation](https://v3.tailwindcss.com/docs/installation/using-postcss), it won't work, and you will receive a warning indicating that something went wrong:
 
   > [postcss] It looks like you're trying to use tailwindcss directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration
 
   Solutions:
   * <Link href="#how-to-install-old-tailwind-css-v3">How to install old Tailwind CSS v3 correctly?</Link>
   * <Link href="#separated-package-for-postcss-integration">How to install Tailwind CSS v4 with new PostCSS plugin?</Link>
-</div>
+</TipWarning>
 
 ### How to install old Tailwind CSS v3?
 
 If you want to follow guides written for Tailwind CSS v3, you must perform a version-specific installation, as now noted in the updated v3 documentation:
 
 ```sh
-  # [!code filename:Terminal]
-$ npm install tailwindcss@3
-$ npx tailwindcss init
+# [!code filename:Terminal]
+npm install tailwindcss@3
+npx tailwindcss init
 ```
 
 * [Get started with Tailwind CSS v3](https://v3.tailwindcss.com/docs/installation)

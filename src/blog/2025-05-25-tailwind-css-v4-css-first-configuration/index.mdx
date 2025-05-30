@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { rozsazoltan } from "@/app/blog/authors";
+import { CodeExampleStack } from "@/components/code-example";
+import { TipLearn, TipWarning, TipStar } from "@/components/tips";
 
 export const meta = {
   title: "How to switch to a CSS-first configuration in Tailwind CSS v4 and above",
@@ -121,15 +123,18 @@ You can declare your own variants using [`@custom-variant`](https://tailwindcss.
 
 * [Specially `@custom-variant` examples: How to access all the direct children of a div in Tailwind CSS?](https://stackoverflow.com/a/79426418/15167500)
 
+<CodeExampleStack>
 ```css
 /* [!code filename:CSS] */
 @custom-variant theme-midnight (&:where([data-theme="midnight"] *));
 ```
+
 ```html
 <!-- [!code filename:HTML] -->
 <!-- [!code word:theme-midnight\:bg-orange-500] -->
 <div class="bg-sky-500 theme-midnight:bg-orange-500">...</div>
 ```
+</CodeExampleStack>
 
 &nbsp;
 
@@ -186,18 +191,15 @@ If the given plugin supports configuration, you can do it here:
 }
 ```
 
-<div className="bg-blue-50 dark:bg-blue-950/50 border-l-4 border-blue-500/50 p-4">
-  <strong>Note:</strong> As an example, I highlighted a popular Tailwind CSS plugin that showcases the versatility of the new plugin configuration in a comprehensive way.
+<TipStar>
+  As an example, I highlighted a popular Tailwind CSS plugin that showcases the versatility of the new plugin configuration in a comprehensive way: [How to can customize DaisyUI plugin](https://daisyui.com/docs/config/)
+</TipStar>
 
-  * [How to can customize DaisyUI plugin](https://daisyui.com/docs/config/)
-</div>
-
-<div className="bg-yellow-50 dark:bg-yellow-950/50 border-l-4 border-yellow-500/50 p-4">
-  <strong>Highlight:</strong> Want to write your own plugin? Currently, the Tailwind CSS documentation doesn't cover this area extensively. Here's the syntax for the parameters accepted by the CSS-first approach:
-
+<TipLearn>
+  Want to write your own plugin? Currently, the Tailwind CSS documentation doesn't cover this area extensively. Here's the syntax for the parameters accepted by the CSS-first approach:
   * [How can I pass parameters to a Tailwind CSS plugin in a CSS-first configuration?](https://github.com/tailwindlabs/tailwindcss/discussions/15997#discussioncomment-11994018)
   * [tailwindlabs/tailwindcss PR #14264 - Support plugin options in CSS](https://github.com/tailwindlabs/tailwindcss/pull/14264)
-</div>
+</TipLearn>
 
 ## Is `tailwind.config.js` gone forever?
 
@@ -210,14 +212,15 @@ In v4, it is still possible to use it - although it does not fully replace the a
 @config "../../tailwind.config.js";
 ```
 
-<div className="bg-red-50 dark:bg-red-950/50 border-l-4 border-red-500/50 p-4">
-  <strong>Important:</strong> Dark mode (the `dark` property) and plugins (the `plugins` property) can no longer be applied from the configuration file. The `corePlugins`, `safelist`, and `separator` options from the JavaScript-based config are not supported in v4.0. Only the default styles can be overridden from there. Keep this in mind and perform the migration correctly.
-</div>
+<TipWarning>
+  Dark mode (the `dark` property) and plugins (the `plugins` property) can no longer be applied from the configuration file. The `corePlugins`, `safelist`, and `separator` options from the JavaScript-based config are not supported in v4.0. Only the default styles can be overridden from there. Keep this in mind and perform the migration correctly.
+</TipWarning>
 
 ### Dark mode
 
 In v3, the behavior of dark mode (dark variant) could still be controlled using the dark property. From v4 onward, it is enabled by default based on the browser's prefers-color-scheme. To switch to manual control, you simply need to override the default variant using the [`@custom-variant`](https://tailwindcss.com/docs/dark-mode#toggling-dark-mode-manually) directive.
 
+<CodeExampleStack>
 ```css
 /* [!code filename:main.css] */
 @import "tailwindcss";
@@ -238,9 +241,11 @@ In v3, the behavior of dark mode (dark variant) could still be controlled using 
   </body>
 </html>
 ```
+</CodeExampleStack>
 
 Or with the `data-theme` attribute:
 
+<CodeExampleStack>
 ```css
 /* [!code filename:main.css] */
 @import "tailwindcss";
@@ -261,6 +266,7 @@ Or with the `data-theme` attribute:
   </body>
 </html>
 ```
+</CodeExampleStack>
 
 &nbsp;
 
