@@ -24,8 +24,8 @@ Starting with v4, the `tailwind.config.js` file is no longer needed (more on tha
 It made sense to separate the CLI into its own package, now named `@tailwindcss/cli`, which only needs to be installed by those who want to use the Tailwind CLI.
 
 ```sh
-  # [!code filename:Terminal]
-$ npm install tailwindcss @tailwindcss/cli
+# [!code filename:Terminal]
+npm install tailwindcss @tailwindcss/cli
 ```
 
 * [Install Tailwind CLI](https://tailwindcss.com/docs/installation/tailwind-cli)
@@ -36,9 +36,9 @@ $ npm install tailwindcss @tailwindcss/cli
   ```sh
     # [!code filename:Terminal]
     # [!code --:2]
-  $ npx tailwindcss -i input.css -o output.css
+  npx tailwindcss -i input.css -o output.css
     # [!code ++:2]
-  $ npx @tailwindcss/cli -i input.css -o output.css
+  npx @tailwindcss/cli -i input.css -o output.css
   ```
 </div>
 
@@ -47,8 +47,8 @@ $ npm install tailwindcss @tailwindcss/cli
 Once the CLI was separated, it became obvious that the PostCSS plugin should also be isolated. It was moved into a separate package named `@tailwindcss/postcss`, which only needs to be installed by those integrating Tailwind via PostCSS.
 
 ```sh
-  # [!code filename:Terminal]
-$ npm install tailwindcss @tailwindcss/postcss postcss
+# [!code filename:Terminal]
+npm install tailwindcss @tailwindcss/postcss postcss
 ```
 
 * [Install Tailwind CSS using PostCSS](https://tailwindcss.com/docs/installation/using-postcss)
@@ -76,7 +76,7 @@ $ npm install tailwindcss @tailwindcss/postcss postcss
 
   ```sh
     # [!code filename:Terminal]
-  $ npm uninstall postcss-import autoprefixer
+  npm uninstall postcss-import autoprefixer
   ```
 </div>
 
@@ -85,12 +85,12 @@ $ npm install tailwindcss @tailwindcss/postcss postcss
 Up to v3, Vite users could install Tailwind CSS via PostCSS. But this changed in v4, which introduced a dedicated plugin for direct Vite integration under the new package name `@tailwindcss/vite`. This means Vite users no longer need to rely on PostCSS to use Tailwind CSS.
 
 ```sh
-  # [!code filename:Terminal]
-  # If your Vite project does not exist yet
-$ npm create vite@latest my-app-name
-$ cd my-app-name
+# [!code filename:Terminal]
+# If your Vite project does not exist yet
+npm create vite@latest my-app-name
+cd my-app-name
 
-$ npm install tailwindcss @tailwindcss/vite
+npm install tailwindcss @tailwindcss/vite
 ```
 
 * [Scaffolding Your First Vite Project](https://vite.dev/guide/#scaffolding-your-first-vite-project)
@@ -104,10 +104,10 @@ $ npm install tailwindcss @tailwindcss/vite
 Accordingly, all official installation guides have been updated. However, caution is needed when following outdated, unofficial tutorials found online. Running `npm install tailwindcss` now installs the new v4 version, which no longer includes the `init` process and doesn't use `tailwind.config.js`, even if you create it manually.
 
 ```sh
-  # [!code filename:Terminal]
-  # Do not use it; just an example of incorrect usage starting from January 2025
-$ npm install tailwindcss postcss autoprefixer
-$ npx tailwindcss init -p
+# [!code filename:Terminal]
+# Do not use it; just an example of incorrect usage starting from January 2025
+npm install tailwindcss postcss autoprefixer
+npx tailwindcss init -p
 
 > Error: tailwindcss not recognized
 ```
@@ -129,9 +129,9 @@ $ npx tailwindcss init -p
 If you want to follow guides written for Tailwind CSS v3, you must perform a version-specific installation, as now noted in the updated v3 documentation:
 
 ```sh
-  # [!code filename:Terminal]
-$ npm install tailwindcss@3
-$ npx tailwindcss init
+# [!code filename:Terminal]
+npm install tailwindcss@3
+npx tailwindcss init
 ```
 
 * [Get started with Tailwind CSS v3](https://v3.tailwindcss.com/docs/installation)
