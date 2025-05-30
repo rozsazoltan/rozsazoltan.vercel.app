@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { rozsazoltan } from "@/app/blog/authors";
+import { CodeExampleStack } from "@/components/code-example";
 
 export const meta = {
   title: "How to switch to a CSS-first configuration in Tailwind CSS v4 and above",
@@ -241,6 +242,7 @@ In v3, the behavior of dark mode (dark variant) could still be controlled using 
 
 Or with the `data-theme` attribute:
 
+<CodeExampleStack>
 ```css
 /* [!code filename:main.css] */
 @import "tailwindcss";
@@ -261,6 +263,7 @@ Or with the `data-theme` attribute:
   </body>
 </html>
 ```
+</CodeExampleStack>
 
 &nbsp;
 
