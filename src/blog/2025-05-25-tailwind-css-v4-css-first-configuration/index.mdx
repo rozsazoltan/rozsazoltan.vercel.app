@@ -122,15 +122,18 @@ You can declare your own variants using [`@custom-variant`](https://tailwindcss.
 
 * [Specially `@custom-variant` examples: How to access all the direct children of a div in Tailwind CSS?](https://stackoverflow.com/a/79426418/15167500)
 
+<CodeExampleStack>
 ```css
 /* [!code filename:CSS] */
 @custom-variant theme-midnight (&:where([data-theme="midnight"] *));
 ```
+
 ```html
 <!-- [!code filename:HTML] -->
 <!-- [!code word:theme-midnight\:bg-orange-500] -->
 <div class="bg-sky-500 theme-midnight:bg-orange-500">...</div>
 ```
+</CodeExampleStack>
 
 &nbsp;
 
@@ -219,6 +222,7 @@ In v4, it is still possible to use it - although it does not fully replace the a
 
 In v3, the behavior of dark mode (dark variant) could still be controlled using the dark property. From v4 onward, it is enabled by default based on the browser's prefers-color-scheme. To switch to manual control, you simply need to override the default variant using the [`@custom-variant`](https://tailwindcss.com/docs/dark-mode#toggling-dark-mode-manually) directive.
 
+<CodeExampleStack>
 ```css
 /* [!code filename:main.css] */
 @import "tailwindcss";
@@ -239,6 +243,7 @@ In v3, the behavior of dark mode (dark variant) could still be controlled using 
   </body>
 </html>
 ```
+</CodeExampleStack>
 
 Or with the `data-theme` attribute:
 
