@@ -2,7 +2,7 @@ import React from "react";
 
 export function TipGood({ children }: React.PropsWithChildren<{}>) {
   return (
-    <div className="flex items-center space-x-4">
+    <div className="flex items-stretch space-x-4">
       <div className="relative flex size-5.5 items-center justify-center rounded-full bg-teal-500/25 text-teal-800 inset-ring inset-ring-teal-600/25 dark:text-teal-400">
         <svg width="6" height="4.5" className="overflow-visible" aria-hidden="true">
           <path
@@ -22,7 +22,7 @@ export function TipGood({ children }: React.PropsWithChildren<{}>) {
 
 export function TipBad({ children }: React.PropsWithChildren<{}>) {
   return (
-    <div className="flex items-center space-x-4">
+    <div className="flex items-stretch space-x-4">
       <div className="relative flex size-5.5 items-center justify-center rounded-full bg-rose-500/25 text-rose-800 inset-ring inset-ring-rose-700/25 dark:text-rose-400">
         <svg width="6" height="6" className="overflow-visible" aria-hidden="true">
           <path
@@ -42,8 +42,8 @@ export function TipBad({ children }: React.PropsWithChildren<{}>) {
 
 export function TipCompat({ children }: React.PropsWithChildren<{}>) {
   return (
-    <div className="flex items-center space-x-4 rounded-md border border-rose-500/10 bg-rose-500/5 p-3 text-rose-600 dark:border-rose-500/20 dark:text-rose-500">
-      <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
+    <div className="flex items-stretch space-x-4 rounded-md border border-rose-500/10 bg-rose-500/5 p-3 text-rose-600 dark:border-rose-500/20 dark:text-rose-500">
+      <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="min-w-5 size-5">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -57,7 +57,7 @@ export function TipCompat({ children }: React.PropsWithChildren<{}>) {
 
 export function TipInfo({ children }: React.PropsWithChildren<{}>) {
   return (
-    <div className="-mb-1 flex items-center space-x-2 text-gray-700 dark:text-gray-200">
+    <div className="-mb-1 flex items-stretch space-x-2 text-gray-700 dark:text-gray-200">
       <svg fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="size-6">
         <path
           strokeLinecap="round"
@@ -73,8 +73,8 @@ export function TipInfo({ children }: React.PropsWithChildren<{}>) {
 
 export function TipLearn({ children }: React.PropsWithChildren<{}>) {
   return (
-    <div className="flex items-center space-x-4 rounded-md border border-teal-500/10 bg-teal-500/5 p-3 text-teal-600 dark:border-teal-500/20 dark:text-teal-500">
-      <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
+    <div className="flex items-stretch space-x-4 rounded-md border border-teal-500/10 bg-teal-500/5 p-3 text-teal-600 dark:border-teal-500/20 dark:text-teal-500">
+      <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="min-w-5 size-5">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -88,8 +88,8 @@ export function TipLearn({ children }: React.PropsWithChildren<{}>) {
 
 export function TipStar({ children }: React.PropsWithChildren<{}>) {
   return (
-    <div className="flex items-center space-x-4 rounded-md border border-purple-500/20 bg-purple-500/5 p-3 text-purple-600 dark:border-purple-500/40 dark:text-purple-500">
-      <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
+    <div className="flex items-stretch space-x-4 rounded-md border border-purple-500/20 bg-purple-500/5 p-3 text-purple-600 dark:border-purple-500/40 dark:text-purple-500">
+      <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="min-w-5 size-5">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -103,8 +103,8 @@ export function TipStar({ children }: React.PropsWithChildren<{}>) {
 
 export function TipHighlight({ children }: React.PropsWithChildren<{}>) {
   return (
-    <div className="flex items-center space-x-4 rounded-md border border-indigo-500/20 p-3 text-indigo-700 dark:border-indigo-500/40 dark:text-indigo-500">
-      <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
+    <div className="flex items-stretch space-x-4 rounded-md border border-indigo-500/20 p-3 text-indigo-700 dark:border-indigo-500/40 dark:text-indigo-500">
+      <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="min-w-5 size-5">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -118,8 +118,8 @@ export function TipHighlight({ children }: React.PropsWithChildren<{}>) {
 
 export function TipWarning({ children }: React.PropsWithChildren<{}>) {
   return (
-    <div className="flex items-center space-x-4 rounded-md border border-amber-500/20 bg-amber-500/10 p-3 text-amber-700 dark:border-amber-500/40 dark:text-amber-500">
-      <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
+    <div className="flex items-stretch space-x-4 rounded-md border border-amber-500/20 bg-amber-500/10 p-3 text-amber-700 dark:border-amber-500/40 dark:text-amber-500">
+      <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="min-w-5 size-5">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
