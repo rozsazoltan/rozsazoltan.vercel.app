@@ -1,0 +1,112 @@
+import Link from "next/link";
+import { rozsazoltan } from "@/app/blog/authors";
+import { CodeExampleStack } from "@/components/code-example";
+import { TipGood, TipLearn, TipHighlight, TipWarning } from "@/components/tips";
+
+export const meta = {
+  title: "rem is dynamic. px is not. Together? Chaos.",
+  description: `Why should you avoid mixing \`rem\`- and \`px\`-based breakpoints and configurations?`,
+  date: "2025-05-31T16:00:00.000Z",
+  authors: [rozsazoltan],
+  excerpt: (
+    <>
+      Mixing `px` and `rem` in responsive design - especially in breakpoints - is a common mistake that leads to unexpected behavior and bugs. In this article, we break down why `rem` is the superior choice and show how to fix misconfigurations in Tailwind CSS v4.
+    </>
+  ),
+};
+
+## Why mixing `px` and `rem` is dangerous
+
+When building responsive interfaces, developers often reach for familiar units like `px`. However, there's a fundamental problem when you start combining `px` with `rem` - especially for breakpoints. Let's get one thing clear:
+
+- [`px`](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Values_and_Units/Numeric_data_types#absolute_length_units) is **static**.
+- [`rem`](https://developer.mozilla.org/en-US/docs/Web/CSS/length#rem) is **dynamic**, based on the root `font-size`.
+
+When you mix them, you're opening the door to **inconsistencies**, especially when users (or you) change the root `font-size`. What looks right at `16px` might look wrong at `14px`. Tailwind's default breakpoints are `rem`-based for this reason - to allow **scalability**, **accessibility**, and **consistency**.
+
+&nbsp;
+
+<TipHighlight>
+  I prefer Tailwind CSS, so this article uses it. To understand better, check out the new v4 CSS-first configuration: <Link href="/blog/2025-05-25-tailwind-css-v4-css-first-configuration#what-is-the-css-first-configuration">What is the CSS-first configuration</Link>
+</TipHighlight>
+
+Let's say you define a breakpoint like this:
+
+```css
+/* [!code filename:CSS] */
+@theme {
+  --breakpoint-lg: 1280px;
+}
+```
+
+But Tailwind's built-in `xl` breakpoint is:
+
+```css
+/* [!code filename:CSS] */
+@theme {
+  --breakpoint-xl: 80rem; /* 80 * 16 = 1280px (by default) */
+}
+```
+
+So far, so good - until someone changes the base `font-size` to `14px`. Now: `80 * 14 = 1120px`
+
+Your `lg` breakpoint is now **larger** than `xl`, completely flipping your layout logic. Suddenly, `xl` kicks in **before** `lg`, and you're debugging styles that seem to override each other without reason. Worse, Tailwind treats `rem`-based breakpoints as **stronger**, so your `px` breakpoints get overridden silently.
+
+<TipWarning>
+  Since `rem` is dynamic, its value can't be calculated at compile time and can be influenced at runtime. Therefore, Tailwind CSS treats any `rem` value as stronger than any statically `px` value by default. This means an `sm` breakpoint declared with `1rem` will always override an `xl` breakpoint declared with `9999px`.
+</TipWarning>
+
+---
+
+## But what if you must use `px` in Tailwind CSS?
+
+Maybe you're working in a legacy system or need pixel precision for a specific project. If you choose to define your breakpoints in `px`, you **must** disable Tailwind's default `rem`-based breakpoints.
+
+Here's how to safely do it in Tailwind v4:
+<CodeExampleStack>
+```css
+/* [!code filename:CSS] */
+@theme {
+  --breakpoint-*: initial; /* Disable all rem-based breakpoints */
+  --breakpoint-lg: 1080px;
+  --breakpoint-xl: 1280px;
+
+  --container-*: initial; /* Disable container breakpoints */
+  --container-lg: 1080px;
+  --container-xl: 1200px;
+}
+```
+
+```html
+<!-- [!code filename:HTML] -->
+<div class="@container bg-sky-300 lg:bg-red-300 xl:bg-yellow-200">
+  <div class="@lg:px-6 @xl:px-8">
+    Responsive content
+  </div>
+</div>
+```
+</CodeExampleStack>
+
+This ensures that your `px` breakpoints are not overridden by `rem`-based ones.
+
+<TipLearn>
+  Learn from others' mistakes. Related questions: [Question No. 1](https://stackoverflow.com/a/79638328/15167500) & [Question No. 2](https://stackoverflow.com/a/79605889/15167500)
+</TipLearn>
+
+---
+
+## Choose `rem` for the future
+
+Using `rem` ensures:
+
+<TipGood>
+  <ins>Accessibility</ins>: Users can resize text, and your layout scales with it.
+</TipGood>
+<TipGood>
+  <ins>Consistency</ins>: Tailwind's utilities align perfectly.
+</TipGood>
+<TipGood>
+  <ins>Maintainability</ins>: No weird overrides or unit clashes.
+</TipGood>
+
+You don't have to fight the browser. Let `rem` do the work.
