@@ -131,13 +131,13 @@ const unix = "${unix}";
         </p>
       </GridContainer>
       <GridContainer className="mt-10 px-4 sm:hidden">
-        <LinkButton href="docs/coming-soon" className="z-1 w-full text-center">
+        <LinkButton href="docs" className="z-1 w-full text-center">
           Get started
         </LinkButton>
       </GridContainer>
       <GridContainer className="mt-4 sm:mt-10 sm:px-2">
         <div className="flex gap-4 max-sm:px-4">
-          <LinkButton href="docs/coming-soon" className="z-1 max-sm:hidden">
+          <LinkButton href="docs" className="z-1 max-sm:hidden">
             Get started
           </LinkButton>
           <SearchButton className="grid w-full grid-cols-[auto_1fr_auto] items-center gap-1 rounded-full px-4 py-2 text-left text-sm/6 text-gray-950/50 inset-ring inset-ring-gray-950/8 sm:w-80 dark:bg-white/5 dark:text-white/50 dark:inset-ring-white/15">

@@ -43,7 +43,7 @@ const nextConfig = {
       // Docs
       {
         source: "/docs",
-        destination: "/docs/coming-soon",
+        destination: "/docs/getting-started",
         permanent: false,
       },
 
