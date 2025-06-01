@@ -119,7 +119,7 @@ export function Header(props: React.PropsWithChildren) {
           >
             <Logo className="h-5 text-black dark:text-white" />
           </Link>
-          <VersionPicker />
+          {/* <VersionPicker /> */}
         </div>
         <div className="flex items-center gap-6 max-md:hidden">
           <SearchButton className="inline-flex items-center gap-1 rounded-full bg-gray-950/2 px-2 py-1 inset-ring inset-ring-gray-950/8 dark:bg-white/5 dark:inset-ring-white/2">

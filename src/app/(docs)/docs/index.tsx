@@ -9,8 +9,9 @@ type DocsNavigation = {
 };
 
 const docsNav: DocsNavigation = {
-  Docs: [
-    ["Coming Soon", "/docs/coming-soon"],
+  "Open Knowledge, Open Future": [
+    ["Getting Started", "/docs/getting-started"],
+    ["About Me", "/docs/about-me"],
   ] as const,
 };
 
