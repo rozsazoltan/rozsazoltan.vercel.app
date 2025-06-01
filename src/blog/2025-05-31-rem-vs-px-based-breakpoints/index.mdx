@@ -35,6 +35,7 @@ Let's say you define a breakpoint like this:
 ```css
 /* [!code filename:CSS] */
 @theme {
+  /* [!code highlight:2] */
   --breakpoint-lg: 1280px;
 }
 ```
@@ -44,6 +45,7 @@ But Tailwind's built-in `xl` breakpoint is:
 ```css
 /* [!code filename:CSS] */
 @theme {
+  /* [!code highlight:2] */
   --breakpoint-xl: 80rem; /* 80 * 16 = 1280px (by default) */
 }
 ```
@@ -67,10 +69,12 @@ Here's how to safely do it in Tailwind v4:
 ```css
 /* [!code filename:CSS] */
 @theme {
+  /* [!code highlight:2] */
   --breakpoint-*: initial; /* Disable all rem-based breakpoints */
   --breakpoint-lg: 1080px;
   --breakpoint-xl: 1280px;
 
+  /* [!code highlight:2] */
   --container-*: initial; /* Disable container breakpoints */
   --container-lg: 1080px;
   --container-xl: 1200px;
@@ -79,6 +83,10 @@ Here's how to safely do it in Tailwind v4:
 
 ```html
 <!-- [!code filename:HTML] -->
+<!-- [!code word:@lg] -->
+<!-- [!code word:lg] -->
+<!-- [!code word:@xl] -->
+<!-- [!code word:xl] -->
 <div class="@container bg-sky-300 lg:bg-red-300 xl:bg-yellow-200">
   <div class="@lg:px-6 @xl:px-8">
     Responsive content
