@@ -61,7 +61,7 @@ export async function getDocsPostBySlug(slug: string): Promise<{
 }
 
 export async function getDocsPostSlugs(): Promise<string[]> {
-  const docsDir = path.join(__dirname, "../../docs");
+  const docsDir = path.join(process.cwd(), "src/docs");
   const slugs = await findMDXSlugs(docsDir, docsDir);
 
   return slugs;

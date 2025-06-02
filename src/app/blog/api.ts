@@ -49,7 +49,7 @@ export async function getBlogPostBySlug(slug: string): Promise<{
 export async function getBlogPostSlugs(): Promise<string[]> {
   let posts: { slug: string; date: number }[] = [];
 
-  let folders = await fs.readdir(path.join(__dirname, "../../blog"));
+  let folders = await fs.readdir(path.join(process.cwd(), "src/blog"));
 
   await Promise.allSettled(
     folders.map(async (folder) => {
