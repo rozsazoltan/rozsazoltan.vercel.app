@@ -1,10 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { Author } from "./authors";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 export async function getBlogPostBySlug(slug: string): Promise<{
   Component: React.FC;
@@ -23,7 +19,7 @@ export async function getBlogPostBySlug(slug: string): Promise<{
 } | null> {
   try {
     // Check if the file exists
-    if (!(await fs.stat(path.join(__dirname, `../../blog/${slug}/index.mdx`)).catch(() => null))) {
+    if (!(await fs.stat(path.join(process.cwd(), `./src/blog/${slug}/index.mdx`)).catch(() => null))) {
       return null;
     }
 
@@ -49,7 +45,7 @@ export async function getBlogPostBySlug(slug: string): Promise<{
 export async function getBlogPostSlugs(): Promise<string[]> {
   let posts: { slug: string; date: number }[] = [];
 
-  let folders = await fs.readdir(path.join(process.cwd(), "src/blog"));
+  let folders = await fs.readdir(path.join(process.cwd(), "./src/blog"));
 
   await Promise.allSettled(
     folders.map(async (folder) => {

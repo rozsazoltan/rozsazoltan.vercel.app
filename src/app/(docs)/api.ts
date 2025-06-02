@@ -1,9 +1,5 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 async function findMDXSlugs(dir: string, baseDir: string): Promise<string[]> {
   const entries = await fs.readdir(dir, { withFileTypes: true });
@@ -39,7 +35,7 @@ export async function getDocsPostBySlug(slug: string): Promise<{
   slug: string;
 } | null> {
   try {
-    const fullPath = path.join(__dirname, `../../docs/${slug}.mdx`);
+    const fullPath = path.join(process.cwd(), `src/docs/${slug}.mdx`);
     const exists = await fs.stat(fullPath).catch(() => null);
     if (!exists) return null;
 
@@ -61,7 +57,7 @@ export async function getDocsPostBySlug(slug: string): Promise<{
 }
 
 export async function getDocsPostSlugs(): Promise<string[]> {
-  const docsDir = path.join(process.cwd(), "src/docs");
+  const docsDir = path.join(process.cwd(), "./src/docs");
   const slugs = await findMDXSlugs(docsDir, docsDir);
 
   return slugs;
