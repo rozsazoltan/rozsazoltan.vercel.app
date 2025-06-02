@@ -1,12 +1,8 @@
 import type { TOCEntry } from "@/components/table-of-contents";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import React from "react";
 import index from "./index";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 export async function getDocPageBySlug(
   slug: string,
@@ -35,7 +31,7 @@ export async function getDocPageBySlug(
 
 export async function getDocPageSlugs() {
   let slugs = [];
-  for (let file of await fs.readdir(path.join(__dirname, "../../../docs"))) {
+  for (let file of await fs.readdir(path.join(process.cwd(), "./src/docs"))) {
     if (!file.endsWith(".mdx")) continue;
     slugs.push(path.parse(file).name);
   }
