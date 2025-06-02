@@ -1,9 +1,14 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+
+import { fileURLToPath } from "node:url";
 import React from "react";
 import { Color } from "./color";
 
-let styles = await fs.readFile(path.join(process.cwd(), "./node_modules/tailwindcss/theme.css"), "utf-8");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+let styles = await fs.readFile(path.join(__dirname, "../../node_modules/tailwindcss/theme.css"), "utf-8");
 
 let colors: Record<string, Record<string, string>> = {};
 for (let line of styles.split("\n")) {
