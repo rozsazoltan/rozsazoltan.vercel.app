@@ -4,8 +4,8 @@ import { CodeExampleStack } from "@/components/code-example";
 import { TipGood, TipLearn, TipHighlight, TipWarning } from "@/components/tips";
 
 export const meta = {
-  title: "Enhancing VSCode with TailwindCSS syntax and hints",
-  description: `Use the official TailwindCSS IntelliSense VSCode extension to make development faster and easier.`,
+  title: "Enhancing VSCode with Tailwind CSS syntax and hints",
+  description: `Use the official Tailwind CSS IntelliSense VSCode extension to make development faster and easier.`,
   date: "2025-06-06T23:00:00.000Z",
   authors: [rozsazoltan],
   excerpt: (
@@ -15,7 +15,7 @@ export const meta = {
   ),
 };
 
-## VSCode gives many warnings related to TailwindCSS
+## VSCode gives many warnings related to Tailwind CSS
 
 By default, VSCode doesn't recognize Tailwind CSS syntax. Because of this, it gives many warning alerts when using special CSS directives and syntaxes. This issue is solved by the official Tailwind CSS IntelliSense extension for VSCode.
 
@@ -47,7 +47,7 @@ First, install the official extension:
 
 ### Recommended configuration
 
-After that, in the VSCode configuration, you need to associate the `tailwindcss` interpretation with the `*.css` file extensions. (Starting from v4, Tailwind CSS officially no longer supports `*.scss`, but tailwindcss can still be associated with `*.scss` here)
+After that, in the VSCode configuration, you need to associate the `tailwindcss` interpretation with the `*.css` file extensions. (Starting from v4, Tailwind CSS officially no longer supports `*.scss`, but `tailwindcss` can still be associated with `*.scss` here)
 
 ```json
 /* [!code filename:settings.json] */
@@ -166,5 +166,5 @@ let classes = "bg-red-500 text-red-50"
 
 
 For other additions, see here:
-* [TailwindCSS hints anywhere such as in `class` or `className` attributes](https://stackoverflow.com/a/79561483/15167500)
+* [Tailwind CSS hints anywhere such as in `class` or `className` attributes](https://stackoverflow.com/a/79561483/15167500)
 * [`paolotiu/tailwind-intellisense-regex-list`](https://github.com/paolotiu/tailwind-intellisense-regex-list)
