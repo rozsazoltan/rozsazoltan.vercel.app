@@ -84,14 +84,18 @@ The `clsx` or `tailwind-merge` dependencies are often used alongside Tailwind CS
 <CodeExampleStack>
 ```js
 // [!code filename:JS]
+// [!code word:twMerge]
 // [!code word:tw\.div]
 // [!code word:tw]
 // [!code word:clsx]
-let classes = tw`flex bg-red-500`
 let classes2 = clsx([
   "flex bg-red-500",
   { "text-red-500": true }
 ])
+
+let merged = twMerge('p-8 rounded bg-slate-500', 'pt-10 bg-slate-800')
+
+let classes = tw`flex bg-red-500`
 let element = tw.div`flex bg-red-500`
 ```
 ```json
@@ -106,6 +110,9 @@ let element = tw.div`flex bg-red-500`
     /* [!code highlight:2] */
     "clsx",
     // for tailwind-merge
+    /* [!code highlight:2] */
+    "twMerge",
+    // etc.
     /* [!code highlight:3] */
     "tw",
     "tw\\.[a-z-]+",
