@@ -1,0 +1,169 @@
+import Link from "next/link";
+import { rozsazoltan } from "@/app/blog/authors";
+import { CodeExampleStack } from "@/components/code-example";
+import { TipGood, TipLearn, TipHighlight, TipWarning } from "@/components/tips";
+
+export const meta = {
+  title: "Enhancing VSCode with Tailwind CSS syntax and hints",
+  description: `Use the official Tailwind CSS IntelliSense VSCode extension to make development faster and easier.`,
+  date: "2025-06-06T23:00:00.000Z",
+  authors: [rozsazoltan],
+  excerpt: (
+    <>
+      By default, VSCode doesn't recognize Tailwind CSS syntax. Because of this, it gives many warning alerts when using special CSS directives and syntaxes. This issue is solved by the official Tailwind CSS IntelliSense extension for VSCode.
+    </>
+  ),
+};
+
+## VSCode gives many warnings related to Tailwind CSS
+
+By default, VSCode doesn't recognize Tailwind CSS syntax. Because of this, it gives many warning alerts when using special CSS directives and syntaxes. This issue is solved by the official Tailwind CSS IntelliSense extension for VSCode.
+
+### Some common warnings
+
+<div className="py-0.5 [&>*]:m-1 ring-2 ring-amber-500 rounded-lg opacity-80 inset-shadow-2xl inset-shadow-orange-500 inset-shadow-[0px_-10rem_5rem_-5rem]">
+  <TipWarning>Unknown at rule @theme in global.css</TipWarning>
+  <TipWarning>Unknown at rule @plugin in global.css</TipWarning>
+  <TipWarning>Unknown at rule @custom-variant in global.css</TipWarning>
+  <TipWarning>Unknown at rule @variant in global.css</TipWarning>
+  <TipWarning>Unknown at rule @apply in global.css (only without SCSS)</TipWarning>
+  <TipWarning>Unknown at rule @reference in module.css</TipWarning>
+  <TipWarning>Unknown at rule @tailwind in global.css (by only Tailwind CSS v3)</TipWarning>
+</div>
+
+### Useful extras
+
+The extension primarily fixes the syntax highlighting. But it also provides many useful extras:
+
+<TipGood>offers autocomplete when typing class names</TipGood>
+<TipGood>shows the color when a class name contains a color code</TipGood>
+<TipGood>provides hints for class names and syntax and instantly shows the native CSS translation</TipGood>
+<TipGood>developed with official support, so it's compatible with both v3 and v4</TipGood>
+
+## Installation
+
+First, install the official extension:
+* <a href="https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss" target="_blank">Tailwind CSS IntelliSense - By Tailwind Labs</a> - VSCode Extension in Marketplace
+
+### Recommended configuration
+
+After that, in the VSCode configuration, you need to associate the `tailwindcss` interpretation with the `*.css` file extensions. (Starting from v4, Tailwind CSS officially no longer supports `*.scss`, but `tailwindcss` can still be associated with `*.scss` here)
+
+```json
+/* [!code filename:settings.json] */
+{
+  "files.associations": {
+    /* [!code highlight:2] */
+    "*.css": "tailwindcss",
+    "*.scss": "tailwindcss",
+  },
+}
+```
+
+<div className="[&_kbd]:mx-0.5 [&_kbd]:px-1 [&_kbd]:text-black dark:[&_kbd]:text-white [&_kbd]:bg-stone-500/10 [&_kbd]:rounded-lg [&_kbd]:border-1">
+  <TipLearn>
+    You can open the `settings.json` file in VSCode by:
+
+    - Pressing <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>P</kbd> (or <kbd>Cmd</kbd><kbd>Shift</kbd><kbd>P</kbd> on Mac), then typing and selecting `Preferences: Open Settings (JSON)`
+
+    Alternatively, to find `files.associations` using the UI:
+
+    1. Open **Settings** (<kbd>Ctrl</kbd><kbd>,</kbd> or <kbd>Cmd</kbd><kbd>,</kbd> on Mac)
+    2. Search for `files associations` in the search bar
+    3. You can edit or add the `files.associations` entries from there
+  </TipLearn>
+</div>
+
+* [Tailwind CSS v4 - Unknown at rule `@plugin`, `@custom-variant`, `@theme` in global.css](https://stackoverflow.com/a/79513027/15167500)
+
+### Other configuration
+
+When typing class names, by default the extension provides autocomplete inside the `class="..."` and `className="..."` HTML attributes. This can be extended on demand with extra attributes, JS functions, or even special regexes in any way.
+
+The `clsx` or `tailwind-merge` dependencies are often used alongside Tailwind CSS, the following rules apply for these:
+<CodeExampleStack>
+```js
+// [!code filename:JS]
+// [!code word:tw\.div]
+// [!code word:tw]
+// [!code word:clsx]
+let classes = tw`flex bg-red-500`
+let classes2 = clsx([
+  "flex bg-red-500",
+  { "text-red-500": true }
+])
+let element = tw.div`flex bg-red-500`
+```
+```json
+/* [!code filename:settings.json] */
+{
+  "files.associations": {
+    "*.css": "tailwindcss",
+  },
+
+  "tailwindCSS.classFunctions": [
+    // for clsx
+    /* [!code highlight:2] */
+    "clsx",
+    // for tailwind-merge
+    /* [!code highlight:3] */
+    "tw",
+    "tw\\.[a-z-]+",
+  ],
+}
+```
+</CodeExampleStack>
+
+Next.js uses a combination of these with the `cn()` function, which can also be adjusted for the extension:
+```json
+/* [!code filename:settings.json] */
+{  
+  "tailwindCSS.classFunctions": [
+    /* [!code highlight:2] */
+    "cn",
+  ],
+}
+```
+
+If you want to enable autocomplete hints inside attributes, for example:
+<CodeExampleStack>
+```html
+<!-- [!code filename:HTML] -->
+<!-- [!code word:custom=\"bg-red-500\"] -->
+<div custom="bg-red-500">...</div>
+```
+```json
+/* [!code filename:settings.json] */
+{
+  "tailwindCSS.classAttributes": [
+    /* [!code highlight:2] */
+    "custom",
+  ],
+}
+```
+</CodeExampleStack>
+
+Some regex example:
+<CodeExampleStack>
+```js
+// [!code filename:JS]
+// [!code word:\`border-2 rounded-lg\`]
+// [!code word:\"bg-red-500 text-red-50\"]
+const format = `border-2 rounded-lg`
+let classes = "bg-red-500 text-red-50"
+```
+```json
+/* [!code filename:settings.json] */
+{
+  "tailwindCSS.experimental.classRegex": [
+    /* [!code highlight:2] */
+    "(?:const|let|var)\\s+[\\w$_][_\\w\\d]*\\s*=\\s*['\\\"](.*?)['\\\"]",
+  ],
+}
+```
+</CodeExampleStack>
+
+
+For other additions, see here:
+* [Tailwind CSS hints anywhere such as in `class` or `className` attributes](https://stackoverflow.com/a/79561483/15167500)
+* [`paolotiu/tailwind-intellisense-regex-list`](https://github.com/paolotiu/tailwind-intellisense-regex-list)
