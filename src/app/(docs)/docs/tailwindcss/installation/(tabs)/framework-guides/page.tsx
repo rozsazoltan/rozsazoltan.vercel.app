@@ -2,6 +2,7 @@ import { type Guide, loadGuides } from "@/app/(docs)/docs/tailwindcss/installati
 import { Metadata } from "next";
 import Link from "next/link";
 import { Cta } from "@/components/cta";
+import { TipCompat } from "@/components/tips";
 import Search from "./search";
 
 export const metadata: Metadata = {
@@ -55,15 +56,16 @@ export default async function FrameworkGuidesPage({
       {/* Official Guides */}
       <Section title="Official Guides" guides={official} emptyMessage="No results match the search." />
 
+      <div className="mb-5">
+        <TipCompat>While we strive to keep the guides up to date, you may still encounter issues. Please take the advice with a grain of caution.</TipCompat>
+      </div>
+
       {/* Community Guides */}
       <Section title="Community Guides" guides={community} emptyMessage="No results match the search." />
 
       <div className="my-4 md:my-16">
         <Cta>
-          Don't see your framework of choice? Try using the{" "}
-          <Link href="/docs/tailwindcss/installation/plugin-guides/tailwind-cli">Tailwind CLI</Link>, the{" "}
-          <Link href="/docs/tailwindcss/installation/plugin-guides/using-vite">Vite plugin</Link>, or the{" "}
-          <Link href="/docs/tailwindcss/installation/plugin-guides/using-postcss">PostCSS plugin</Link> instead.
+          Don't see your framework of choice? Ask for help via <a href="https://stackoverflow.com/questions/ask" target="_blank" rel="noopener noreferrer">Stack Overflow</a> or <a href="https://github.com/tailwindlabs/tailwindcss/discussions/new?category=help" target="_blank" rel="noopener noreferrer">GitHub</a>; feel free to <a href="https://github.com/rozsazoltan/rozsazoltan.vercel.app/issues/new?title=Tailwind%20CSS%20-%20Community%20guide%20for%20[here%20your%20framework%20name]">suggest community guides</a>.
         </Cta>
       </div>
     </>
@@ -81,7 +83,7 @@ function Section({
 }) {
   return (
     <div className="mb-10">
-      <h4 className="font-semibold underline underline-offset-4 decoration-2 decoration-rose-500 mb-10" data-title="true">
+      <h4 className="font-medium underline underline-offset-4 decoration-2 decoration-rose-500 mb-10" data-title="true">
         {title}
       </h4>
       {guides.length > 0 ? (

@@ -36,10 +36,7 @@ export default async function FrameworkGuides() {
       </ul>
       <div className="my-4 md:my-16">
         <Cta>
-          Don't see your framework of choice? Try using the{" "}
-          <Link href="/docs/tailwindcss/installation/plugin-guides/tailwind-cli">Tailwind CLI</Link>, the{" "}
-          <Link href="/docs/tailwindcss/installation/plugin-guides/using-vite">Vite plugin</Link>, or the{" "}
-          <Link href="/docs/tailwindcss/installation/plugin-guides/using-postcss">PostCSS plugin</Link> instead.
+          Not sure which plugin to use? Check the <Link href="/docs/tailwindcss/installation/framework-guides">framework guides</Link> to see which one would work best for you and how to set it up.
         </Cta>
       </div>
     </>

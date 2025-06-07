@@ -22,72 +22,6 @@ const tabs = {
   "Play CDN": "/docs/tailwindcss/installation/play-cdn",
 };
 
-const readNext = [
-  {
-    title: "Styling with utility classes",
-    href: "/docs/styling-with-utility-classes",
-    body: (
-      <p>Using a utility-first workflow to build complex components from a constrained set of primitive utilities.</p>
-    ),
-    // icon: {
-    //   className: "dark:bg-indigo-500 dark:highlight-white/20",
-    //   // light: require("@/img/icons/home/utility-first.png").default.src,
-    //   // dark: require("@/img/icons/home/dark/utility-first.png").default.src,
-    // },
-    icon: require("@/components/home/icons/css-grid-icon").default,
-  },
-  {
-    title: "Responsive Design",
-    href: "/docs/responsive-design",
-    body: <p>Build fully responsive user interfaces that adapt to any screen size using responsive modifiers.</p>,
-    icon: {
-      className: "dark:bg-indigo-500 dark:highlight-white/20",
-      // light: require("@/img/icons/home/mobile-first.png").default.src,
-      // dark: require("@/img/icons/home/dark/mobile-first.png").default.src,
-    },
-  },
-  {
-    title: "Hover, Focus & Other States",
-    href: "/docs/hover-focus-and-other-states",
-    body: <p>Style elements in interactive states like hover, focus, and more using conditional modifiers.</p>,
-    icon: {
-      className: "dark:bg-blue-500 dark:highlight-white/20",
-      // light: require("@/img/icons/home/state-variants.png").default.src,
-      // dark: require("@/img/icons/home/dark/state-variants.png").default.src,
-    },
-  },
-  {
-    title: "Dark Mode",
-    href: "/docs/dark-mode",
-    body: <p>Optimize your site for dark mode directly in your HTML using the dark mode modifier.</p>,
-    icon: {
-      className: "dark:bg-slate-600 dark:highlight-white/20",
-      // light: require("@/img/icons/home/dark-mode.png").default.src,
-      // dark: require("@/img/icons/home/dark/dark-mode.png").default.src,
-    },
-  },
-  {
-    title: "Reusing Styles",
-    href: "/docs/reusing-styles",
-    body: <p>Manage duplication and keep your projects maintainable by creating reusable abstractions.</p>,
-    icon: {
-      className: "dark:bg-sky-500 dark:highlight-white/20",
-      // light: require("@/img/icons/home/component-driven.png").default.src,
-      // dark: require("@/img/icons/home/dark/component-driven.png").default.src,
-    },
-  },
-  {
-    title: "Customizing the Framework",
-    href: "/docs/adding-custom-styles",
-    body: <p>Customize the framework to match your brand and extend it with your own custom styles.</p>,
-    icon: {
-      className: "dark:bg-pink-500 dark:highlight-white/30",
-      // light: require("@/img/icons/home/customization.png").default.src,
-      // dark: require("@/img/icons/home/dark/customization.png").default.src,
-    },
-  },
-];
-
 export default function Page({ children }: { children: React.ReactNode }) {
   return (
     <>
@@ -103,14 +37,14 @@ export default function Page({ children }: { children: React.ReactNode }) {
             Installation
           </p>
           <h1 className="mt-2 text-3xl font-medium tracking-tight text-gray-950 dark:text-white">
-            Get started with Tailwind CSS
+            Get started with Tailwind CSS v4
           </h1>
           <p data-description="true" className="mt-6 text-base/7 text-gray-700 dark:text-gray-300">
             Tailwind CSS works by scanning all of your HTML files, JavaScript components, and any other templates for
             class names, generating the corresponding styles and then writing them to a static CSS file.
           </p>
           <p className="mt-4 text-base/7 text-gray-700 dark:text-gray-300">
-            It's fast, flexible, and reliable — with zero-runtime.
+            It's fast, flexible, and reliable - with zero-runtime.
           </p>
 
           <div className="mt-10" data-content="true">
