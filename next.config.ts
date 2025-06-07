@@ -48,7 +48,16 @@ const nextConfig = {
       },
 
       // Framework guides
-      // Coming Soon
+      {
+        source: "/docs/tailwindcss",
+        destination: "/docs/tailwindcss/installation",
+        permanent: false,
+      },
+      {
+        source: "/docs/tailwindcss/installation",
+        destination: "/docs/tailwindcss/installation/whats-new",
+        permanent: false,
+      },
 
       // Showcase examples
       {
