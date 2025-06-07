@@ -22,7 +22,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   let { page } = guide;
 
   return {
-    metadataBase: new URL("https://tailwindcss.com"),
+    metadataBase: new URL("https://rozsazoltan.vercel.app"),
     title: page.title,
     description: page.description,
     openGraph: {
@@ -37,8 +37,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       title: page.title,
       description: page.description,
       images: [{ url: `/api/og?path=/docs/${guide.slug}` }],
-      site: "@tailwindcss",
-      creator: "@tailwindcss",
+      site: "@rozsazoltan_dev",
+      creator: "@rozsazoltan_dev",
     },
   };
 }
@@ -59,7 +59,7 @@ export default async function Page({ params }: Props) {
 
   // Select the first tab if none is selected
   if (tabs && !selectedTab) {
-    return redirect(`/docs/installation/framework-guides/${slug}/${tabs[0].slug}`);
+    return redirect(`/docs/installation/plugin-guides/${slug}/${tabs[0].slug}`);
   }
 
   steps = steps.filter((step) => {
@@ -103,7 +103,7 @@ export default async function Page({ params }: Props) {
               <TabBar
                 tabs={tabs.map((tab) => ({
                   title: tab.title,
-                  url: `/docs/installation/framework-guides/${slug}/${tab.slug}`,
+                  url: `/docs/installation/plugin-guides/${slug}/${tab.slug}`,
                 }))}
               />
             ) : null}
@@ -117,16 +117,16 @@ export default async function Page({ params }: Props) {
 
 export async function generateStaticParams() {
   let guides = await loadGuides();
-  return guides.flatMap(({ slug, tabs = [] }) => [
+  return guides.filter(({ tile }) => tile.external === undefined).flatMap(({ slug, tabs = [] }) => [
     // examples:
-    // - /docs/installation/framework-guides/nextjs
-    // - /docs/installation/framework-guides/vite
+    // - /docs/installation/plugin-guides/nextjs
+    // - /docs/installation/plugin-guides/vite
     { slug: [slug] },
 
     // examples:
-    // - /docs/installation/framework-guides/vite/react
-    // - /docs/installation/framework-guides/vite/vue
-    // - /docs/installation/framework-guides/vite/svelte
+    // - /docs/installation/plugin-guides/vite/react
+    // - /docs/installation/plugin-guides/vite/vue
+    // - /docs/installation/plugin-guides/vite/svelte
     ...tabs.map((tab) => ({
       slug: [slug, tab.slug],
     })),

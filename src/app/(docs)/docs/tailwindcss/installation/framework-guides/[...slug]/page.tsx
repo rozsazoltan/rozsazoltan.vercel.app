@@ -22,7 +22,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   let { page } = guide;
 
   return {
-    metadataBase: new URL("https://tailwindcss.com"),
+    metadataBase: new URL("https://rozsazoltan.vercel.app"),
     title: page.title,
     description: page.description,
     openGraph: {
@@ -37,8 +37,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       title: page.title,
       description: page.description,
       images: [{ url: `/api/og?path=/docs/${guide.slug}` }],
-      site: "@tailwindcss",
-      creator: "@tailwindcss",
+      site: "@rozsazoltan_dev",
+      creator: "@rozsazoltan_dev",
     },
   };
 }
