@@ -12,8 +12,8 @@ export const metadata: Metadata = {
     type: "article",
     title: "What's new",
     description: "Integrate Tailwind CSS with frameworks like Laravel, SvelteKit, React Router, and SolidJS.",
-    images: "https://tailwindcss.com/api/og?path=/docs/installation/using-vite",
-    url: "https://tailwindcss.com/docs/installation/using-vite",
+    images: "https://rozsazoltan.vercel.app/api/og?path=/docs/tailwindcss/installation/whats-new",
+    url: "https://rozsazoltan.vercel.app/docs/tailwindcss/installation/whats-new",
   },
 };
 

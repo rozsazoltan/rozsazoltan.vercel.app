@@ -53,8 +53,8 @@ function GuideTile({ guide }: { guide: Guide }) {
           <Link
             href={
               guide.tabs
-                ? `/docs/installation/framework-guides/${guide.slug}/${guide.tabs[0].slug}`
-                : `/docs/installation/framework-guides/${guide.slug}`
+                ? `/docs/tailwindcss/installation/framework-guides/${guide.slug}/${guide.tabs[0].slug}`
+                : `/docs/tailwindcss/installation/framework-guides/${guide.slug}`
             }
             className="before:absolute before:-inset-3 before:rounded-2xl"
           >

@@ -13,8 +13,8 @@ export const metadata: Metadata = {
     type: "article",
     title: "Framework guides",
     description: "Our recommended approach to installing Tailwind CSS in popular frameworks.",
-    images: "https://tailwindcss.com/api/og?path=/docs/installation/framework-guides",
-    url: "https://tailwindcss.com/docs/installation/framework-guides",
+    images: "https://rozsazoltan.vercel.app/api/og?path=/docs/tailwindcss/installation/framework-guides",
+    url: "https://rozsazoltan.vercel.app/docs/tailwindcss/installation/framework-guides",
   },
 };
 

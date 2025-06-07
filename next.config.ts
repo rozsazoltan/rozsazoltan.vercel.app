@@ -49,6 +49,26 @@ const nextConfig = {
 
       // Framework guides
       {
+        source: "/docs/laravel",
+        destination: "/docs/laravel/installation",
+        permanent: false,
+      },
+      {
+        source: "/docs/laravel/installation",
+        destination: "/docs/laravel/installation/whats-new",
+        permanent: false,
+      },
+      {
+        source: "/docs/vuejs",
+        destination: "/docs/vuejs/installation",
+        permanent: false,
+      },
+      {
+        source: "/docs/vuejs/installation",
+        destination: "/docs/vuejs/installation/whats-new",
+        permanent: false,
+      },
+      {
         source: "/docs/tailwindcss",
         destination: "/docs/tailwindcss/installation",
         permanent: false,
