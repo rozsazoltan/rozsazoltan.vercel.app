@@ -29,18 +29,13 @@ const guides: Guide[] = await create({
 });
 
 async function create(list: Record<string, () => Promise<any>>): Promise<Guide[]> {
-  const results = await Promise.all(
+  return await Promise.all(
     Object.entries(list).map(async ([slug, mod]) => {
-      const model = await mod();
-      if (model.tile?.external) return null;
-      
-      return Object.create(model, {
+      return Object.create(await mod(), {
         slug: { value: slug },
       });
-    })
+    }),
   );
-  
-  return results.filter((guide): guide is Guide => guide !== null);
 }
 
 export async function loadGuide(slug: string): Promise<Guide | null> {

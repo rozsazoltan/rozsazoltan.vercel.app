@@ -117,7 +117,7 @@ export default async function Page({ params }: Props) {
 
 export async function generateStaticParams() {
   let guides = await loadGuides();
-  return guides.flatMap(({ slug, tabs = [] }) => [
+  return guides.filter(({ tile }) => tile.external === undefined).flatMap(({ slug, tabs = [] }) => [
     // examples:
     // - /docs/installation/framework-guides/nextjs
     // - /docs/installation/framework-guides/vite
