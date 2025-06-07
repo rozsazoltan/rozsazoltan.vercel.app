@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 export default async function FrameworkGuidesPage({
   searchParams,
 }: {
-  searchParams: { q?: string };
+  searchParams: Promise<{ q?: string }>;
 }) {
   const { q } = await searchParams
   const query = q?.toLowerCase() ?? "";
