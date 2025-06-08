@@ -165,7 +165,7 @@ export function SearchProvider({ children }: React.PropsWithChildren) {
     });
 
     // @ts-ignore
-    const hits = res.map((hit: any) => ({
+    const hits = res.slice(0, 10).map((hit: any) => ({
       id: hit.id,
       ...hit.doc,
     }));
