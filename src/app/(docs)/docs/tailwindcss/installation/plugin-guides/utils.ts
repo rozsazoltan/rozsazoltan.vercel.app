@@ -17,6 +17,7 @@ export interface LogoComponent {
 export interface Tile {
   title: string;
   description: string;
+  external?: string;
 
   Logo: LogoComponent;
   LogoDark?: LogoComponent;

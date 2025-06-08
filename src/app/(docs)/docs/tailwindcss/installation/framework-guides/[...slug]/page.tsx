@@ -31,7 +31,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       title: page.title,
       description: page.description,
       type: "article",
-      url: `/docs/${guide.slug}`,
+      url: `/docs/tailwindcss/installation/framework-guides/${guide.slug}`,
       images: [{ url: `/api/og?path=/docs/tailwindcss/installation/framework-guides/${guide.slug}` }],
     },
     twitter: {
@@ -54,14 +54,18 @@ export default async function Page({ params }: Props) {
   let guide = await loadGuide(slug);
   if (!guide) return notFound();
 
-  let { page, steps, tabs } = guide;
+  let { page, steps, tabs, tile } = guide;
+
+  if (tile && tile.external) {
+    return redirect(tile.external);
+  }
 
   // TODO: Tab handling might be better as a client-side thing using
   // CSS or JS to show/hide steps instead
 
   // Select the first tab if none is selected
   if (tabs && !selectedTab) {
-    return redirect(`/docs/installation/framework-guides/${slug}/${tabs[0].slug}`);
+    return redirect(`/docs/tailwindcss/installation/framework-guides/${slug}/${tabs[0].slug}`);
   }
 
   steps = steps.filter((step) => {
@@ -126,14 +130,14 @@ export async function generateStaticParams() {
   let guides = await loadGuides();
   return guides.filter(({ tile }) => tile.external === undefined).flatMap(({ slug, tabs = [] }) => [
     // examples:
-    // - /docs/installation/framework-guides/nextjs
-    // - /docs/installation/framework-guides/vite
+    // - /docs/tailwindcss/installation/framework-guides/nextjs
+    // - /docs/tailwindcss/installation/framework-guides/vite
     { slug: [slug] },
 
     // examples:
-    // - /docs/installation/framework-guides/vite/react
-    // - /docs/installation/framework-guides/vite/vue
-    // - /docs/installation/framework-guides/vite/svelte
+    // - /docs/tailwindcss/installation/framework-guides/vite/react
+    // - /docs/tailwindcss/installation/framework-guides/vite/vue
+    // - /docs/tailwindcss/installation/framework-guides/vite/svelte
     ...tabs.map((tab) => ({
       slug: [slug, tab.slug],
     })),

@@ -6,21 +6,22 @@ import { Document as FlexDocument } from "flexsearch";
 import Link from "next/link";
 
 type Post = {
-  title: string
-  description: string
+  title: string;
+  description: string;
   excerpt: {
-    key: null,
+    key: null;
     props: {
-      children: string,
-    }
-  }
-  url: string
-}
+      children: string;
+    };
+  };
+  url: string;
+};
 type Docs = {
-  title: string
-  description: string
-  url: string
-}
+  title: string;
+  description: string;
+  url: string;
+  target?: '_blank' | '_self';
+};
 type SearchItem = {
   id: number;
   name?: string;
@@ -29,6 +30,7 @@ type SearchItem = {
   apiUsage?: string;
   apiDescription?: string;
   url?: string;
+  target?: "_blank" | "_self";
 };
 
 const SearchContext = createContext<any>({});
@@ -112,9 +114,9 @@ export function SearchProvider({ children }: React.PropsWithChildren) {
               priority: 0,
             },
           ],
-          store: ["name", "url", "description", "excerpt"],
+          store: ["name", "url", "description", "excerpt", "target"],
         },
-      });    
+      });
 
       const extractTextFromChildren = (children: React.ReactNode): string => {
         if (typeof children === "string") {
@@ -133,7 +135,7 @@ export function SearchProvider({ children }: React.PropsWithChildren) {
           name: post.title,
           description: post.description,
           excerpt: extractTextFromChildren(post.excerpt.props.children),
-          url: post.url
+          url: post.url,
         });
       });
       docsList.forEach((docs) => {
@@ -141,7 +143,8 @@ export function SearchProvider({ children }: React.PropsWithChildren) {
           id: idCounter++,
           name: docs.title,
           description: docs.description,
-          url: docs.url
+          url: docs.url,
+          target: docs.target || "_self",
         });
       });
 
@@ -162,7 +165,7 @@ export function SearchProvider({ children }: React.PropsWithChildren) {
     });
 
     // @ts-ignore
-    const hits = res.map((hit: any) => ({
+    const hits = res.slice(0, 10).map((hit: any) => ({
       id: hit.id,
       ...hit.doc,
     }));
@@ -188,57 +191,61 @@ export function SearchProvider({ children }: React.PropsWithChildren) {
         createPortal(
           <div className="fixed inset-0 z-50 bg-black/30 dark:bg-white/30 backdrop-blur-xs" onClick={onClose}>
             <div
-              className="absolute inset-x-0 top-24 mx-auto w-full max-w-3xl bg-white dark:bg-gray-950 rounded-xl shadow-xl p-6"
+              className="absolute inset-0 lg:inset-y-8 xl:inset-y-16 2xl:inset-y-24 p-3 mx-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex justify-between mb-4">
-                <input
-                  type="text"
-                  className="w-full border border-gray-300 dark:border-gray-700 rounded-lg p-2 focus:outline-1 focus:outline-sky-500"
-                  value={initialQuery}
-                  onChange={(e) => setInitialQuery(e.target.value)}
-                  placeholder="Search..."
-                  autoFocus
-                />
-                <button onClick={onClose} className="ml-2 text-sm text-gray-500 hover:text-black dark:hover:text-white">✕</button>
+              <div className="mx-auto w-full max-w-3xl bg-white dark:bg-gray-950 rounded-xl shadow-xl p-6 max-h-full overflow-auto">
+                <div className="sticky top-0 bg-white dark:bg-gray-950  flex justify-between mb-4">
+                  <input
+                    type="text"
+                    className="w-full border border-gray-300 dark:border-gray-700 rounded-lg p-2 focus:outline-1 focus:outline-sky-500"
+                    value={initialQuery}
+                    onChange={(e) => setInitialQuery(e.target.value)}
+                    onDoubleClick={() => setInitialQuery("")}
+                    placeholder="Search..."
+                    autoFocus
+                  />
+                  <button onClick={onClose} className="ml-2 text-sm text-gray-500 hover:text-black dark:hover:text-white">✕</button>
+                </div>
+
+                {initialQuery.length > 0 && results.length === 0 && (
+                  <p className="py-4 text-xl text-center text-gray-500">No results for "<span className="text-black dark:text-white">{initialQuery.trim()}</span>"</p>
+                )}
+                {results.length === 0 && (
+                  <>
+                    <p className="pt-4 text-sm font-bold">Try searching for:</p>
+                    <ul className="divide-y divide-gray-50 dark:divide-gray-900">
+                      {tryResult.map((hit) => (
+                        <li key={hit.id} className="cursor-pointer py-2">
+                          <div
+                            className="text-sm block hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg px-2 py-1 transition"
+                            onClick={() => setInitialQuery(hit.name || "")}
+                          >
+                            <div className="font-medium text-gray-900 dark:text-gray-100 truncate">{hit.name}</div>
+                            <div className="text-xs text-gray-600 dark:text-gray-400 truncate">{hit.description}</div>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+
+                <ul className="divide-y divide-gray-50 dark:divide-gray-900">
+                  {results.map((hit) => (
+                    <li key={hit.id} className="cursor-pointer py-2">
+                      <Link
+                        href={hit.url || "#"}
+                        target={hit.target || "_self"}
+                        className="block hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg px-2 py-1 transition"
+                        onClick={onClose}
+                      >
+                        <div className="font-medium text-gray-900 dark:text-gray-100 truncate">{hit.name}</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400 truncate">{hit.description}</div>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
-
-              {initialQuery.length > 0 && results.length === 0 && (
-                <p className="py-4 text-xl text-center text-gray-500">No results for "<span className="text-black dark:text-white">{initialQuery.trim()}</span>"</p>
-              )}
-              {results.length === 0 && (
-                <>
-                  <p className="pt-4 text-sm font-bold">Try searching for:</p>
-                  <ul className="divide-y divide-gray-50 dark:divide-gray-900">
-                    {tryResult.map((hit) => (
-                      <li key={hit.id} className="cursor-pointer py-2">
-                        <div
-                          className="text-sm block hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg px-2 py-1 transition"
-                          onClick={() => setInitialQuery(hit.name || "")}
-                        >
-                          <div className="font-medium text-gray-900 dark:text-gray-100 truncate">{hit.name}</div>
-                          <div className="text-xs text-gray-600 dark:text-gray-400 truncate">{hit.description}</div>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              )}
-
-              <ul className="divide-y divide-gray-50 dark:divide-gray-900">
-                {results.map((hit) => (
-                  <li key={hit.id} className="cursor-pointer py-2">
-                    <Link
-                      href={hit.url || "#"}
-                      className="block hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg px-2 py-1 transition"
-                      onClick={onClose}
-                    >
-                      <div className="font-medium text-gray-900 dark:text-gray-100 truncate">{hit.name}</div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400 truncate">{hit.description}</div>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
             </div>
           </div>,
           document.body
