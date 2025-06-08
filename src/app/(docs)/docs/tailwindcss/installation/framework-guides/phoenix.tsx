@@ -5,7 +5,7 @@ export let tile: Tile = {
   title: "Phoenix",
   description: "A framework to build rich, interactive applications with Elixir.",
   type: "official",
-  external: "https://tailwindcss.com/docs/installation/framework-guides/phoneix",
+  external: "https://tailwindcss.com/docs/installation/framework-guides/phoenix",
 
   Logo,
 };
