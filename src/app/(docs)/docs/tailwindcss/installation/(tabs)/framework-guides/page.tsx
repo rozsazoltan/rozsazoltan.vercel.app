@@ -51,6 +51,9 @@ export default async function FrameworkGuidesPage({
 
         {/* Search Form */}
         <Search />
+        {query.length > 0 && (
+          <span className="text-xs"><strong>{filtered.length}</strong> results out of {guides.length}</span>
+        )}
       </div>
 
       {/* Official Guides */}
