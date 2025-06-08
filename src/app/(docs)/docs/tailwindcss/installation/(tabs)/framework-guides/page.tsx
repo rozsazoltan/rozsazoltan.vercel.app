@@ -51,17 +51,28 @@ export default async function FrameworkGuidesPage({
 
         {/* Search Form */}
         <Search />
+        {query.length > 0 && (
+          <span className="text-xs"><strong>{filtered.length}</strong> results out of {guides.length}</span>
+        )}
       </div>
 
-      {/* Official Guides */}
-      <Section title="Official Guides" guides={official} emptyMessage="No results match the search." />
+      {official.length === 0 && community.length > 0 ? (
+        <>
+          {/* Community Guides */}
+          <Section title="Community Guides" guides={community} emptyMessage="No results match the search." />
 
-      <div className="mb-5">
-        <TipCompat>While we strive to keep the guides up to date, you may still encounter issues. Please take the advice with a grain of caution.</TipCompat>
-      </div>
+          {/* Official Guides */}
+          <Section title="Official Guides" guides={official} emptyMessage="No results match the search." />
+        </>
+      ) : (
+        <>
+          {/* Official Guides */}
+          <Section title="Official Guides" guides={official} emptyMessage="No results match the search." />
 
-      {/* Community Guides */}
-      <Section title="Community Guides" guides={community} emptyMessage="No results match the search." />
+          {/* Community Guides */}
+          <Section title="Community Guides" guides={community} emptyMessage="No results match the search." />
+        </>
+      )}
 
       <div className="my-4 md:my-16">
         <Cta>
@@ -94,6 +105,11 @@ function Section({
         </ul>
       ) : (
         <Cta>{emptyMessage}</Cta>
+      )}
+      {title.includes('Community') && (
+        <div className="my-5">
+          <TipCompat>While we strive to keep the guides up to date, you may still encounter issues. Please take the advice with a grain of caution.</TipCompat>
+        </div>
       )}
     </div>
   );
