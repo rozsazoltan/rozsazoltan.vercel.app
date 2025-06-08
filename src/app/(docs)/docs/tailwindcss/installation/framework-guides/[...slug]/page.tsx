@@ -1,6 +1,8 @@
 import { loadGuide, loadGuides } from "@/app/(docs)/docs/tailwindcss/installation/framework-guides";
 import { Steps } from "@/components/installation-steps";
 import { TabBar } from "@/components/installation-tabs";
+import { TipLearn } from "@/components/tips";
+import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { Metadata } from "next/types";
 
@@ -75,6 +77,11 @@ export default async function Page({ params }: Props) {
     <>
       <div className="mx-auto grid w-full max-w-2xl grid-cols-1 gap-10 pt-10 pb-24 xl:max-w-5xl">
         <div className="px-4 sm:px-6 xl:pr-0">
+          <div className="prose mb-10">
+            <TipLearn>
+              Get to know the <Link href="/docs/tailwindcss/installation/whats-new">new features</Link> and <Link href="/docs/tailwindcss/installation/plugin-guides">plugins</Link> of Tailwind CSS v4.
+            </TipLearn>
+          </div>
           <p
             className="font-mono text-xs/6 tracking-widest text-gray-600 uppercase dark:text-gray-400"
             data-section="true"
