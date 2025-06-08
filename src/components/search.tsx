@@ -6,21 +6,22 @@ import { Document as FlexDocument } from "flexsearch";
 import Link from "next/link";
 
 type Post = {
-  title: string
-  description: string
+  title: string;
+  description: string;
   excerpt: {
-    key: null,
+    key: null;
     props: {
-      children: string,
-    }
-  }
-  url: string
-}
+      children: string;
+    };
+  };
+  url: string;
+};
 type Docs = {
-  title: string
-  description: string
-  url: string
-}
+  title: string;
+  description: string;
+  url: string;
+  target?: '_blank' | '_self';
+};
 type SearchItem = {
   id: number;
   name?: string;
@@ -29,6 +30,7 @@ type SearchItem = {
   apiUsage?: string;
   apiDescription?: string;
   url?: string;
+  target?: "_blank" | "_self";
 };
 
 const SearchContext = createContext<any>({});
@@ -112,9 +114,9 @@ export function SearchProvider({ children }: React.PropsWithChildren) {
               priority: 0,
             },
           ],
-          store: ["name", "url", "description", "excerpt"],
+          store: ["name", "url", "description", "excerpt", "target"],
         },
-      });    
+      });
 
       const extractTextFromChildren = (children: React.ReactNode): string => {
         if (typeof children === "string") {
@@ -133,7 +135,7 @@ export function SearchProvider({ children }: React.PropsWithChildren) {
           name: post.title,
           description: post.description,
           excerpt: extractTextFromChildren(post.excerpt.props.children),
-          url: post.url
+          url: post.url,
         });
       });
       docsList.forEach((docs) => {
@@ -141,7 +143,8 @@ export function SearchProvider({ children }: React.PropsWithChildren) {
           id: idCounter++,
           name: docs.title,
           description: docs.description,
-          url: docs.url
+          url: docs.url,
+          target: docs.target || "_self",
         });
       });
 
