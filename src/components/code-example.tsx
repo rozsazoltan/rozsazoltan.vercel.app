@@ -43,14 +43,14 @@ export async function CodeExample({
   filename,
   className = "",
 }: {
-  example: { lang: string; code: string };
+  example: { lang: string; code: string; className?: string };
   filename?: string;
   className?: string;
 }) {
   return (
     <CodeExampleWrapper className={className}>
       {filename ? <CodeExampleFilename filename={filename} /> : null}
-      <HighlightedCode example={example} />
+      <HighlightedCode example={example} className={example.className}/>
     </CodeExampleWrapper>
   );
 }
