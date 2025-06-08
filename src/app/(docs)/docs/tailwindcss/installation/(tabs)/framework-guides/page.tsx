@@ -106,6 +106,11 @@ function Section({
       ) : (
         <Cta>{emptyMessage}</Cta>
       )}
+      {title.includes('Community') && (
+        <div className="my-5">
+          <TipCompat>While we strive to keep the guides up to date, you may still encounter issues. Please take the advice with a grain of caution.</TipCompat>
+        </div>
+      )}
     </div>
   );
 }
