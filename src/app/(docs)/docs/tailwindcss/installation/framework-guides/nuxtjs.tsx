@@ -5,7 +5,7 @@ export let tile: Tile = {
   title: "Nuxt",
   description: "Intuitive Vue framework for building universal applications.",
   type: "official",
-  external: "https://tailwindcss.com/docs/installation/framework-guides/nuxtjs",
+  external: "https://tailwindcss.com/docs/installation/framework-guides/nuxt",
 
   Logo,
 };
