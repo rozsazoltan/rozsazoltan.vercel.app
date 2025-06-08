@@ -9,6 +9,7 @@ export interface Step {
     name: string;
     lang: string;
     code: string;
+    className?: string;
   };
 }
 
@@ -42,6 +43,7 @@ export function Steps({ steps }: { steps: Step[] }) {
               example={{
                 lang: step.code.lang,
                 code: step.code.code,
+                className: step.code.className,
               }}
             />
           </div>

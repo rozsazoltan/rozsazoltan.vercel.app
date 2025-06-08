@@ -9,6 +9,7 @@ export interface Guide {
 }
 
 const guides: Guide[] = await create({
+  // Official
   nextjs: () => import("./nextjs"),
   laravel: () => import("./laravel"),
   nuxt: () => import("./nuxtjs"),
@@ -26,6 +27,8 @@ const guides: Guide[] = await create({
   astro: () => import("./astro"),
   qwik: () => import("./qwik"),
   rspack: () => import("./rspack"),
+  // Community
+  dotnet: () => import("./dotnet"),
 });
 
 async function create(list: Record<string, () => Promise<any>>): Promise<Guide[]> {

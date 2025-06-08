@@ -44,5 +44,6 @@ export interface Step {
     name: string;
     lang: string;
     code: string;
+    className?: string;
   };
 }
