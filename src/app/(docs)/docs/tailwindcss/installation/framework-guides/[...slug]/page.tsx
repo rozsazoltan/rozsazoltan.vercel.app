@@ -83,7 +83,7 @@ export default async function Page({ params }: Props) {
         <div className="px-4 sm:px-6 xl:pr-0">
           <div className="prose mb-10">
             <TipLearn>
-              Get to know the <Link href="/docs/tailwindcss/installation/whats-new">new features</Link> and <Link href="/docs/tailwindcss/installation/plugin-guides">plugins</Link> of Tailwind CSS v4.
+              Get to know the <Link href="/docs/tailwindcss/installation/whats-new">new features</Link> and <Link href="/docs/tailwindcss/tailwindcss/installation/plugin-guides">plugins</Link> of Tailwind CSS v4.
             </TipLearn>
           </div>
           <p
@@ -114,7 +114,7 @@ export default async function Page({ params }: Props) {
               <TabBar
                 tabs={tabs.map((tab) => ({
                   title: tab.title,
-                  url: `/docs/installation/framework-guides/${slug}/${tab.slug}`,
+                  url: `/docs/tailwindcss/installation/framework-guides/${slug}/${tab.slug}`,
                 }))}
               />
             ) : null}
