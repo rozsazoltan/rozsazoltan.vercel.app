@@ -75,7 +75,6 @@ export function SearchProvider({ children }: React.PropsWithChildren) {
     setIsOpen(true);
   }, []);
 
-  // Dinamikus index betöltés az API-ról
   useEffect(() => {
     const loadIndex = async () => {
       const blogResult = await fetch("/api/search/blog");
