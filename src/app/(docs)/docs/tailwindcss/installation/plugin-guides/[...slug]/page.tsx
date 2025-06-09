@@ -59,7 +59,7 @@ export default async function Page({ params }: Props) {
 
   // Select the first tab if none is selected
   if (tabs && !selectedTab) {
-    return redirect(`/docs/installation/plugin-guides/${slug}/${tabs[0].slug}`);
+    return redirect(`/docs/tailwindcss/installation/plugin-guides/${slug}/${tabs[0].slug}`);
   }
 
   steps = steps.filter((step) => {
@@ -103,7 +103,7 @@ export default async function Page({ params }: Props) {
               <TabBar
                 tabs={tabs.map((tab) => ({
                   title: tab.title,
-                  url: `/docs/installation/plugin-guides/${slug}/${tab.slug}`,
+                  url: `/docs/tailwindcss/installation/plugin-guides/${slug}/${tab.slug}`,
                 }))}
               />
             ) : null}
@@ -119,14 +119,14 @@ export async function generateStaticParams() {
   let guides = await loadGuides();
   return guides.filter(({ tile }) => tile.external === undefined).flatMap(({ slug, tabs = [] }) => [
     // examples:
-    // - /docs/installation/plugin-guides/nextjs
-    // - /docs/installation/plugin-guides/vite
+    // - /docs/tailwindcss/installation/plugin-guides/nextjs
+    // - /docs/tailwindcss/installation/plugin-guides/vite
     { slug: [slug] },
 
     // examples:
-    // - /docs/installation/plugin-guides/vite/react
-    // - /docs/installation/plugin-guides/vite/vue
-    // - /docs/installation/plugin-guides/vite/svelte
+    // - /docs/tailwindcss/installation/plugin-guides/vite/react
+    // - /docs/tailwindcss/installation/plugin-guides/vite/vue
+    // - /docs/tailwindcss/installation/plugin-guides/vite/svelte
     ...tabs.map((tab) => ({
       slug: [slug, tab.slug],
     })),

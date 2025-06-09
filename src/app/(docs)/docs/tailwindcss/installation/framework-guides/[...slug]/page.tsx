@@ -114,7 +114,7 @@ export default async function Page({ params }: Props) {
               <TabBar
                 tabs={tabs.map((tab) => ({
                   title: tab.title,
-                  url: `/docs/installation/framework-guides/${slug}/${tab.slug}`,
+                  url: `/docs/tailwindcss/installation/framework-guides/${slug}/${tab.slug}`,
                 }))}
               />
             ) : null}
