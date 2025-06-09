@@ -84,7 +84,6 @@ export function unshiki(code: string): string {
   return result.join('\n').trim();
 }
 
-
 export async function CodeExample({
   example,
   filename,
