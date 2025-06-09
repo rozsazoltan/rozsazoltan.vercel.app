@@ -1,8 +1,8 @@
 "use client";
 
-import clsx from "clsx"
-import { useState } from "react"
-import { unshiki } from "./code-example"
+import clsx from "clsx";
+import { useState } from "react";
+import { unshiki } from "./code-example";
 
 export function CopyButton({
   value,
