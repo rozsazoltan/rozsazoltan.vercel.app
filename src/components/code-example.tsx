@@ -67,7 +67,6 @@ export function unshiki(code: string): string {
         const spec = match[1];
         const removeMatch = spec.match(/^--:(\d+)$/);
         if (removeMatch) {
-          console.log('1', line, comments, removeMatch)
           // set lines to skip
           skip = parseInt(removeMatch[1], 10) - 1;
           // current line removed (important if the line is not just a comment but also valid code)
