@@ -63,27 +63,22 @@ export function unshiki(code: string): string {
     for (const c of comments) {
       const match = c[0].match(codeTagRegex);
       if (match) {
-        // check if directive to remove next N lines
         const spec = match[1];
+        // check if directive to remove next N lines
         const removeMatch = spec.match(/^--:(\d+)$/);
         if (removeMatch) {
-          console.log('1', line, comments, removeMatch)
-          // set lines to skip
-          skip = parseInt(removeMatch[1], 10) - 1;
-          // current line removed (important if the line is not just a comment but also valid code)
-          removed = true;
+          skip = parseInt(removeMatch[1], 10) - 1; // set lines to skip
+          removed = true;                          // current line removed
           break;
+        } else {
+          // remove comment if it's not a remove directive
+          line = line.slice(0, c.index) + line.slice(c.index! + c[0].length);
         }
-
-        // remove comment if it's not a remove directive
-        line = line.slice(0, c.index) + line.slice(c.index! + c[0].length);
       }
     }
 
     // add line if not removed and line is not empty or has no comments
-    if (!removed && (comments.length === 0 || line.trim() !== "")) {
-      result.push(line);
-    }
+    if (!removed && (comments.length === 0 || line.trim() !== "")) result.push(line);
   }
 
   return result.join('\n').trim();
