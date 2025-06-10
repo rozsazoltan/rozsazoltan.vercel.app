@@ -1,0 +1,460 @@
+import Link from "next/link";
+import { rozsazoltan } from "@/app/blog/authors";
+import { CodeExampleGroup, CodeBlock, sh } from "@/components/code-example";
+import { TipGood, TipBad, TipLearn, TipHighlight, TipCompat, TipWarning } from "@/components/tips";
+import { TabPanel } from '@headlessui/react'
+
+export const meta = {
+  title: "Still using XAMPP? Smarter ways to run PHP locally",
+  description: `If you're still using XAMPP for local PHP development, it's time to reconsider. [...] it quickly becomes limiting and inefficient as your needs grow.`,
+  date: "2025-06-10T12:00:00.000Z",
+  authors: [rozsazoltan],
+  excerpt: (
+    <>
+      If you're still using XAMPP for local PHP development, it's time to reconsider. While XAMPP may seem like a convenient all-in-one solution - especially for beginners - it quickly becomes limiting and inefficient as your needs grow.
+    </>
+  ),
+};
+
+## Why you should stop using XAMPP for PHP development
+
+If you're still using XAMPP for local PHP development, it's time to reconsider. While XAMPP may seem like a convenient all-in-one solution - especially for beginners - it quickly becomes limiting and inefficient as your needs grow.
+
+<TipBad>
+  Difficult to manage multiple PHP bersions
+</TipBad>
+XAMPP doesn't make it easy to switch between PHP versions. If you're working on projects that require different versions (which is very common), managing them in XAMPP becomes messy and time-consuming.
+
+<TipBad>
+  Updating PHP means reinstalling everything
+</TipBad>
+Want to upgrade your PHP version? With XAMPP, that usually means reinstalling the entire stack - including Apache, MySQL, and PHP - then migrating your database and configurations manually. It's a fragile and error-prone process.
+
+<TipBad>
+  Comes loaded with unnecessary extras
+</TipBad>
+XAMPP ships with a lot of components you probably don't need - especially when you're just starting out. These extras can clutter your setup, cause conflicts, and slow down your machine.
+
+<TipBad>
+  Misleading & bad habits
+</TipBad>
+In many cases, it points beginner developers in the wrong direction - encouraging them to do everything inside the `htdocs` folder. This is a bad habit. Even from the very beginning, it's better to host each project in its own dedicated environment or directory, tailored specifically to that project.
+
+## Okay, but what should I use instead - and why?
+
+There are several alternatives available. Personally, I prefer using CLI tools that focus solely on PHP or the database engine. These tools allow me to install and configure both global and local PHP versions with ease. I can even run multiple PHP versions simultaneously.
+
+There are also GUI-based solutions that offer similar functionality - such as support for multiple PHP versions and the flexibility to store your projects anywhere on your system.
+
+<TipHighlight>
+  This article assumes that the reader is familiar with basic package managers and knows which one is required - or preferred - for their operating system.
+</TipHighlight>
+
+<Link href="#summary">Skip to summary</Link>.
+
+### 1. jdx.mise - Open Source, Free
+
+* [GitHub: `jdx/mise`](https://github.com/jdx/mise)
+* [Website: `mise.jdx.dev`](https://mise.jdx.dev)
+
+<TipWarning>
+  It's my personal favorite, but the currently available plugin for PHP is unstable - especially on Windows. For a more stable solution, keep reading.
+</TipWarning>
+
+<TipGood>
+  Not just for PHP - a powerful CLI tool for developers
+</TipGood>
+Mise is a versatile CLI tool designed not just for managing PHP versions. With mise, you can also manage Node.js, npm, pnpm, Composer, Go, Python, Java, and many other development tools and runtimes - all from a single interface.
+
+* [Core tools](https://mise.jdx.dev/core-tools.html)
+* [Backends](https://mise.jdx.dev/dev-tools/backends)
+
+<TipGood>
+  Node.js compatibility included
+</TipGood>
+Most PHP developers eventually need Node.js as well - especially when working with front-end tooling. It's common to require different Node.js versions for different projects. Mise handles this seamlessly, giving you version control for both PHP and Node.js in one place.
+
+<TipGood>
+  One place for all development-tools
+</TipGood>
+While Composer (PHP's package manager) includes a built-in self-update mechanism, I love that mise keeps everything centralized. Instead of installing tools all over the operating system, mise allows you to manage all your essential development tools in a clean, version-controlled structure.
+
+<TipGood>
+  Easy to migrateacross machines
+</TipGood>
+Once you're familiar with the necessary CLI commands, it's incredibly easy to replicate your setup on a new machine. You can quickly install all previously used versions on a fresh OS without starting from scratch.
+
+<TipGood>
+  Cross-platform support
+</TipGood>
+Mise is fully cross-platform - available for Windows, Linux, and macOS - making it a great choice regardless of your development environment.
+
+<TipBad>
+  Command-line focused
+</TipBad>
+Lacks the GUI interface found in some competing tools.
+
+#### Installation
+
+<CodeExampleGroup filenames={["Windows", "Linux/macOS", "Debian/Ubuntu (apt)", "Fedora/CentOS (dnf)"]}>
+  <TabPanel key="Windows">
+    <CodeExampleGroup filenames={["winget", "scoop", "chocolatey"]}>
+      <CodeBlock
+        example={sh`
+          winget install jdx.mise
+        `}
+      />
+      <CodeBlock
+        example={sh`
+          # https://github.com/ScoopInstaller/Main/pull/6374
+          scoop install mise
+        `}
+      />
+      <CodeBlock
+        example={sh`
+          choco install mise
+        `}
+      />
+    </CodeExampleGroup>
+  </TabPanel>
+  <TabPanel>
+    <CodeExampleGroup filenames={["curl", "brew"]}>
+      <CodeBlock
+        example={sh`
+          curl https://mise.run | sh
+        `}
+      />
+      <CodeBlock
+        example={sh`
+          brew install mise
+        `}
+      />
+    </CodeExampleGroup>
+  </TabPanel>
+  <TabPanel>
+    <CodeExampleGroup filenames={["amd64", "arm64"]}>
+      <CodeBlock
+        example={sh`
+          sudo apt update -y && sudo apt install -y gpg sudo wget curl
+          sudo install -dm 755 /etc/apt/keyrings
+          wget -qO - https://mise.jdx.dev/gpg-key.pub | gpg --dearmor | sudo tee /etc/apt/keyrings/mise-archive-keyring.gpg 1> /dev/null
+          echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.gpg arch=amd64] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
+          sudo apt update
+          sudo apt install -y mise
+        `}
+      />
+      <CodeBlock
+        example={sh`
+          sudo apt update -y && sudo apt install -y gpg sudo wget curl
+          sudo install -dm 755 /etc/apt/keyrings
+          wget -qO - https://mise.jdx.dev/gpg-key.pub | gpg --dearmor | sudo tee /etc/apt/keyrings/mise-archive-keyring.gpg 1> /dev/null
+          echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.gpg arch=arm64] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
+          sudo apt update
+          sudo apt install -y mise
+        `}
+      />
+    </CodeExampleGroup>
+  </TabPanel>
+  <CodeBlock
+    example={sh`
+      sudo dnf install -y dnf-plugins-core
+      sudo dnf config-manager addrepo --from-repofile=https://mise.jdx.dev/rpm/mise.repo
+      sudo dnf install -y mise
+    `}
+  />
+</CodeExampleGroup>
+
+* [Install mise CLI](https://mise.jdx.dev/getting-started.html#installing-mise-cli)
+* [Installing mise](https://mise.jdx.dev/installing-mise.html)
+* [Configuration: `mise.toml`](https://mise.jdx.dev/configuration.html)
+* [Settings](https://mise.jdx.dev/configuration/settings.html)
+
+#### Manage PHP
+
+Install vfox backend plugin for PHP.
+```sh
+mise use -g vfox:version-fox/vfox-php
+```
+
+<TipCompat>
+  The `vfox-php-plugin` relies on the official PHP websites. However, PHP distributes its Windows and Linux-compatible releases on separate pages - and even handles the latest versions on a different one. As a result, the plugin may not always work as intended.
+
+  To solve this, I'm collecting all PHP installer versions in my own GitHub repository and pulling the appropriate one during installation through a custom plugin. I'll be updating the plugin usage soon to rely on my own version.
+
+  * [`jdx/mise` #4566 - Installing PHP on Windows](https://github.com/jdx/mise/discussions/4566)
+  * [`verzly/php` - PHP releases](https://github.com/verzly/php/releases)
+  * [`verzly/mise-php` - New PHP-plugin for Mise](https://github.com/verzly/mise-php) (Coming Soon)
+</TipCompat>
+
+Install PHP 8 globally.
+```sh
+# [!code highlight:2]
+mise use --global php@8 # install php 8 and set it as the global default
+
+mise exec -- php my-script.php # run my-script.php with php 8
+mise exex -- php artisan serve # run artisan from laravel project with php 8
+```
+
+* [mise `exec` adn `run`](https://mise.jdx.dev/getting-started.html#mise-exec-run)
+
+#### Environment variables
+
+While using `mise x|exec` is useful, for interactive shells, you might prefer to activate mise to automatically load the mise context (tools and environment variables) in your shell session. Another option is to use shims.
+
+`mise activate` method updates your environment variable and PATH every time your prompt is run to ensure you use the correct versions.
+
+<TipLearn>
+  Environment variables are system-specific values that are accessible across the entire system. One common environment variable is `PATH`, which contains a list of directory paths. These directories are where the system looks for executable files, allowing you to run programs without typing their full path.
+
+  For example, if you place mysoftware.exe at `C:\software\bin\mysoftware.exe`, you can run it from the command line like this: `C:\software\bin\mysoftware.exe` However, just typing `mysoftware` won't work - unless the system knows where to find it.
+
+  To make the `mysoftware` command available globally (without specifying the full path), you need to add `C:\software\bin` to your system's `PATH` environment variable.
+</TipLearn>
+
+The `mise activate` command provides a quick solution for this. It automatically sets up the correct environment so that tools installed through mise - such as `php`, `nod`e, and others - are available globally from the command line, without needing to type the full path. This makes your development workflow much smoother and more efficient.
+
+You only need to set it up the first time you run it - after that, the settings remain in your `PATH`.
+```sh
+mise activate
+```
+
+Now, instead of using `mise exec`, you can access `php` directly.
+```sh
+# [!code --:2]
+mise exec -- php my-script.php # run my-script.php with php 8
+# [!code ++:2]
+php my-script.php
+
+# [!code --:2]
+mise exex -- php artisan serve # run artisan from laravel project with php 8
+# [!code ++:2]
+php artisan serve
+```
+
+
+### 2. asdf-vm - Open Source, Free
+
+* [GitHub: `asdf-vm/asdf`](https://github.com/asdf-vm/asdf)
+* [Website: `asdf-vm.com`](https://asdf-vm.com)
+
+I won't go into as much detail as I did with `jdx.mise` - the two are very similar. In fact, `asdf-vm` was the inspiration behind the creation of `jdx.mise`. Understandably, `asdf-vm` has a few shortcomings or frustrations that make it less appealing - at least for me.
+
+<TipBad>
+  Command-line focused
+</TipBad>
+Lacks the GUI interface found in some competing tools.
+
+It was recently rewritten in Go, and that's when I decided to switch to `jdx.mise`.
+
+* [Getting started with `asdf-vm`](https://asdf-vm.com/guide/getting-started.html)
+
+Once installed, you can set up PHP like this:
+
+```sh
+asdf plugin-add php # install php plugin
+```
+
+```sh
+asdf install php 8 # install php 8
+asdf global php 8 # set php 8 as the global default
+```
+
+* [Plugins](https://asdf-vm.com/manage/plugins.html)
+* [Versions](https://asdf-vm.com/manage/versions.html)
+
+
+### 3. PVM - Open Source, Free
+
+* [GitHub: `hjbdev/pvm`](https://github.com/hjbdev/pvm)
+
+PVM is a specialized version manager for PHP on Windows systems, offering developers an easy way to switch between different PHP versions. While focused solely on PHP management, its active development makes it appealing for Windows-based PHP developers.
+
+<TipGood>
+  Windows-focused solution
+</TipGood>
+Designed specifically for Windows users who need PHP version management.
+
+<TipGood>
+  Active development
+</TipGood>
+The project is regularly updated with new features and improvements.
+
+<TipGood>
+  Lightweight alternative
+</TipGood>
+Provides PHP version switching without requiring full development environments.
+
+<TipGood>
+  Simple version switching
+</TipGood>
+Allows easy installation and switching between multiple PHP versions.
+
+<TipBad>
+  PHP-only solution
+</TipBad>
+Only manages PHP versions, unlike more comprehensive tools that handle databases/web servers.
+
+<TipBad>
+  Command-line focused
+</TipBad>
+Lacks the GUI interface found in some competing tools.
+
+<TipBad>
+  Limited to Windows
+</TipBad>
+Not available for macOS or Linux systems.
+
+
+### 4. DDEV - Open Source, Free
+
+* [GitHub: `ddev/ddev`](https://github.com/ddev/ddev)
+* [Website: `ddev.com`](https://ddev.com)
+
+DDEV is an open-source local development environment that leverages Docker containers to provide reproducible, cross-platform development setups. It's particularly popular for PHP projects (Drupal, WordPress, Laravel) but supports various tech stacks.
+
+<TipGood>
+  Cross-platform support
+</TipGood>
+Runs on Windows, macOS and Linux with consistent behavior across all platforms.
+
+<TipGood>
+  Docker-based isolation
+</TipGood>
+Each project runs in isolated containers, preventing system conflicts.
+
+<TipGood>
+  Pre-configured stacks
+</TipGood>
+Comes with optimized configurations for PHP, Node.js, Python, Ruby, Go and databases.
+
+<TipGood>
+  Easy project sharing
+</TipGood>
+Includes built-in tools like ngrok for secure temporary sharing with clients.
+
+<TipGood>
+  Performance optimized
+</TipGood>
+Uses mutagen for fast file synchronization on macOS/Windows.
+
+<TipGood>
+  Extensive CMS support
+</TipGood>
+One-command setups available for Drupal, WordPress, TYPO3, Backdrop and Laravel.
+
+<TipBad>
+  Docker dependency
+</TipBad>
+Requires Docker Desktop which can be resource-intensive on some machines.
+
+<TipBad>
+  Learning curve
+</TipBad>
+Requires basic Docker/terminal knowledge compared to GUI-heavy alternatives.
+
+<TipBad>
+  Limited Windows WSL 1 support
+</TipBad>
+Best performance requires WSL 2 on Windows.
+
+
+### 5. Laravel Herd - Freemium (Avaliable Pro License)
+
+* [Website: `herd.laravel.com`](https://herd.laravel.com)
+
+Laravel Herd is the latest local development environment released by Beyond Code, in collaboration with the Laravel team. It positions itself as a "one-click PHP development environment" - and honestly, I think that claim holds true.
+
+I installed it directly from the official Laravel Herd website, and without any extra configuration, I was able to run all my existing Laravel (and Jigsaw) apps. I simply added the root paths of my projects to Herd's path configuration, and it automatically created local testing URLs for each of them. It really is that simple.
+
+<TipGood>
+  Instant setup
+</TipGood>
+Get up and running with your Laravel or PHP projects in seconds, no extra config required.
+
+<TipGood>
+  Automatic local routing
+</TipGood>
+Herd generates local domains for each project, so you can access them like `https://my-app.test`.
+
+<TipGood>
+  Multiple PHP versions supported
+</TipGood>
+You can run different apps on different PHP versions side-by-side.
+
+<TipGood>
+  Quick version switching
+</TipGood>
+Easily switch PHP versions from the command line, making Herd ideal for developers managing multiple projects.
+
+<TipBad>
+  Windows & macOS only
+</TipBad>
+Unfortunately, Laravel Herd is currently only available for Windows & macOS, so Linux users will need to look elsewhere.
+
+<TipBad>
+  Less control compared to CLI tools
+</TipBad>
+While great for simplicity, Herd may not be as customizable or scriptable as CLI-based tools like mise or asdf.
+
+* [Get started with DDEV](https://ddev.com/get-started/)
+
+
+### 6. Laragon - paid version from v7
+
+* [GitHub: `leokhoa/laragon`](https://github.com/leokhoa/laragon)
+* [Website: `laragon.org`](https://laragon.org)
+
+Laragon is a portable, lightweight, and powerful development environment for PHP, Node.js, and Python. It provides an isolated, fast, and easy-to-use platform for web development.
+
+<TipGood>
+  Portable and isolated
+</TipGood>
+Can be moved between devices or cloud storage without breaking configurations, and runs independently from your system.
+
+<TipGood>
+  Automatic URL routing
+</TipGood>
+Creates pretty test domains like `app.test` automatically for all projects.
+
+<TipGood>
+  Lightweight performance
+</TipGood>
+Uses only 4-10MB RAM with fast startup times (core binary under 6MB).
+
+<TipGood>
+  Multi-service support
+</TipGood>
+Works with Apache/Nginx and databases (MySQL, PostgreSQL, MongoDB) out of the box.
+
+<TipGood>
+  Easy extension management
+</TipGood>
+Enable/disable PHP extensions with one click in the GUI.
+
+<TipBad>
+  License required
+</TipBad>
+Free version available but requires paid license for v7.x+ features.
+
+<TipBad>
+  Windows-only
+</TipBad>
+Currently only available for Windows operating systems.
+
+<TipBad>
+  Limited Linux-style tools
+</TipBad>
+While powerful, lacks some Unix/Linux tooling compared to WSL-based solutions.
+
+* [How to install](https://laragon.org/docs/install)
+* [Migrate from XAMPP](https://laragon.org/download/migrate-from-xampp)
+
+## Summary
+
+While I believe a software developer shouldn't struggle with CLI tools, if you're really looking for a CLI-free solution, you might find what you need with the free <Link href="#5-laravel-herd-freemium-avaliable-pro-license">Laravel Herd</Link> (you can pay for extra features if you want, but they're not essential). 
+
+For a CLI tool, <Link href="#3-pvm-open-source-free">PVM</Link> is an extremely simple solution - it's great if you're just starting out in this area. Otherwise, I'd definitely recommend <Link href="#1-jdxmise-open-source-free">jdx.mise</Link>.
+
+<TipLearn>
+  For Windows users, it's worth considering setting up a WSL 2 Linux environment and doing your PHP development within that instead.
+</TipLearn>

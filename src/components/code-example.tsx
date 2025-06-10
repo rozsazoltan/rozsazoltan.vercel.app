@@ -39,6 +39,10 @@ export function css(strings: TemplateStringsArray, ...args: any[]) {
   return { lang: "css", code: dedent(strings, ...args) };
 }
 
+export function sh(strings: TemplateStringsArray, ...args: any[]) {
+  return { lang: "sh", code: dedent(strings, ...args) };
+}
+
 export function unshiki(code: string): string {
   const lines = code.split("\n");
   const result: string[] = [];
