@@ -8,22 +8,25 @@ import { TipCompat } from "@/components/tips";
 
 type Props = {
   params: Promise<{
-    slug: string;
+    slug: string[];
   }>;
 };
 
 export async function generateStaticParams() {
   let slugs = await getDocPageSlugs();
-  return slugs.map((slug) => ({ slug }));
+  return slugs.map((slug) => ({ 
+    slug: slug.split('/')
+  }));
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   let params = await props.params;
-  let sectionAndTitle = await getSectionAndTitleBySlug(params.slug);
-  let post = await getDocPageBySlug(params.slug);
+  let fullSlug = params.slug.join('/');
+  let sectionAndTitle = await getSectionAndTitleBySlug(fullSlug);
+  let post = await getDocPageBySlug(fullSlug);
 
   if (!post) {
-    return {}
+    return {};
   }
 
   let title = `${post.title} - ${sectionAndTitle?.section ?? ""}`;
@@ -36,14 +39,14 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       title,
       description: post.description,
       type: "article",
-      url: `/docs/${params.slug}`,
-      images: [{ url: `/api/og?path=/docs/${params.slug}` }],
+      url: `/docs/${fullSlug}`,
+      images: [{ url: `/api/og?path=/docs/${fullSlug}` }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description: post.description,
-      images: [{ url: `/api/og?path=/docs/${params.slug}` }],
+      images: [{ url: `/api/og?path=/docs/${fullSlug}` }],
       site: "@rozsazoltan_dev",
       creator: "@rozsazoltan_dev",
     },
@@ -52,18 +55,21 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function DocPage(props: Props) {
   let params = await props.params;
+  let fullSlug = params.slug.join('/');
 
-  let sectionAndTitle = getSectionAndTitleBySlug(params.slug);
+  let sectionAndTitle = getSectionAndTitleBySlug(fullSlug);
 
   let [post, tableOfContents] = await Promise.all([
-    getDocPageBySlug(params.slug),
-    generateTableOfContents(params.slug),
+    getDocPageBySlug(fullSlug),
+    generateTableOfContents(fullSlug),
   ]);
 
   if (!post) {
-    return <>
-      {notFound()}
-    </>
+    return (
+      <>
+        {notFound()}
+      </>
+    );
   }
 
   return (
@@ -97,7 +103,7 @@ export default async function DocPage(props: Props) {
           <div className="prose mt-10" data-content="true">
             <post.Component />
           </div>
-          <Pagination slug={params.slug} />
+          <Pagination slug={fullSlug} />
         </div>
         <div className="max-xl:hidden">
           <div className="sticky top-14 max-h-[calc(100svh-3.5rem)] overflow-x-hidden px-6 pt-10 pb-24">
