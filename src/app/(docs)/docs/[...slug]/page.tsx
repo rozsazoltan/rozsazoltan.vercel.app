@@ -26,7 +26,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   let post = await getDocPageBySlug(fullSlug);
 
   if (!post) {
-    return {}
+    return {};
   }
 
   let title = `${post.title} - ${sectionAndTitle?.section ?? ""}`;
@@ -65,9 +65,11 @@ export default async function DocPage(props: Props) {
   ]);
 
   if (!post) {
-    return <>
-      {notFound()}
-    </>
+    return (
+      <>
+        {notFound()}
+      </>
+    );
   }
 
   return (
