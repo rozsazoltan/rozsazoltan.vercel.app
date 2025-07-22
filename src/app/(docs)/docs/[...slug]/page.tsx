@@ -103,6 +103,7 @@ export default async function DocPage(props: Props) {
           <div className="prose mt-10" data-content="true">
             <post.Component />
           </div>
+          
           <Pagination slug={fullSlug} />
         </div>
         <div className="max-xl:hidden">

@@ -1,14 +1,6 @@
-type DocEntry = readonly [string, string];
-type DocSubEntry = readonly [string, string];
-type DocGroupEntry = readonly [string, string, readonly DocSubEntry[]];
+import type { SidebarData } from "../../config";
 
-type DocSection = readonly (DocEntry | DocGroupEntry)[];
-
-type DocsNavigation = {
-  [section: string]: DocSection;
-};
-
-const docsNav: DocsNavigation = {
+const docsNav: SidebarData = {
   "Getting Started": [
     ["Installation", "/docs/vuejs/installation"],
   ] as const,
