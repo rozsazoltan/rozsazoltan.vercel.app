@@ -43,7 +43,7 @@ export interface Step {
   code: {
     name: string;
     lang: string;
-    code: string;
+    code: string | ReactNode;
     className?: string;
   };
 }
