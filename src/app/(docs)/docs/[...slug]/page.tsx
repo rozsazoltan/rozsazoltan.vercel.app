@@ -107,11 +107,12 @@ export default async function DocPage(props: Props) {
           <Pagination slug={fullSlug} />
         </div>
         <div className="max-xl:hidden pb-12">
-          <div className="sticky top-14 max-h-[calc(100svh-3.5rem)] flex flex-col pl-6 pt-10 pb-12">
+          <div className="sticky top-14 max-h-[calc(100svh-3.5rem)] flex flex-col pl-6 pt-10 pb-12 overflow-hidden">
             <TableOfContents tableOfContents={tableOfContents} />
-            <div className="h-full not-hover:max-h-[calc(60svh-3.5rem)]">
+            <div className="peer h-full not-hover:max-h-[calc(60svh-3.5rem)]">
               <RandomPromo />
             </div>
+            <div className="absolute bottom-0 w-full not-peer-hover:h-12 bg-gradient-to-t from-white to-transparent" />
           </div>
         </div>
       </div>
