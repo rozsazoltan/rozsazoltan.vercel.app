@@ -1,4 +1,4 @@
-import { TipCompat, TipHighlight, TipLearn } from "@/components/tips";
+import { TipCompat, TipHighlight, TipLearn, TipWarning } from "@/components/tips";
 import { css, html, js, php, shell, Step, Tab } from "./utils";
 import { type Page, type Tile } from "./utils";
 import Logo from "@/docs/img/guides/php.react.svg";
@@ -30,12 +30,54 @@ export let tabs: Tab[] = [
 
 export let steps: Step[] = [
   {
-    tabs: ["cli"],
+    tabs: ["vite"],
     title: "Install Tailwind CSS",
     body: (
       <p>
-        Install <code>tailwindcss</code> and <code>@tailwindcss/cli</code> via npm.
+        Install <code>tailwindcss</code> and <code>@tailwindcss/vite</code> via npm.
       </p>
+    ),
+    code: {
+      name: "Terminal",
+      lang: "shell",
+      code: shell`
+        npm install tailwindcss @tailwindcss/vite
+      `,
+    },
+  },
+  {
+    tabs: ["vite"],
+    title: "Coming Soon",
+    body: (
+      <TipCompat>
+        The project setup using Vite and PHP is not yet complete. In the meantime, use the CLI guide.
+      </TipCompat>
+    ),
+    code: {
+      name: "Terminal",
+      lang: "shell",
+      code: shell`
+        $ cd /website/page
+        bash: cd: /website/page: No such file or directory
+
+        $ sudo find / -name "php-with-tailwindcss-via-vite"
+        [sudo] password for user: *****
+        Sorry, page not found. But hey, at least you tried.
+      `,
+    },
+  },
+  {
+    tabs: ["cli"],
+    title: "Install Tailwind CSS",
+    body: (
+      <>
+        <p>
+          Install <code>tailwindcss</code> and <code>@tailwindcss/cli</code> via npm.
+        </p>
+        <p>
+          If you're not using Node.js and npm, check out the <a href="https://github.com/tailwindlabs/tailwindcss/releases/latest" target="_blank">standalone executable files</a>.
+        </p>
+      </>
     ),
     code: {
       name: "Terminal",
@@ -75,6 +117,9 @@ export let steps: Step[] = [
         <TipLearn>
           With the <code>php -S $host:$port -t $publicDir</code> command, you can start a local HTTP server for any PHP project.
         </TipLearn>
+        <TipWarning>
+          When using <a href="https://github.com/tailwindlabs/tailwindcss/releases/latest" target="_blank">standalone executable file</a>, the command should not be run with <code>npx</code>, but by directly invoking the executable.
+        </TipWarning>
       </>
     ),
     code: {
@@ -91,6 +136,9 @@ export let steps: Step[] = [
         $publicDir = 'public/';
         $inputCss = './resources/css/main.css';
         $outputCss = './public/generated.css';
+
+        // IMPORTANT: When using standalone executable files, the command should not be run with npx, but by directly invoking the executable
+        $tailwindCmd = "npx @tailwindcss/cli -i $inputCss -o $outputCss --watch";
 
         // Parse command line arguments
         $options = getopt('h:p:', ['host:', 'port:', 'help']);
@@ -123,7 +171,6 @@ export let steps: Step[] = [
 
         // Start Tailwind CSS watcher in background
         echo "  ➜ 📦 Starting Tailwind CSS watcher..." . PHP_EOL;
-        $tailwindCmd = "npx @tailwindcss/cli -i $inputCss -o $outputCss --watch";
 
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             // Windows
@@ -317,6 +364,7 @@ export let steps: Step[] = [
                                 // Handle 404 error
                                 $this->servePageWithSkeleton('404');
                                 break;
+                        }
                     }
                     
                     /**
@@ -443,8 +491,40 @@ export let steps: Step[] = [
               `,
             }}
           />
+          <CodeExample
+            filename="resources/about.html"
+            example={{
+              lang: 'html',
+              code: html`
+                <h1 class="text-lg text-rose-500">
+                  rozsazoltan
+                </h1>
+              `,
+            }}
+          />
         </CodeExampleStack>
       )
-    }
+    },
+  },
+  {
+    tabs: ["cli"],
+    title: "Start your build process and HTTP server",
+    body: (
+      <>
+        <p>
+          Run the Tailwind build process and the HTTP server using the previously created <code>dev</code> file.
+        </p>
+        <TipHighlight>
+          This way, while developing, the <code>generated.css</code> file is instantly updated as you write Tailwind classes.
+        </TipHighlight>
+      </>
+    ),
+    code: {
+      name: "Terminal",
+      lang: "shell",
+      code: shell`
+        php dev
+      `,
+    },
   },
 ];
