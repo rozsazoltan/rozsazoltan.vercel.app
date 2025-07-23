@@ -5,6 +5,7 @@ export const js = dedent;
 export const css = dedent;
 export const shell = dedent;
 export const html = dedent;
+export const xml = dedent;
 export const astro = dedent;
 export const twig = dedent;
 export const elixir = dedent;
