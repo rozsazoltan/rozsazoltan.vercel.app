@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 export const js = dedent;
 export const css = dedent;
 export const shell = dedent;
+export const php = dedent;
 export const html = dedent;
 export const xml = dedent;
 export const astro = dedent;
