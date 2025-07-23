@@ -34,7 +34,7 @@ function getTextContent(node: React.ReactNode): string {
   return ""; // If the node is neither text nor a React element
 }
 
-function slugify(str: React.ReactNode) {
+export function slugify(str: React.ReactNode) {
   return getTextContent(str)
     .toLowerCase()
     .trim() // Remove whitespace from both ends of a string
