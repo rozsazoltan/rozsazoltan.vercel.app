@@ -1,6 +1,8 @@
-import { loadGuide, loadGuides } from "@/app/(docs)/docs/tailwindcss/installation/framework-guides";
+import { loadGuide, loadGuides } from "@/app/(docs)/docs/tailwindcss/installation/plugin-guides";
 import { Steps } from "@/components/installation-steps";
 import { TabBar } from "@/components/installation-tabs";
+import { TipLearn } from "@/components/tips";
+import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { Metadata } from "next/types";
 
@@ -29,14 +31,14 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       title: page.title,
       description: page.description,
       type: "article",
-      url: `/docs/${guide.slug}`,
-      images: [{ url: `/api/og?path=/docs/${guide.slug}` }],
+      url: `/docs/tailwindcss/installation/plugin-guides/${guide.slug}`,
+      images: [{ url: `/api/og?path=/docs/tailwindcss/installation/plugin-guides/${guide.slug}` }],
     },
     twitter: {
       card: "summary_large_image",
       title: page.title,
       description: page.description,
-      images: [{ url: `/api/og?path=/docs/${guide.slug}` }],
+      images: [{ url: `/api/og?path=/docs/tailwindcss/installation/plugin-guides/${guide.slug}` }],
       site: "@rozsazoltan_dev",
       creator: "@rozsazoltan_dev",
     },
@@ -52,7 +54,11 @@ export default async function Page({ params }: Props) {
   let guide = await loadGuide(slug);
   if (!guide) return notFound();
 
-  let { page, steps, tabs } = guide;
+  let { page, steps, tabs, tile } = guide;
+
+  if (tile && tile.external) {
+    return redirect(tile.external);
+  }
 
   // TODO: Tab handling might be better as a client-side thing using
   // CSS or JS to show/hide steps instead

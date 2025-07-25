@@ -26,7 +26,7 @@ export default async function FrameworkGuides() {
           Framework Guides
         </h3>
         <p>
-          Plugin-specific guides that explain the correct usage of the official Tailwind CSS plugins. Usually, you only need one plugin from the available options. The <a href="/docs/tailwindcss/installation/framework-guides">framework-specific guides</a> primarily use Tailwind CSS based on one of the plugins described here. Which plugin works seamlessly depends on the framework.
+          Plugin-specific guides that explain the correct usage of the official Tailwind CSS plugins. Usually, you only need one plugin from the available options. The <a href="/docs/tailwindcss/installation/plugin-guides">framework-specific guides</a> primarily use Tailwind CSS based on one of the plugins described here. Which plugin works seamlessly depends on the framework.
         </p>
       </div>
       <ul className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 xl:grid-cols-3">
@@ -36,7 +36,7 @@ export default async function FrameworkGuides() {
       </ul>
       <div className="my-4 md:my-16">
         <Cta>
-          Not sure which plugin to use? Check the <Link href="/docs/tailwindcss/installation/framework-guides">framework guides</Link> to see which one would work best for you and how to set it up.
+          Not sure which plugin to use? Check the <Link href="/docs/tailwindcss/installation/plugin-guides">framework guides</Link> to see which one would work best for you and how to set it up.
         </Cta>
       </div>
     </>
@@ -53,8 +53,8 @@ function GuideTile({ guide }: { guide: Guide }) {
           <Link
             href={
               guide.tabs
-                ? `/docs/tailwindcss/installation/framework-guides/${guide.slug}/${guide.tabs[0].slug}`
-                : `/docs/tailwindcss/installation/framework-guides/${guide.slug}`
+                ? `/docs/tailwindcss/installation/plugin-guides/${guide.slug}/${guide.tabs[0].slug}`
+                : `/docs/tailwindcss/installation/plugin-guides/${guide.slug}`
             }
             className="before:absolute before:-inset-3 before:rounded-2xl"
           >
