@@ -1,10 +1,10 @@
-import { TipCompat, TipHighlight, TipLearn, TipWarning } from "@/components/tips";
-import { css, html, js, shell, Step, Tab } from "./utils";
+import { TipWarning } from "@/components/tips";
+import { Step, Tab } from "./utils";
 import { type Page, type Tile } from "./utils";
 import Logo from "@/docs/img/guides/tailwindcss.react.svg";
-import { CodeExample, CodeExampleStack } from "@/components/code-example";
 import { CodeExampleGroup, CodeBlock, sh } from "@/components/code-example";
 import { TabPanel } from '@headlessui/react';
+import dedent from "dedent";
 
 export let tile: Tile = {
   title: "Tailwind CLI",
@@ -15,7 +15,7 @@ export let tile: Tile = {
 
 export let page: Page = {
   title: "Install Tailwind CSS with CLI",
-  description: "Setting up Tailwind CLI in a Node.js project.",
+  description: "The simplest and fastest way to get up and running with Tailwind CSS from scratch is with the Tailwind CLI tool. The CLI is also available as a standalone executable if you want to use it without installing Node.js.",
 };
 
 export let tabs: Tab[] = [
@@ -41,7 +41,7 @@ export let steps: Step[] = [
     code: {
       name: "Terminal",
       lang: "shell",
-      code: shell`
+      code: dedent`
         npm install tailwindcss @tailwindcss/cli
       `,
     },
@@ -153,7 +153,7 @@ export let steps: Step[] = [
     code: {
       name: "src/input.css",
       lang: "css",
-      code: css`
+      code: dedent`
         @import "tailwindcss";
       `,
     },
@@ -169,7 +169,7 @@ export let steps: Step[] = [
     code: {
       name: "Terminal",
       lang: "shell",
-      code: shell`
+      code: dedent`
         npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch
       `,
     },
@@ -216,7 +216,7 @@ export let steps: Step[] = [
     code: {
       name: "src/index.html",
       lang: "html",
-      code: html`
+      code: dedent`
         <!doctype html>
         <html>
         <head>
