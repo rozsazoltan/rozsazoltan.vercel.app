@@ -7,6 +7,7 @@ export let tile: Tile = {
   description: "Full-featured React framework with great developer experience.",
   type: "official",
   external: "https://tailwindcss.com/docs/installation/framework-guides/nextjs",
+  trending: true,
 
   Logo,
   LogoDark,

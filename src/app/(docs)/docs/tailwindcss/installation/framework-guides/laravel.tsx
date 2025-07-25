@@ -6,6 +6,7 @@ export let tile: Tile = {
   description: "PHP web application framework with expressive, elegant syntax.",
   type: "official",
   external: "https://tailwindcss.com/docs/installation/framework-guides/laravel",
+  trending: true,
 
   Logo,
 };

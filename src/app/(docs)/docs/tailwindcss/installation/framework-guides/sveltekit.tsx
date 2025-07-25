@@ -6,6 +6,7 @@ export let tile: Tile = {
   description: "The fastest way to build apps of all sizes with Svelte.js.",
   type: "official",
   external: "https://tailwindcss.com/docs/installation/framework-guides/sveltekit",
+  trending: true,
 
   Logo,
 };

@@ -20,6 +20,7 @@ export interface Tile {
   title: string;
   description: string;
   type: "official" | "community";
+  trending?: boolean
   external?: string;
 
   Logo: LogoComponent;

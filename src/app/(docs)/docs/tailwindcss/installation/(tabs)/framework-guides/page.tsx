@@ -34,6 +34,7 @@ export default async function FrameworkGuidesPage({
       guide.tile.description.toLowerCase().includes(query)
   );
 
+  const trending   = filtered.filter((g) => g.tile.trending || false);
   const official   = filtered.filter((g) => g.tile.type === "official");
   const community  = filtered.filter((g) => g.tile.type !== "official");
 
@@ -55,6 +56,13 @@ export default async function FrameworkGuidesPage({
           <span className="text-xs"><strong>{filtered.length}</strong> results out of {guides.length}</span>
         )}
       </div>
+
+      {query.length === 0 && (
+        <>
+          {/* Trending Guides */}
+          <Section title="Trending" guides={trending} emptyMessage="No results match the search." />
+        </>
+      )}
 
       {official.length === 0 && community.length > 0 ? (
         <>
