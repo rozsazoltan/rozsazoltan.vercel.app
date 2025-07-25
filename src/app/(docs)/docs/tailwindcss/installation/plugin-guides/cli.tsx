@@ -127,14 +127,14 @@ export let steps: Step[] = [
           <TabPanel>
             <div className="p-4 text-white/80">
               Direct download URLs for all platforms:
-              <ul className="list-inside list-disc [&_a]:text-sky-500 [&_a]:hover:underline">
+              <ul className="py-2 list-inside list-disc [&_a]:text-sky-500 [&_a]:hover:underline">
                 <li><a href="https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-windows-x64.exe" target="_blank">Windows x64</a></li>
                 <li><a href="https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-macos-arm64" target="_blank">macOS ARM (M1/M2/M3)</a></li>
                 <li><a href="https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-macos-x64" target="_blank">macOS Intel</a></li>
                 <li><a href="https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-arm64" target="_blank">Linux ARM64</a></li>
                 <li><a href="https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64" target="_blank">Linux x64</a></li>
               </ul>
-              <div className="pt-4 dark rounded-lg">
+              <div className="pt-2 dark rounded-lg">
                 <TipWarning>The link directly starts the download of the specified executable.</TipWarning>
               </div>
             </div>
