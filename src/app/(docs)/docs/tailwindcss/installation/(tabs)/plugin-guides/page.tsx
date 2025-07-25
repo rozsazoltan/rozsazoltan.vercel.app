@@ -36,7 +36,7 @@ export default async function FrameworkGuides() {
       </ul>
       <div className="my-4 md:my-16">
         <Cta>
-          Not sure which plugin to use? Check the <Link href="/docs/tailwindcss/installation/plugin-guides">framework guides</Link> to see which one would work best for you and how to set it up.
+          Not sure which plugin to use? Check the <Link href="/docs/tailwindcss/installation/framework-guides">framework guides</Link> to see which one would work best for you and how to set it up.
         </Cta>
       </div>
     </>
