@@ -1,18 +1,11 @@
-type DocEntry = readonly [string, string];
-type DocSubEntry = readonly [string, string];
-type DocGroupEntry = readonly [string, string, readonly DocSubEntry[]];
+import type { SidebarData } from "../../config";
 
-type DocSection = readonly (DocEntry | DocGroupEntry)[];
-
-type DocsNavigation = {
-  [section: string]: DocSection;
-};
-
-const docsNav: DocsNavigation = {
+const docsNav: SidebarData = {
   "Getting Started": [
     ["Installation", "/docs/tailwindcss/installation"],
     ["Significant differences", "/docs/tailwindcss/significant-differences-from-tailwindcss-v4"],
     ["What is spacing", "/docs/tailwindcss/what-is-spacing-from-tailwindcss-v4"],
+    ["Themes", "/docs/tailwindcss/multiple-theme-management-tailwindcss-v4"],
   ] as const,
   "Configuration": [
     ["Core information", "/docs/tailwindcss/core-configuration"],

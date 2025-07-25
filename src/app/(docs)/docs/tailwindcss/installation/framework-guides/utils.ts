@@ -4,7 +4,9 @@ import type { ReactNode } from "react";
 export const js = dedent;
 export const css = dedent;
 export const shell = dedent;
+export const php = dedent;
 export const html = dedent;
+export const xml = dedent;
 export const astro = dedent;
 export const twig = dedent;
 export const elixir = dedent;
@@ -17,7 +19,7 @@ export interface LogoComponent {
 export interface Tile {
   title: string;
   description: string;
-  type: "official" | "community";
+  trending?: boolean
   external?: string;
 
   Logo: LogoComponent;
@@ -43,7 +45,7 @@ export interface Step {
   code: {
     name: string;
     lang: string;
-    code: string;
+    code: string | ReactNode;
     className?: string;
   };
 }

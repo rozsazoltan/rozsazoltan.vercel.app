@@ -8,7 +8,7 @@ export interface Step {
   code: {
     name: string;
     lang: string;
-    code: string;
+    code: string | ReactNode;
     className?: string;
   };
 }
@@ -38,14 +38,18 @@ export function Steps({ steps }: { steps: Step[] }) {
             className="col-span-full mt-6 mb-16 sm:ml-13 xl:col-span-3 xl:m-0 xl:ml-0"
             data-tabs={step.tabs?.join(" ") ?? null}
           >
-            <CodeExample
-              filename={step.code.name}
-              example={{
-                lang: step.code.lang,
-                code: step.code.code,
-                className: step.code.className,
-              }}
-            />
+            {typeof step.code.code === 'string' ? (
+              <CodeExample
+                filename={step.code.name}
+                example={{
+                  lang: step.code.lang,
+                  code: step.code.code,
+                  className: step.code.className,
+                }}
+              />
+            ) : (
+              <div className="prose">{step.code.code}</div>
+            )}
           </div>
         </Fragment>
       ))}

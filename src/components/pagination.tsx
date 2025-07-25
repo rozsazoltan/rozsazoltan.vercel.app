@@ -1,14 +1,43 @@
 import Link from "next/link";
-import index from "../app/(docs)/docs/index";
+import { navs } from "@/app/(docs)/config";
 
-let flatIndex = Object.values(index).flatMap((e) => e.flatMap((e) => [e, ...(Array.isArray(e[2]) ? e[2] : [])]));
+// All sidebars are collected into a single array, and the ranges are tracked
+let flatIndex: any[] = [];
+let navRanges: { [navPath: string]: { start: number; end: number } } = {};
+
+Object.entries(navs).forEach(([navPath, config]) => {
+  const startIndex = flatIndex.length;
+  
+  const navEntries = Object.values(config.sidebar).flatMap(sidebarEntries => 
+    sidebarEntries.flatMap((e) => [e, ...(Array.isArray(e[2]) ? e[2] : [])])
+  );
+  
+  flatIndex.push(...navEntries);
+  
+  navRanges[navPath] = {
+    start: startIndex,
+    end: flatIndex.length - 1
+  };
+});
 
 export default function Pagination({ slug }: { slug: string }) {
   let position = flatIndex.findIndex(([_, path]) => path === `/docs/${slug}`);
   if (position === -1) return null;
 
-  let prev = position > 0 ? flatIndex[position - 1] : null;
-  let next = position < flatIndex.length - 1 ? flatIndex[position + 1] : null;
+  // We determine which nav the current position belongs to
+  let currentNavPath = Object.keys(navRanges).find(navPath => {
+    const range = navRanges[navPath];
+    return position >= range.start && position <= range.end;
+  });
+
+  if (!currentNavPath) return null;
+
+  const currentRange = navRanges[currentNavPath];
+  
+  // Prev is only available if we are not at the beginning of the nav
+  let prev = position > currentRange.start ? flatIndex[position - 1] : null;
+  // Next is only available if we are not at the end of the nav
+  let next = position < currentRange.end ? flatIndex[position + 1] : null;
 
   return (
     <footer className="mt-16 text-sm leading-6">

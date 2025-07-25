@@ -5,7 +5,6 @@ import LogoDark from "@/docs/img/guides/rails-white.react.svg";
 export let tile: Tile = {
   title: "Ruby on Rails",
   description: "Full-stack framework with all the tools needed to build amazing web apps.",
-  type: "official",
   external: "https://tailwindcss.com/docs/installation/framework-guides/ruby-on-rails",
 
   Logo,

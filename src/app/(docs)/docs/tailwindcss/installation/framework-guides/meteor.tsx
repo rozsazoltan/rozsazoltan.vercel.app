@@ -4,7 +4,6 @@ import Logo from "@/docs/img/guides/meteor.react.svg";
 export let tile: Tile = {
   title: "Meteor",
   description: "The full stack JavaScript framework for developing cross-platform apps.",
-  type: "official",
   external: "https://tailwindcss.com/docs/installation/framework-guides/meteor",
 
   Logo,

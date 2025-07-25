@@ -68,7 +68,7 @@ export default async function Page({ params }: Props) {
     return redirect(`/docs/tailwindcss/installation/framework-guides/${slug}/${tabs[0].slug}`);
   }
 
-  steps = steps.filter((step) => {
+  steps = (steps || []).filter((step) => {
     if (!step.tabs) return true;
 
     return step.tabs.includes(selectedTab);

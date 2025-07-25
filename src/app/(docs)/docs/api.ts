@@ -3,6 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import React from "react";
 import index from "./index";
+import { slugify } from "@/mdx-components";
 
 export async function getDocPageBySlug(
   slug: string,
@@ -72,12 +73,7 @@ export async function generateTableOfContentsFromMarkdown(markdown: string) {
     }
 
     // Generate slug
-    slug ??= `#${text
-      .replace(/`([^`]+)`/g, "$1") // Remove inline code formatting
-      .replace(/[^\w\s-]/g, "") // Remove special characters
-      .trim()
-      .replace(/\s+/g, "-") // Replace spaces with hyphens
-      .toLowerCase()}`;
+    slug ??= `#${slugify(text)}`;
 
     return { level, text, slug, children: [] };
   });

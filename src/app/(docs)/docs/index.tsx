@@ -1,14 +1,6 @@
-type DocEntry = readonly [string, string];
-type DocSubEntry = readonly [string, string];
-type DocGroupEntry = readonly [string, string, readonly DocSubEntry[]];
+import type { SidebarData } from "../config";
 
-type DocSection = readonly (DocEntry | DocGroupEntry)[];
-
-type DocsNavigation = {
-  [section: string]: DocSection;
-};
-
-const docsNav: DocsNavigation = {
+const docsNav: SidebarData = {
   "Open Knowledge, Open Future": [
     ["Getting Started", "/docs/getting-started"],
     ["About Me", "/docs/about-me"],

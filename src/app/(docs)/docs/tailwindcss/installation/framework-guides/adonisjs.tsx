@@ -5,7 +5,6 @@ import LogoDark from "@/docs/img/guides/adonis-white.react.svg";
 export let tile: Tile = {
   title: "AdonisJS",
   description: "A fully featured web framework for Node.js.",
-  type: "official",
   external: "https://tailwindcss.com/docs/installation/framework-guides/adonisjs",
 
   Logo,

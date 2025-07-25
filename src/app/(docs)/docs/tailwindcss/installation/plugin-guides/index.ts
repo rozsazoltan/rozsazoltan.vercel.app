@@ -9,23 +9,9 @@ export interface Guide {
 }
 
 const guides: Guide[] = await create({
-  /*nextjs: () => import("./nextjs"),
-  laravel: () => import("./laravel"),
-  nuxt: () => import("./nuxtjs"),
-  solidjs: () => import("./solidjs"),
-  sveltekit: () => import("./sveltekit"),
-  angular: () => import("./angular"),
-  "ruby-on-rails": () => import("./ruby-on-rails"),
-  "react-router": () => import("./react-router"),
-  phoenix: () => import("./phoenix"),
-  parcel: () => import("./parcel"),
-  symfony: () => import("./symfony"),
-  meteor: () => import("./meteor"),
-  adonisjs: () => import("./adonisjs"),
-  emberjs: () => import("./emberjs"),
-  astro: () => import("./astro"),
-  qwik: () => import("./qwik"),
-  rspack: () => import("./rspack"),*/
+  cli: () => import("./cli"),
+  postcss: () => import("./postcss"),
+  vite: () => import("./vite"),
 });
 
 async function create(list: Record<string, () => Promise<any>>): Promise<Guide[]> {

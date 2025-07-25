@@ -9,12 +9,15 @@ export interface Guide {
 }
 
 const guides: Guide[] = await create({
-  // Official
   nextjs: () => import("./nextjs"),
   laravel: () => import("./laravel"),
   nuxt: () => import("./nuxtjs"),
+  react: () => import("./react"),
+  php: () => import("./php"),
+  vue: () => import("./vue"),
   solidjs: () => import("./solidjs"),
   sveltekit: () => import("./sveltekit"),
+  gatsby: () => import("./gatsby"),
   angular: () => import("./angular"),
   "ruby-on-rails": () => import("./ruby-on-rails"),
   "react-router": () => import("./react-router"),
@@ -27,7 +30,6 @@ const guides: Guide[] = await create({
   astro: () => import("./astro"),
   qwik: () => import("./qwik"),
   rspack: () => import("./rspack"),
-  // Community
   dotnet: () => import("./dotnet"),
 });
 

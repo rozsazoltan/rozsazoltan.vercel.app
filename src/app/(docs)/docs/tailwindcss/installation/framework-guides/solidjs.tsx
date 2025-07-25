@@ -4,7 +4,6 @@ import Logo from "@/docs/img/guides/solidjs.react.svg";
 export let tile: Tile = {
   title: "SolidJS",
   description: "A tool for building simple, performant, and reactive user interfaces.",
-  type: "official",
   external: "https://tailwindcss.com/docs/installation/framework-guides/solidjs",
 
   Logo,

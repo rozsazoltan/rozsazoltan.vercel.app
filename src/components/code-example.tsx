@@ -3,6 +3,7 @@ import {
   transformerNotationDiff,
   transformerNotationHighlight,
   transformerNotationWordHighlight,
+  transformerNotationFocus,
 } from "@shikijs/transformers";
 import { clsx } from "clsx";
 import dedent from "dedent";
@@ -88,10 +89,13 @@ export function CodeExampleWrapper({ className, children }: { className?: string
   );
 }
 
-export function CodeExampleStack({ children }: { children: React.ReactNode }) {
+export function CodeExampleStack({ className, children }: { className?: string; children: React.ReactNode }) {
   return (
     <div data-stack>
-      <div className="not-prose rounded-xl in-[figure]:mt-1 in-[figure]:rounded-b-lg in-[figure]:px-0.5 in-[figure]:pb-0.5 dark:outline dark:-outline-offset-1 dark:outline-white/10 dark:in-[figure]:outline-1 dark:in-[figure]:outline-offset-1">
+      <div className={clsx(
+        "not-prose rounded-xl bg-gray-950 in-[figure]:mt-1 in-[figure]:rounded-b-lg in-[figure]:px-0.5 in-[figure]:pb-0.5 dark:outline dark:-outline-offset-1 dark:outline-white/10 dark:in-[figure]:outline-1 dark:in-[figure]:outline-offset-1",
+        className,
+      )}>
         {children}
       </div>
     </div>
@@ -200,6 +204,12 @@ export function RawHighlightedCode({
         transformerNotationWordHighlight({
           classActiveWord:
             "highlighted-word relative before:absolute before:-inset-x-0.5 before:-inset-y-0.25 before:-z-10 before:block before:rounded-sm before:bg-[lab(22.93_-1.66_-9.7)] [.highlighted-word_+_&]:before:rounded-l-none",
+        }),
+        transformerNotationFocus({
+          classActivePre:
+            "not-hover:[:where(&_.line)]:not-[.focused-line]:blur-[1px] transition-[2s_filter_-webkit-filter_linear]",
+          classActiveLine:
+            "focused-line",
         }),
         highlightClasses({
           highlightedClassName:

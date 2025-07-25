@@ -5,7 +5,6 @@ import LogoDark from "@/docs/img/guides/angular-white.react.svg";
 export let tile: Tile = {
   title: "Angular",
   description: "Platform for building mobile and desktop web applications.",
-  type: "official",
   external: "https://tailwindcss.com/docs/installation/framework-guides/angular",
 
   Logo,
