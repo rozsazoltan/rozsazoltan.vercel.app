@@ -1,8 +1,9 @@
 import { TipCompat, TipHighlight, TipLearn, TipWarning } from "@/components/tips";
-import { css, html, js, php, shell, Step, Tab } from "./utils";
+import { Step, Tab } from "./utils";
 import { type Page, type Tile } from "./utils";
 import Logo from "@/docs/img/guides/php.react.svg";
 import { CodeExample, CodeExampleStack } from "@/components/code-example";
+import dedent from 'dedent';
 
 export let tile: Tile = {
   title: "PHP",
@@ -39,7 +40,7 @@ export let steps: Step[] = [
     code: {
       name: "Terminal",
       lang: "shell",
-      code: shell`
+      code: dedent`
         npm install tailwindcss @tailwindcss/vite
       `,
     },
@@ -55,7 +56,7 @@ export let steps: Step[] = [
     code: {
       name: "Terminal",
       lang: "shell",
-      code: shell`
+      code: dedent`
         $ cd /website/page
         bash: cd: /website/page: No such file or directory
 
@@ -81,7 +82,7 @@ export let steps: Step[] = [
     code: {
       name: "Terminal",
       lang: "shell",
-      code: shell`
+      code: dedent`
         npm install tailwindcss @tailwindcss/cli
       `,
     },
@@ -97,7 +98,7 @@ export let steps: Step[] = [
     code: {
       name: "resources/css/main.css",
       lang: "css",
-      code: css`
+      code: dedent`
         @import "tailwindcss";
       `,
     },
@@ -125,7 +126,7 @@ export let steps: Step[] = [
       name: "dev (PHP file without extension for development)",
       className: "[&_.shiki]:max-h-96",
       lang: "php",
-      code: php`
+      code: dedent`
         <?php
         // dev for PHP - Development server launcher by Zoltán Rózsa
 
@@ -218,7 +219,7 @@ export let steps: Step[] = [
             filename="autoload.php"
             example={{
               lang: 'php',
-              code: php`
+              code: dedent`
                 <?php
 
                 spl_autoload_register(function ($class) {
@@ -231,7 +232,7 @@ export let steps: Step[] = [
             filename="public/index.php"
             example={{
               lang: 'php',
-              code: php`
+              code: dedent`
                 <?php
 
                 use Bootstrap\Application;
@@ -248,7 +249,7 @@ export let steps: Step[] = [
             filename="src/Bootstrap/Application.php"
             example={{
               lang: 'php',
-              code: php`
+              code: dedent`
                 <?php
 
                 namespace Bootstrap;
@@ -301,7 +302,7 @@ export let steps: Step[] = [
             filename="src/Bootstrap/Kernel.php"
             example={{
               lang: 'php',
-              code: php`
+              code: dedent`
                 <?php
 
                 namespace Bootstrap;
@@ -327,7 +328,7 @@ export let steps: Step[] = [
             filename="src/Http/Kernel.php"
             example={{
               lang: 'php',
-              code: php`
+              code: dedent`
                 <?php
 
                 namespace Http;
@@ -464,7 +465,7 @@ export let steps: Step[] = [
             filename="resources/skeleton.html"
             example={{
               lang: 'html',
-              code: html`
+              code: dedent`
                 <!doctype html>
                 <html>
                 <head>
@@ -483,7 +484,7 @@ export let steps: Step[] = [
             filename="resources/home.html"
             example={{
               lang: 'html',
-              code: html`
+              code: dedent`
                 <h1 class="text-3xl font-bold underline">
                   Hello world!
                 </h1>
@@ -494,7 +495,7 @@ export let steps: Step[] = [
             filename="resources/about.html"
             example={{
               lang: 'html',
-              code: html`
+              code: dedent`
                 <h1 class="text-lg text-rose-500">
                   rozsazoltan
                 </h1>
@@ -521,7 +522,7 @@ export let steps: Step[] = [
     code: {
       name: "Terminal",
       lang: "shell",
-      code: shell`
+      code: dedent`
         php dev
       `,
     },
