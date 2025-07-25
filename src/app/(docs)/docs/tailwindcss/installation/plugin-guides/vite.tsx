@@ -20,7 +20,7 @@ export let steps: Step[] = [
     title: "Create your project",
     body: (
       <p>
-        Start by creating a new Vite project if you don’t have one set up already. The most common approach is to use{" "}
+        Start by creating a new Vite project if you don't have one set up already. The most common approach is to use{" "}
         <a href="https://vite.dev/guide/#scaffolding-your-first-vite-project">Create Vite</a>.
       </p>
     ),
