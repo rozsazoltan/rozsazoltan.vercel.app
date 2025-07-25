@@ -19,7 +19,6 @@ export interface LogoComponent {
 export interface Tile {
   title: string;
   description: string;
-  type: "official" | "community";
   trending?: boolean
   external?: string;
 

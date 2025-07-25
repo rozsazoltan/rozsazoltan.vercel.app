@@ -7,7 +7,6 @@ import { CodeExample, CodeExampleStack } from "@/components/code-example";
 export let tile: Tile = {
   title: "PHP",
   description: "A fast, flexible scripting language powering dynamic websites and web apps.",
-  type: "community",
 
   Logo,
 };

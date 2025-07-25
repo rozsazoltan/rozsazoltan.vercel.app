@@ -4,7 +4,6 @@ import Logo from "@/docs/img/guides/ember.react.svg";
 export let tile: Tile = {
   title: "Gatsby",
   description: "Framework for building static sites with React and GraphQL.",
-  type: "official",
   external: "https://tailwindcss.com/docs/installation/framework-guides/emberjs",
 
   Logo,

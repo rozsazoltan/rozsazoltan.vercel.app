@@ -4,7 +4,6 @@ import Logo from "@/docs/img/guides/qwik.react.svg";
 export let tile: Tile = {
   title: "Qwik",
   description: "Build instantly-interactive web apps without effort.",
-  type: "official",
   external: "https://tailwindcss.com/docs/installation/framework-guides/qwik",
 
   Logo,

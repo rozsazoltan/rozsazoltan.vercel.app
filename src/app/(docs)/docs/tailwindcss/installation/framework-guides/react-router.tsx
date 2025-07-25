@@ -5,7 +5,6 @@ import LogoDark from "@/docs/img/guides/react-router-white.react.svg";
 export let tile: Tile = {
   title: "React Router",
   description: "A standards‑focused router you can deploy anywhere.",
-  type: "official",
   external: "https://tailwindcss.com/docs/installation/framework-guides/react-router",
 
   Logo,

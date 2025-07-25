@@ -7,8 +7,6 @@ import { CodeExample, CodeExampleStack } from "@/components/code-example";
 export let tile: Tile = {
   title: "React.js",
   description: "A declarative, component-based JavaScript library for building interactive user interfaces.",
-  type: "community",
-  trending: true,
 
   Logo,
 };

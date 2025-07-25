@@ -5,9 +5,7 @@ import LogoDark from "@/docs/img/guides/nextjs-white.react.svg";
 export let tile: Tile = {
   title: "Next.js",
   description: "Full-featured React framework with great developer experience.",
-  type: "official",
   external: "https://tailwindcss.com/docs/installation/framework-guides/nextjs",
-  trending: true,
 
   Logo,
   LogoDark,

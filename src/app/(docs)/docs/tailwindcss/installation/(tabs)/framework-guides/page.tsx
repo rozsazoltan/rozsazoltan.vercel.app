@@ -34,10 +34,6 @@ export default async function FrameworkGuidesPage({
       guide.tile.description.toLowerCase().includes(query)
   );
 
-  const trending   = filtered.filter((g) => g.tile.trending || false);
-  const official   = filtered.filter((g) => g.tile.type === "official");
-  const community  = filtered.filter((g) => g.tile.type !== "official");
-
   return (
     <>
       <div id="content-wrapper" className="prose mb-10 max-w-3xl" data-content="true">
@@ -57,30 +53,7 @@ export default async function FrameworkGuidesPage({
         )}
       </div>
 
-      {query.length === 0 && (
-        <>
-          {/* Trending Guides */}
-          <Section title="Trending" guides={trending} emptyMessage="No results match the search." />
-        </>
-      )}
-
-      {official.length === 0 && community.length > 0 ? (
-        <>
-          {/* Community Guides */}
-          <Section title="Community Guides" guides={community} emptyMessage="No results match the search." />
-
-          {/* Official Guides */}
-          <Section title="Official Guides" guides={official} emptyMessage="No results match the search." />
-        </>
-      ) : (
-        <>
-          {/* Official Guides */}
-          <Section title="Official Guides" guides={official} emptyMessage="No results match the search." />
-
-          {/* Community Guides */}
-          <Section title="Community Guides" guides={community} emptyMessage="No results match the search." />
-        </>
-      )}
+      <Section guides={filtered} emptyMessage="No results match the search." />
 
       <div className="my-4 md:my-16">
         <Cta>
@@ -96,7 +69,7 @@ function Section({
   guides,
   emptyMessage,
 }: {
-  title: string;
+  title?: string;
   guides: Guide[];
   emptyMessage: string;
 }) {
@@ -113,11 +86,6 @@ function Section({
         </ul>
       ) : (
         <Cta>{emptyMessage}</Cta>
-      )}
-      {title.includes('Community') && (
-        <div className="my-5">
-          <TipCompat>While we strive to keep the guides up to date, you may still encounter issues. Please take the advice with a grain of caution.</TipCompat>
-        </div>
       )}
     </div>
   );

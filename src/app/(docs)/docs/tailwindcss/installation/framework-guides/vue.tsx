@@ -7,8 +7,6 @@ import { CodeExample, CodeExampleStack } from "@/components/code-example";
 export let tile: Tile = {
   title: "Vue.js",
   description: "A lightweight, progressive framework for building user interfaces.",
-  type: "community",
-  trending: true,
 
   Logo,
 };

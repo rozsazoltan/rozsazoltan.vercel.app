@@ -5,7 +5,6 @@ import LogoDark from "@/docs/img/guides/astro-white.react.svg";
 export let tile: Tile = {
   title: "Astro",
   description: "The all-in-one web framework designed for speed.",
-  type: "official",
   external: "https://tailwindcss.com/docs/installation/framework-guides/astro",
 
   Logo,

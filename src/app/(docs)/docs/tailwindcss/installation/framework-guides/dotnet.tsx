@@ -5,7 +5,6 @@ import LogoDark from "@/docs/img/guides/dotnet-white.react.svg";
 export let tile: Tile = {
   title: ".NET",
   description: "An open-source, cross-platform framework for building modern apps and powerful cloud services.",
-  type: 'community',
   
   Logo,
   LogoDark

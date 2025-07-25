@@ -4,9 +4,7 @@ import Logo from "@/docs/img/guides/laravel.react.svg";
 export let tile: Tile = {
   title: "Laravel",
   description: "PHP web application framework with expressive, elegant syntax.",
-  type: "official",
   external: "https://tailwindcss.com/docs/installation/framework-guides/laravel",
-  trending: true,
 
   Logo,
 };
