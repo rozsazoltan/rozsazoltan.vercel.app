@@ -29,6 +29,8 @@ const guides: Guide[] = await create({
   qwik: () => import("./qwik"),
   rspack: () => import("./rspack"),
   // Community
+  react: () => import("./react"),
+  vue: () => import("./vue"),
   php: () => import("./php"),
   dotnet: () => import("./dotnet"),
 });
