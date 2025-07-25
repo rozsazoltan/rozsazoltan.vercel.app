@@ -3,6 +3,7 @@ import {
   transformerNotationDiff,
   transformerNotationHighlight,
   transformerNotationWordHighlight,
+  transformerNotationFocus,
 } from "@shikijs/transformers";
 import { clsx } from "clsx";
 import dedent from "dedent";
@@ -203,6 +204,12 @@ export function RawHighlightedCode({
         transformerNotationWordHighlight({
           classActiveWord:
             "highlighted-word relative before:absolute before:-inset-x-0.5 before:-inset-y-0.25 before:-z-10 before:block before:rounded-sm before:bg-[lab(22.93_-1.66_-9.7)] [.highlighted-word_+_&]:before:rounded-l-none",
+        }),
+        transformerNotationFocus({
+          classActivePre:
+            "not-hover:[:where(&_.line)]:not-[.focused-line]:blur-[1px] transition-[2s_filter_-webkit-filter_linear]",
+          classActiveLine:
+            "focused-line",
         }),
         highlightClasses({
           highlightedClassName:
