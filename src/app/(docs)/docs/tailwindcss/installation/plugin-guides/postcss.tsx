@@ -1,8 +1,6 @@
-import { TipCompat, TipHighlight, TipLearn, TipWarning } from "@/components/tips";
-import { css, html, js, shell, Step, Tab } from "./utils";
+import { Step } from "./utils";
 import { type Page, type Tile } from "./utils";
 import Logo from "@/docs/img/guides/postcss.react.svg";
-import { CodeExample, CodeExampleStack } from "@/components/code-example";
 import dedent from "dedent";
 
 export let tile: Tile = {

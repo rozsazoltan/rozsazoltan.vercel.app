@@ -1,4 +1,4 @@
-import { Step, Tab } from "./utils";
+import { Step } from "./utils";
 import { type Page, type Tile } from "./utils";
 import Logo from "@/docs/img/guides/vite.react.svg";
 import dedent from "dedent";
