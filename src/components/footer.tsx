@@ -73,6 +73,11 @@ function Learn() {
           </Link>
         </li>
         <li>
+          <Link href="/ecosystem" className="hover:underline">
+            Ecosystem
+          </Link>
+        </li>
+        <li>
           <Link href="/showcase" className="hover:underline">
             Showcase
           </Link>
