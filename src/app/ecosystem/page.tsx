@@ -5,31 +5,31 @@ import { TipHighlight, TipStar } from "@/components/tips";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Showcase",
+  title: "Ecosystem",
   description:
-    "There's no such thing as an unachievable dream. Knowledge compounds within us day by day. What seemed like a miracle a few years ago is now our reality.",
+    "Brands, packages, plugins, and everything I've built - with docs.",
   openGraph: {
     type: "article",
-    title: "Showcase",
-    description: "There's no such thing as an unachievable dream. Knowledge compounds within us day by day. What seemed like a miracle a few years ago is now our reality.",
-    images: "https://rozsazoltan.vercel.app/api/og?path=/showcase",
-    url: "https://rozsazoltan.vercel.app/showcase",
+    title: "Ecosystem",
+    description: "Brands, packages, plugins, and everything I've built - with docs.",
+    images: "https://rozsazoltan.vercel.app/api/og?path=/ecosystem",
+    url: "https://rozsazoltan.vercel.app/ecosystem",
   },
 };
 
 export default async function Showcase() {
   return (
     <div className="mt-24">
-      <div className="mx-2 font-mono text-sm/7 font-medium tracking-widest text-gray-500 uppercase">Showcase</div>
+      <div className="mx-2 font-mono text-sm/7 font-medium tracking-widest text-gray-500 uppercase">Ecosystem</div>
       <GridContainer>
         <h1 className="mx-2 text-4xl tracking-tighter text-balance sm:text-5xl lg:text-6xl xl:text-8xl">
-          Hold my beer.
+          Every great idea is born the moment you have no way to write it down.
         </h1>
       </GridContainer>
 
       <GridContainer className="mt-10">
         <p className="prose mx-2 max-w-(--breakpoint-md) text-lg leading-8 text-gray-600 dark:text-gray-400">
-          There's no such thing as an unachievable dream. Knowledge compounds within us day by day. What seemed like a miracle a few years ago is now our reality.
+          Brands, packages, plugins, and everything I've built - with docs.
         </p>
       </GridContainer>
 
@@ -45,12 +45,6 @@ export default async function Showcase() {
             While you wait, <a href="https://github.com/rozsazoltan/rozsazoltan.vercel.app" target="_blank">drop a star on the project</a> if you like the guides.
           </TipStar>
         </div>
-      </div>
-
-      <div className="mt-12 mb-46 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {showcase.map((showcase, siteIndex) => (
-          <ShowcaseThumbnail key={showcase.name} showcase={showcase} priority={siteIndex < 8} />
-        ))}
       </div>
       <GridContainer>
         <FooterSitemap className="*:first:border-l-0 *:last:border-r-0" />
