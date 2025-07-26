@@ -452,7 +452,7 @@ export let steps: Step[] = [
           Add your compiled CSS file to the <code>&lt;head&gt;</code> and start using Tailwind's utility classes to style your content.
         </p>
         <TipLearn>
-          The project runs from the <code>./public</code> directory, so the <code>./public/generated.css</code> file created can be accessed directly using <code>./generated.css</code>`.
+          The project runs from the <code>./public</code> directory, so the <code>./public/generated.css</code> file created can be accessed directly using <code>./generated.css</code>.
         </TipLearn>
       </>
     ),
