@@ -1,16 +1,17 @@
 import { FooterSitemap, FooterMeta } from "@/components/footer";
 import GridContainer from "@/components/grid-container";
 import ShowcaseThumbnail from "@/components/showcase-thumbnail";
+import { TipHighlight, TipStar } from "@/components/tips";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Showcase",
   description:
-    "...",
+    "There's no such thing as an unachievable dream. Knowledge compounds within us day by day. What seemed like a miracle a few years ago is now our reality.",
   openGraph: {
     type: "article",
     title: "Showcase",
-    description: "...",
+    description: "There's no such thing as an unachievable dream. Knowledge compounds within us day by day. What seemed like a miracle a few years ago is now our reality.",
     images: "https://rozsazoltan.vercel.app/api/og?path=/showcase",
     url: "https://rozsazoltan.vercel.app/showcase",
   },
@@ -22,15 +23,29 @@ export default async function Showcase() {
       <div className="mx-2 font-mono text-sm/7 font-medium tracking-widest text-gray-500 uppercase">Showcase</div>
       <GridContainer>
         <h1 className="mx-2 text-4xl tracking-tighter text-balance sm:text-5xl lg:text-6xl xl:text-8xl">
-          Under construction
+          Hold my beer.
         </h1>
       </GridContainer>
 
       <GridContainer className="mt-10">
         <p className="prose mx-2 max-w-(--breakpoint-md) text-lg leading-8 text-gray-600 dark:text-gray-400">
-          ...
+          There's no such thing as an unachievable dream. Knowledge compounds within us day by day. What seemed like a miracle a few years ago is now our reality.
         </p>
       </GridContainer>
+
+      <div className="prose mt-12 mb-46">
+        <h2>Coming soon</h2>
+
+        <div className="max-w-lg">
+          <TipHighlight>
+            Content creation is in progress. I'm writing it alone, unpaid, as a hobby. It may take me some time to complete everything.
+          </TipHighlight>
+
+          <TipStar>
+            While you wait, <a href="https://github.com/rozsazoltan/rozsazoltan.vercel.app" target="_blank">drop a star on the project</a> if you like the guides.
+          </TipStar>
+        </div>
+      </div>
 
       <div className="mt-12 mb-46 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {showcase.map((showcase, siteIndex) => (
