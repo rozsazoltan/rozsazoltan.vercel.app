@@ -1,8 +1,10 @@
 import { FooterSitemap, FooterMeta } from "@/components/footer";
 import GridContainer from "@/components/grid-container";
+import GitHubContribution from "@/components/showcase-github-contribution";
 import ShowcaseThumbnail from "@/components/showcase-thumbnail";
 import { TipHighlight, TipStar } from "@/components/tips";
 import type { Metadata } from "next";
+import contributions from "./data/contributions";
 
 export const metadata: Metadata = {
   title: "Showcase",
@@ -33,7 +35,7 @@ export default async function Showcase() {
         </p>
       </GridContainer>
 
-      <div className="prose mt-12 mb-46">
+      <GridContainer className="mt-10 prose px-2">
         <h2>Coming soon</h2>
 
         <div className="max-w-lg">
@@ -45,13 +47,37 @@ export default async function Showcase() {
             While you wait, <a href="https://github.com/rozsazoltan/rozsazoltan.vercel.app" target="_blank">drop a star on the project</a> if you like the guides.
           </TipStar>
         </div>
+      </GridContainer>
+
+      <div className="prose mt-12 mb-46 p-2">
+        
       </div>
 
-      <div className="mt-12 mb-46 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {showcase.length > 0 && (<div className="mt-12 mb-46 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {showcase.map((showcase, siteIndex) => (
           <ShowcaseThumbnail key={showcase.name} showcase={showcase} priority={siteIndex < 8} />
         ))}
+      </div>)}
+
+      <div className="mx-2 font-mono text-sm/7 font-medium tracking-widest text-gray-500 uppercase">GitHub Contributiuons</div>
+      <GridContainer>
+        <h1 className="mx-2 text-4xl tracking-tighter text-balance sm:text-5xl lg:text-6xl xl:text-8xl">
+          Open Source.
+        </h1>
+      </GridContainer>
+
+      <GridContainer className="mt-10">
+        <p className="prose mx-2 max-w-(--breakpoint-md) text-lg leading-8 text-gray-600 dark:text-gray-400">
+          I contribute ideas, bug reports, PRs, open discussions, or help answer existing issues across numerous public and private repositories. It's difficult to summarize all of this retrospectively on GitHub, but I tried to give an approximate picture using GraphQL queries.
+        </p>
+      </GridContainer>
+
+      <div className="mt-12 mb-46 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {contributions.map((contribution, repoIndex) => (
+          <GitHubContribution key={contribution.name} contribution={contribution} />
+        ))}
       </div>
+
       <GridContainer>
         <FooterSitemap className="*:first:border-l-0 *:last:border-r-0" />
       </GridContainer>
