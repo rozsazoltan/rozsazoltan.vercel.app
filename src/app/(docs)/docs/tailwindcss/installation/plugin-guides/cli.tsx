@@ -189,7 +189,7 @@ export let steps: Step[] = [
         <CodeExampleGroup filenames={["Windows", "macOS", "Linux"]}>
           <CodeBlock
             example={sh`
-              tailwindcss.exe -i ./src/input.css -o ./src/output.css --watch
+              ./tailwindcss.exe -i ./src/input.css -o ./src/output.css --watch
             `}
           />
           <CodeBlock
