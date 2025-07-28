@@ -16,9 +16,11 @@ interface GitHubContributionProps {
 }
 
 const GitHubContribution = ({ contribution }: GitHubContributionProps) => {
+  const sum = contribution.prs + contribution.issues + contribution.discussions;
+
   return (
     <div 
-      className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-100 dark:border-gray-700"
+      className="group/card bg-white dark:bg-gray-900 rounded-lg p-6 border border-gray-100 dark:border-gray-800 hover:shadow-lg dark:shadow-gray-800 transition-all duration-300 hover:-translate-y-1"
     >
       <div className="flex items-start justify-between">
         <h3 className="text-lg font-semibold text-gray-800 dark:text-white truncate">
@@ -42,22 +44,34 @@ const GitHubContribution = ({ contribution }: GitHubContributionProps) => {
         <ContributionStat
           icon={<PullRequestIcon />}
           count={contribution.prs}
-          className="text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20"
+          className={clsx(
+            "stroke-purple-600 text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20",
+            (sum === 0 || contribution.prs === 0) && 'group-hover/card:grayscale-100',
+          )}
         />
         
         <ContributionStat 
           icon={<IssueIcon />}
           count={contribution.issues}
-          className="text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20"
+          className={clsx(
+            "stroke-green-600 text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20",
+            (sum === 0 || contribution.issues === 0) && 'group-hover/card:grayscale-100',
+          )}
         />
         
         <ContributionStat 
           icon={<DiscussionIcon />}
           count={contribution.discussions}
-          className="stroke-blue-600 text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+          className={clsx(
+            "stroke-blue-600 text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20",
+            (sum === 0 || contribution.discussions === 0) && 'group-hover/card:grayscale-100',
+          )}
         />
         
-        <div className="flex flex-col items-center p-2 bg-gray-50 dark:bg-gray-700 rounded col-span-3">
+        <div className={clsx(
+          "flex flex-col items-center p-2 rounded col-span-3 bg-gray-50 dark:bg-gray-700",
+          sum === 0 && 'group-hover/card:bg-sky-50 group-hover/card:dark:bg-sky-700',
+        )}>
           <div className="flex items-center">
             <CommentIcon />
             <span className="text-gray-600 dark:text-gray-300 ml-1">
@@ -132,12 +146,12 @@ const ContributionStat = ({
   iconClassName?: string;
 }) => (
   <div className={clsx(className, `group relative p-2 rounded h-12 overflow-hidden`)}>
-    <span className={clsx(iconClassName, 'absolute top-2 left-2 w-12 h-12 opacity-10 group-hover:opacity-50 transition-opacity')}>
+    <span className={clsx(iconClassName, 'absolute top-2 left-2 w-12 h-12 opacity-10 dark:opacity-30 group-hover:opacity-50 transition-opacity')}>
       {icon}
     </span>
     <span className={clsx(
       `absolute bottom-2 right-2 text-3xl`,
-      count < 1 ? 'opacity-50' : 'font-extrabold opacity-50 group-hover:opacity-100 transition-opacity',
+      count < 1 ? 'opacity-50' : 'font-extrabold opacity-50 dark:opacity-70 group-hover:opacity-100 transition-opacity',
     )}>
       {count}
     </span>
