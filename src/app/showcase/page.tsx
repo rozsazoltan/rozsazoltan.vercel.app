@@ -5,6 +5,8 @@ import ShowcaseThumbnail from "@/components/showcase-thumbnail";
 import { TipHighlight, TipStar } from "@/components/tips";
 import type { Metadata } from "next";
 import contributions from "./data/contributions";
+import StackOverflowContribution from "@/components/showcase-stackoverflow-contribution";
+import stackoverflow from "./data/stackoverflow";
 
 export const metadata: Metadata = {
   title: "Showcase",
@@ -35,7 +37,7 @@ export default async function Showcase() {
         </p>
       </GridContainer>
 
-      <GridContainer className="mt-10 prose px-2">
+      <GridContainer className="prose mt-12 mb-46 p-2">
         <h2>Coming soon</h2>
 
         <div className="max-w-lg">
@@ -49,13 +51,32 @@ export default async function Showcase() {
         </div>
       </GridContainer>
 
-      <div className="prose mt-12 mb-46 p-2">
-        {showcase.length > 0 && (<div className="mt-12 mb-46 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {showcase.map((showcase, siteIndex) => (
-            <ShowcaseThumbnail key={showcase.name} showcase={showcase} priority={siteIndex < 8} />
-          ))}
-        </div>)}
+      {/*<div className="mt-12 mb-46 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {showcase.map((showcase, siteIndex) => (
+          <ShowcaseThumbnail key={showcase.name} showcase={showcase} priority={siteIndex < 8} />
+        ))}
+      </div>*/}
+      
+      {/* StackOverflow */}
+
+      <div className="mx-2 font-mono text-sm/7 font-medium tracking-widest text-gray-500 uppercase">Stack Overflow</div>
+      <GridContainer>
+        <h1 className="mx-2 text-4xl tracking-tighter text-balance sm:text-5xl lg:text-6xl xl:text-8xl">
+          Read. Think. Answer. Repeat.
+        </h1>
+      </GridContainer>
+
+      <GridContainer className="mt-10">
+        <p className="prose mx-2 max-w-(--breakpoint-md) text-lg leading-8 text-gray-600 dark:text-gray-400">
+          A habit that teaches more than it solves. Because it's one thing to solve it in code, but true understanding comes when you can explain to others why it works.
+        </p>
+      </GridContainer>
+
+      <div className="mt-12 mb-46">
+        <StackOverflowContribution data={stackoverflow} />
       </div>
+
+      {/* GitHub */}
 
       <div className="mx-2 font-mono text-sm/7 font-medium tracking-widest text-gray-500 uppercase">GitHub Contributions</div>
       <GridContainer>
