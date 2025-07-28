@@ -141,6 +141,7 @@ const StackOverflowContribution = ({ data }: StackOverflowContributionProps) => 
                 )}
                 href={`https://stackoverflow.com/search?tab=votes&q=user:15167500+[${tag}]`}
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 {tag}
               </a>
@@ -152,6 +153,7 @@ const StackOverflowContribution = ({ data }: StackOverflowContributionProps) => 
               )}
               href="https://stackoverflow.com/users/15167500/rozsazoltan?tab=tags"
               target="_blank"
+              rel="noopener noreferrer"
             >
               ...
             </a>
