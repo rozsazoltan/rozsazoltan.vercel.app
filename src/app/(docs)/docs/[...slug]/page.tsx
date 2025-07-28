@@ -112,7 +112,7 @@ export default async function DocPage(props: Props) {
             <div className="peer h-full not-hover:max-h-[calc(60svh-3.5rem)]">
               <RandomPromo />
             </div>
-            <div className="absolute bottom-0 w-full not-peer-hover:h-12 bg-gradient-to-t from-white to-transparent" />
+            <div className="absolute bottom-0 w-full not-peer-hover:h-12 bg-gradient-to-t from-white dark:from-gray-950 to-transparent" />
           </div>
         </div>
       </div>

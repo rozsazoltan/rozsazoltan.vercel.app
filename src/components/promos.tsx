@@ -32,7 +32,7 @@ function Sponsor({ name }: { name: string }) {
   return (
     <div className="mt-4 px-2 flex flex-col gap-1">
       <span className="text-sm lg:text-xs">Sponsored, but...</span>
-      <span className="text-sm lg:text-xs text-gray-900 opacity-80">
+      <span className="text-sm lg:text-xs text-gray-900 dark:text-gray-300 opacity-80">
         {randomText.split("\n").map((line, idx) => (
           <span key={idx}>
             {line}
@@ -57,7 +57,7 @@ export function BlogPromo() {
             alt="Refactoring UI"
             width={128}
             height={171.2}
-            className="p-2 shadow-[-5px_10px_15px_-3px_var(--shadow-color),_-5px_4px_6px_-4px_var(--shadow-color)] duration-500 [--shadow-color:var(--color-black)]/10 dark:[--shadow-color:var(--color-black)]"
+            className="p-2 shadow-[-5px_10px_15px_-3px_var(--shadow-color),_-5px_4px_6px_-4px_var(--shadow-color)] duration-500 [--shadow-color:var(--color-gray-950)]/10 dark:[--shadow-color:var(--color-gray-800)] drop-shadow-sm drop-shadow-rose-500/70 bg-rose-100/70"
           />
           <div className="absolute top-0 right-4 h-full w-px bg-[linear-gradient(to_bottom,_transparent_0%,_var(--gradient-bg)_9.27%,_var(--gradient-bg)_90.7%,_transparent_100%)] [--gradient-bg:var(--color-black)]/15 dark:[--gradient-bg:var(--color-white)]/10"></div>
           <div className="absolute bottom-4 left-0 h-px w-full bg-[linear-gradient(to_right,_transparent_0%,_var(--gradient-bg)_9.27%,_var(--gradient-bg)_90.7%,_transparent_100%)] [--gradient-bg:var(--color-black)]/15 dark:[--gradient-bg:var(--color-white)]/10"></div>
