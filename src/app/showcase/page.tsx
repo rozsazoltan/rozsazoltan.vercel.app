@@ -59,7 +59,7 @@ export default async function Showcase() {
         ))}
       </div>)}
 
-      <div className="mx-2 font-mono text-sm/7 font-medium tracking-widest text-gray-500 uppercase">GitHub Contributiuons</div>
+      <div className="mx-2 font-mono text-sm/7 font-medium tracking-widest text-gray-500 uppercase">GitHub Contributions</div>
       <GridContainer>
         <h1 className="mx-2 text-4xl tracking-tighter text-balance sm:text-5xl lg:text-6xl xl:text-8xl">
           Open Source.
