@@ -50,14 +50,12 @@ export default async function Showcase() {
       </GridContainer>
 
       <div className="prose mt-12 mb-46 p-2">
-        
+        {showcase.length > 0 && (<div className="mt-12 mb-46 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {showcase.map((showcase, siteIndex) => (
+            <ShowcaseThumbnail key={showcase.name} showcase={showcase} priority={siteIndex < 8} />
+          ))}
+        </div>)}
       </div>
-
-      {showcase.length > 0 && (<div className="mt-12 mb-46 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {showcase.map((showcase, siteIndex) => (
-          <ShowcaseThumbnail key={showcase.name} showcase={showcase} priority={siteIndex < 8} />
-        ))}
-      </div>)}
 
       <div className="mx-2 font-mono text-sm/7 font-medium tracking-widest text-gray-500 uppercase">GitHub Contributions</div>
       <GridContainer>
