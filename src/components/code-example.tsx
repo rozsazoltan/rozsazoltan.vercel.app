@@ -45,6 +45,10 @@ export function sh(strings: TemplateStringsArray, ...args: any[]) {
   return { lang: "sh", code: dedent(strings, ...args) };
 }
 
+export function php(strings: TemplateStringsArray, ...args: any[]) {
+  return { lang: "php", code: dedent(strings, ...args) };
+}
+
 export async function CodeExample({
   example,
   filename,
