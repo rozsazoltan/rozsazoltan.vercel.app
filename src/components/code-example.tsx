@@ -4,6 +4,7 @@ import {
   transformerNotationHighlight,
   transformerNotationWordHighlight,
   transformerNotationFocus,
+  transformerNotationErrorLevel,
 } from "@shikijs/transformers";
 import { clsx } from "clsx";
 import dedent from "dedent";
@@ -214,6 +215,16 @@ export function RawHighlightedCode({
             "not-hover:[:where(&_.line)]:not-[.focused-line]:blur-[1px] transition-[2s_filter_-webkit-filter_linear]",
           classActiveLine:
             "focused-line",
+        }),
+        transformerNotationErrorLevel({
+          classMap: {
+            warning:
+              "warning relative -mx-5 border-l-4 border-amber-400 bg-amber-300/20 pr-5 pl-8 before:absolute before:left-3 before:text-amber-400 before:content-['⚠'] after:absolute after:right-2 after:px-2 after:text-amber-400 after:bg-amber-950 after:content-['Warning'] after:max-md:hidden",
+            error:
+              "error relative -mx-5 border-l-4 border-red-400 bg-red-300/20 pr-5 pl-8 before:absolute before:left-3 before:text-red-400 before:content-['⚠'] after:absolute after:right-2 after:px-2 after:text-red-400 after:bg-red-950 after:content-['Error'] after:max-md:hidden",
+          },
+          classActivePre:
+            "[:where(&_.line)]:pl-4",
         }),
         highlightClasses({
           highlightedClassName:
