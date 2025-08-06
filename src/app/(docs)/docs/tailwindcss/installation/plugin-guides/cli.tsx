@@ -125,7 +125,7 @@ export let steps: Step[] = [
             </CodeExampleGroup>
           </TabPanel>
           <TabPanel>
-            <div className="p-4 text-white/80">
+            <div className="p-4 dark prose">
               Direct download URLs for all platforms:
               <ul className="py-2 list-inside list-disc [&_a]:text-sky-500 [&_a]:hover:underline">
                 <li><a href="https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-windows-x64.exe" target="_blank">Windows x64</a></li>
