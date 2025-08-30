@@ -25,7 +25,7 @@
     "framer-motion": "^12.9.2",
     "highlight.js": "^11.11.1",
     "motion": "^12.9.2",
-    "next": "15.3.0-canary.23",
+    "next": "15.4.7",
     "open-graph-scraper-lite": "^2.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
