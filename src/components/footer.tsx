@@ -87,6 +87,11 @@ function Learn() {
             Blog
           </Link>
         </li>
+        <li>
+          <Link href="/sponsor" className="hover:underline">
+            Sponsor
+          </Link>
+        </li>
       </ul>
     </>
   );
