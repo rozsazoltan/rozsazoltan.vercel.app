@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState, type ReactElement } from "react";
 import blogPromo from "./../app/(docs)/brand/img/rozsazoltan-logotype.svg";
+import tsunamajiPromo from "./../app/(docs)/brand/img/tsunamaji-logotype.svg";
 import bookPromo from "./book-promo.png";
 import coursePromo from "./course-promo.jpg";
 // import LinkButton from "./home/link-button";
@@ -69,6 +70,36 @@ export function BlogPromo() {
       <p className="mt-1.5 text-base/5 font-semibold text-gray-950 dark:text-white">Because coding isn't just work.</p>
       <p className="mt-3 text-[0.8125rem]/5 text-gray-600 dark:text-gray-400">
         Detailed guides, opinions, and tips about popular frameworks and languages. And much more - whatever comes to mind.
+      </p>
+      <Sponsor name="Zoltán Rózsa" />
+    </a>
+  );
+}
+
+export function TsunamajiPromo() {
+  return (
+    <a href="/docs/tsunamaji" className="group">
+      <div className="mt-12 flex flex-col items-center justify-center">
+        <div className="relative origin-center -translate-x-3 rotate-6 p-6 duration-500 group-hover:rotate-0">
+          <div className="absolute top-4 left-0 h-px w-full bg-[linear-gradient(to_right,_transparent_0%,_var(--gradient-bg)_9.27%,_var(--gradient-bg)_90.7%,_transparent_100%)] [--gradient-bg:var(--color-black)]/15 dark:[--gradient-bg:var(--color-white)]/10"></div>
+          <div className="absolute top-0 left-4 h-full w-px bg-[linear-gradient(to_bottom,_transparent_0%,_var(--gradient-bg)_9.27%,_var(--gradient-bg)_90.7%,_transparent_100%)] [--gradient-bg:var(--color-black)]/15 dark:[--gradient-bg:var(--color-white)]/10"></div>
+          <Image
+            src={tsunamajiPromo}
+            alt="Tsunamaji"
+            width={128}
+            height={171.2}
+            className="p-2 shadow-[-5px_10px_15px_-3px_var(--shadow-color),_-5px_4px_6px_-4px_var(--shadow-color)] duration-500 [--shadow-color:var(--color-gray-950)]/10 dark:[--shadow-color:var(--color-gray-800)] drop-shadow-sm drop-shadow-emerald-800/70 bg-gray-950/70 outline-1 outline-emerald-500/70 outline-offset-6"
+          />
+          <div className="absolute top-0 right-4 h-full w-px bg-[linear-gradient(to_bottom,_transparent_0%,_var(--gradient-bg)_9.27%,_var(--gradient-bg)_90.7%,_transparent_100%)] [--gradient-bg:var(--color-black)]/15 dark:[--gradient-bg:var(--color-white)]/10"></div>
+          <div className="absolute bottom-4 left-0 h-px w-full bg-[linear-gradient(to_right,_transparent_0%,_var(--gradient-bg)_9.27%,_var(--gradient-bg)_90.7%,_transparent_100%)] [--gradient-bg:var(--color-black)]/15 dark:[--gradient-bg:var(--color-white)]/10"></div>
+        </div>
+      </div>
+      <p className="text-[0.815rem]/6 font-semibold text-emerald-500 dark:text-emerald-400">
+        Tsunamaji: Ship spells. Surf code.
+      </p>
+      <p className="mt-1.5 text-lg/5 font-semibold text-gray-950 dark:text-white">Unfold the full power of Tailwind CSS.</p>
+      <p className="mt-3 text-[0.8125rem]/5 text-gray-600 dark:text-gray-400">
+        Shipping plugins and utilities for multiple standard CSS properties.
       </p>
       <Sponsor name="Zoltán Rózsa" />
     </a>
@@ -180,6 +211,7 @@ export function RandomPromo() {
       BlogPromo,      
       BookPromo,
       CoursePromo,
+      TsunamajiPromo,
     ]
     const RandomComponent = components[Math.floor(Math.random() * components.length)]
     setPromoComponent(<RandomComponent />);
