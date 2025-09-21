@@ -11,8 +11,8 @@ export const metadata: Metadata = {
     type: "article",
     title: "Plugin guides",
     description: "A guide to the different plugins, explaining their purpose.",
-    images: "https://tailwindcss.com/api/og?path=/docs/tailwindcss/installation/plugin-guides",
-    url: "https://tailwindcss.com/docs/tailwindcss/installation/plugin-guides",
+    images: "https://rozsazoltan.vercel.app/api/og?path=/docs/tailwindcss/installation/plugin-guides",
+    url: "https://rozsazoltan.vercel.app/docs/tailwindcss/installation/plugin-guides",
   },
 };
 
