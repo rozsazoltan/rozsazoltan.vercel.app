@@ -7,9 +7,12 @@ export interface ServiceItemProps {
   name: string;
   pricing: string;
   description: string;
+  extra?: string;
+  button?: string;
   gradientStart: string;
   gradientEnd: string;
   type: 'small' | 'medium' | 'large';
+  disabled?: boolean
 }
 
 function CubeIconSvg ({ name, type }: Pick<ServiceItemProps, "name" | "type">) {
@@ -218,9 +221,12 @@ export function ServiceItem({
   name,
   pricing,
   description,
+  extra,
+  button,
   gradientStart,
   gradientEnd,
   type,
+  disabled,
 }: ServiceItemProps) {
   const ContainerClass = {
     small: 'gap-4 p-2.5 pt-4',
@@ -247,7 +253,8 @@ export function ServiceItem({
         ContainerClass[type],
         "min-h-20",
         "text-sand-light-12 hover:bg-sand-light-3",
-        "dark:text-sand-dark-12 dark:hover:bg-sand-dark-3"
+        "dark:text-sand-dark-12 dark:hover:bg-sand-dark-3",
+        disabled ? "cursor-not-allowed grayscale-50 hover:grayscale-100" : "",
       )}
     >
       <div className="shrink w-16">
@@ -267,16 +274,29 @@ export function ServiceItem({
       </div>
       <div>
         <span className="flex items-center space-x-3 mb-0.5">
-          <span className="font-medium text-sand-light-12 dark:text-sand-dark-12">
+          <h4 className="font-medium text-sand-light-12 dark:text-sand-dark-12">
             {name}
-          </span>
+          </h4>
           <span className="px-1 font-medium leading-normal rounded-xs text-sand-light-11 bg-sand-light-3 dark:bg-[#282826] dark:text-[#EDEDEC] text-sm group-hover:bg-sand-light-5 dark:group-hover:bg-[#3A3A3A]">
             {pricing}
           </span>
         </span>
-        <span className="block text-sm text-sand-light-11 dark:text-sand-dark-11">
-          {description}
-        </span>
+        <div className="space-y-1 text-sm leading-normal text-pretty text-sand-light-11">
+          <p>
+            {description}
+          </p>
+        </div>
+        {extra && (
+          <p className="mt-2 text-sm leading-normal text-pretty">
+            {extra}
+          </p>
+        )}
+        {button && (
+          <p className="font-medium rounded-xs transition inline-flex duration-100 border-1 shadow text-sand-light-11 dark:shadow-none dark:text-sand-dark-11 group-hover:text-sand-light-12 dark:group-hover:text-sand-dark-12 dark:bg-sand-dark-2 dark:border-sand-dark-7 px-4 py-1 bg-white pr-1 items-center gap-2 mt-5">
+            {button}
+            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m10 16 4-4-4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square"></path></svg>
+          </p>
+        )}
       </div>
     </a>
   );
