@@ -2,8 +2,6 @@ import { type Guide, loadGuides } from "@/app/(docs)/docs/tailwindcss/installati
 import { Metadata } from "next";
 import Link from "next/link";
 import { Cta } from "@/components/cta";
-import { TipCompat } from "@/components/tips";
-import Search from "./search";
 
 export const metadata: Metadata = {
   title: "Framework guides",
@@ -18,21 +16,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function FrameworkGuidesPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ q?: string }>;
-}) {
-  const { q } = await searchParams
-  const query = q?.toLowerCase() ?? "";
-
+export default async function FrameworkGuidesPage() {
   const guides = await loadGuides();
-
-  const filtered = guides.filter(
-    (guide) =>
-      guide.tile.title.toLowerCase().includes(query) ||
-      guide.tile.description.toLowerCase().includes(query)
-  );
 
   return (
     <>
@@ -45,15 +30,9 @@ export default async function FrameworkGuidesPage({
           </a>
           , but the community has added a few more, which I've included here.
         </p>
-
-        {/* Search Form */}
-        <Search />
-        {query.length > 0 && (
-          <span className="text-xs"><strong>{filtered.length}</strong> results out of {guides.length}</span>
-        )}
       </div>
 
-      <Section guides={filtered} emptyMessage="No results match the search." />
+      <Section guides={guides} emptyMessage="No results match the search." />
 
       <div className="my-4 md:my-16">
         <Cta>

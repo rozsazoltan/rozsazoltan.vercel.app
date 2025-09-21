@@ -1,6 +1,50 @@
 @import "tailwindcss" theme(static);
 @import "./typography.css" layer(components);
 
+@theme {
+  --color-dark-600: #252a37;
+  --color-sand-light-1: #fdfdfc;
+  --color-sand-light-2: #f9f9f8;
+  --color-sand-light-3: #f1f0ef;
+  --color-sand-light-4: #e9e8e6;
+  --color-sand-light-5: #e2e1de;
+  --color-sand-light-6: #dad9d6;
+  --color-sand-light-7: #cfceca;
+  --color-sand-light-8: #bcbbb5;
+  --color-sand-light-9: #8d8d86;
+  --color-sand-light-10: #82827c;
+  --color-sand-light-11: #63635e;
+  --color-sand-light-12: #21201c;
+  --color-sand-dark-1: #111110;
+  --color-sand-dark-2: #191918;
+  --color-sand-dark-3: #222221;
+  --color-sand-dark-4: #2a2a28;
+  --color-sand-dark-5: #31312e;
+  --color-sand-dark-6: #3b3a37;
+  --color-sand-dark-7: #494844;
+  --color-sand-dark-8: #62605b;
+  --color-sand-dark-9: #6f6d66;
+  --color-sand-dark-10: #7c7b74;
+  --color-sand-dark-11: #b5b3ad;
+  --color-sand-dark-12: #eeeeec;
+  --color-sand-light-alpha-5: #1f180021;
+  --color-sand-light-alpha-6: #19130029;
+  --color-sand-light-alpha-7: #19140035;
+  --color-sand-light-alpha-8: #1915014a;
+  --color-sand-light-alpha-10: #0c0c0083;
+  --color-sand-dark-alpha-1: #0000;
+  --color-sand-dark-alpha-2: #f4f4f309;
+  --color-sand-dark-alpha-4: #fefef31b;
+  --color-sand-dark-alpha-6: #fffaed2d;
+  --color-sand-dark-alpha-7: #fffbed3c;
+  --color-sand-dark-alpha-11: #fffcf4b0;
+  --color-sand-light-6-1: #e3e3e0;
+  --color-sand-light-8-1: #1e1901;
+  --color-sand-light-9-alpha-45: #09090073;
+  --color-laravel-red: #f53003;
+  --color-laravel-red-faded: #ffe2dd;
+}
+
 @theme inline {
   --font-sans: var(--font-inter), system-ui;
   --font-source: var(--font-source-sans-pro), system-ui;
