@@ -78,6 +78,26 @@ const nextConfig = {
         destination: "/docs/tailwindcss/installation/whats-new",
         permanent: false,
       },
+      {
+        source: "/docs/tsunamaji",
+        destination: "/docs/tsunamaji/project",
+        permanent: false,
+      },
+      {
+        source: "/docs/tsunamaji/tailwindcss-raw",
+        destination: "/docs/tsunamaji/tailwindcss-raw/installation",
+        permanent: false,
+      },
+      {
+        source: "/docs/tsunamaji/tailwindcss-utilities",
+        destination: "/docs/tsunamaji/tailwindcss-utilities/installation",
+        permanent: false,
+      },
+      {
+        source: "/docs/tsunamaji/tailwindcss-grouping",
+        destination: "/docs/tsunamaji/tailwindcss-grouping/installation",
+        permanent: false,
+      },
 
       // Showcase examples
       {
@@ -88,6 +108,7 @@ const nextConfig = {
 
       // External Links
       { source: "/github", destination: "https://github.com/rozsazoltan", permanent: false },
+      { source: "/docs/tsunamaji/discord", destination: "https://discord.gg/ECcH5xTnsu", permanent: false },
     ];
   },
 } satisfies NextConfig;
