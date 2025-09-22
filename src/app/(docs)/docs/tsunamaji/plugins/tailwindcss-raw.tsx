@@ -1,9 +1,7 @@
-import { TipCompat, TipHighlight, TipLearn, TipWarning } from "@/components/tips";
+import { TipCompat, TipLearn, TipWarning } from "@/components/tips";
 import { Step, Tab } from "./utils";
 import { type Page, type Tile } from "./utils";
 import Logo from "@/docs/img/guides/tsunamaji.react.svg";
-import { CodeExampleGroup, CodeBlock, sh } from "@/components/code-example";
-import { TabPanel } from '@headlessui/react';
 import dedent from "dedent";
 
 export let tile: Tile = {
