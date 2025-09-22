@@ -1,4 +1,4 @@
-import { TipLearn, TipWarning } from "@/components/tips";
+import { TipCompat, TipHighlight, TipLearn, TipWarning } from "@/components/tips";
 import { Step, Tab } from "./utils";
 import { type Page, type Tile } from "./utils";
 import Logo from "@/docs/img/guides/tsunamaji.react.svg";
@@ -24,6 +24,10 @@ export let tabs: Tab[] = [
     title: "Using Node.js",
   },
   {
+    slug: "standalone",
+    title: "Standalone",
+  },
+  {
     slug: "play-esm",
     title: "Play ESM (esm.sh)",
   },
@@ -34,6 +38,25 @@ export let tabs: Tab[] = [
 ];
 
 export let steps: Step[] = [
+  {
+    tabs: ["standalone"],
+    title: "Not available",
+    body: (
+      <p>
+        It must also be available to the client at runtime, so relying solely on a server-side executable does not work in the case of a website.
+      </p>
+    ),
+    code: {
+      name: "Terminal",
+      lang: "shell",
+      code: dedent`
+        check-plugin-status
+
+        > [PluginLoader] ⚠️ Warning: Plugin not available!
+        > Note: It must be available to the client at runtime.
+      `,
+    },
+  },
   {
     tabs: ["node"],
     title: "Install Tailwind CSS",
@@ -206,6 +229,9 @@ export let steps: Step[] = [
         <p>
           This is a JSX example, but of course the plugin works in any JavaScript framework according to your needs.
         </p>
+        <TipCompat>
+          The Play ESM is designed for development purposes (e.g. playground) only, and is not intended for production.
+        </TipCompat>
         <TipWarning>
           In a production environment, it's better to generate the CSS once (with <code>compileTw</code>) when saving the content and store the generated output. This results in faster load times and less load on the client.
         </TipWarning>
@@ -316,6 +342,9 @@ export let steps: Step[] = [
           Add the Play CDN script tag to the <code>&lt;head&gt;</code> of your HTML file, and start using Tailwind’s
           utility classes to style your content.
         </p>
+        <TipCompat>
+          The Play CDN is designed for development purposes (e.g. playground) only, and is not intended for production.
+        </TipCompat>
         <TipWarning>
           Using Tailwind Raw is not necessary, since the Tailwind CDN provides runtime compilation, and it is not recommended for production use. Therefore, Tailwind Raw is even less suitable for running in this kind of setup.
         </TipWarning>
