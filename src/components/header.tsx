@@ -152,6 +152,9 @@ export function Header(props: React.PropsWithChildren) {
           <Link href="/ecosystem" className="text-sm/6 text-gray-950 dark:text-white">
             Ecosystem
           </Link>
+          <Link href="/sponsor" className="text-sm/6 text-gray-950 dark:text-white">
+            Sponsor
+          </Link>
           <Link href="https://github.com/rozsazoltan/rozsazoltan.vercel.app" aria-label="GitHub repository">
             <GitHubLogo className="size-5 fill-black/40 dark:fill-gray-400" />
           </Link>

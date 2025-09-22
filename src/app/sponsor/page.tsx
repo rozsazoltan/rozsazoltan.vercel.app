@@ -4,72 +4,71 @@ import ServiceItems, { ServiceItemProps } from "@/components/service-items";
 import ShowcaseThumbnail from "@/components/showcase-thumbnail";
 import { TipHighlight, TipStar } from "@/components/tips";
 import type { Metadata } from "next";
+import clsx from 'clsx';
 
 export const metadata: Metadata = {
-  title: "Ecosystem",
+  title: "Sponsor",
   description:
-    "Brands, packages, plugins, and everything I've built - with docs.",
+    "Completely free open-source packages with no premium restrictions.",
   openGraph: {
     type: "article",
-    title: "Ecosystem",
-    description: "Brands, packages, plugins, and everything I've built - with docs.",
-    images: "https://rozsazoltan.vercel.app/api/og?path=/ecosystem",
-    url: "https://rozsazoltan.vercel.app/ecosystem",
+    title: "Sponsor",
+    description: "Completely free open-source packages with no premium restrictions.",
+    images: "https://rozsazoltan.vercel.app/api/og?path=/sponsor",
+    url: "https://rozsazoltan.vercel.app/sponsor",
   },
 };
 
 const services: ServiceItemProps[] = [
   {
-    href: "/docs/tsunamaji",
-    name: "Tsunamaji",
+    href: "/ecosystem",
+    name: "Open Source Ticket",
     pricing: "Free",
-    description: "Enhanced power for Tailwind CSS",
-    gradientStart: "#88e2db",
-    gradientEnd: "#77c69e",
-    type: 'medium',
+    description: "Available for everyone",
+    extra: "Contribute on GitHub",
+    button: "Ecosystem",
+    gradientStart: "var(--color-sky-500)",
+    gradientEnd: "var(--color-blue-400)",
+    type: 'large',
   },
   {
-    href: "/docs/verzly",
-    name: "Verzly",
-    pricing: "Free",
-    description: "Smart version management",
-    gradientStart: "#000",
-    gradientEnd: "#bbb",
-    type: "small",
+    href: "https://ko-fi.com/rozsazoltan",
+    name: "Golden Ticket",
+    pricing: "Support",
+    description: "Just a kind gesture",
+    extra: "No extra premium functions",
+    button: "Ko-fi",
+    gradientStart: "var(--color-amber-400)",
+    gradientEnd: "var(--color-yellow-300)",
+    type: 'small',
   },
   {
-    href: "/docs/seotron",
-    name: "Seotron",
-    pricing: "Free",
-    description: "Advanced SEO analytics",
-    gradientStart: "#b22955",
-    gradientEnd: "#e5366e",
-    type: "small",
-  },
-  {
-    href: "",
-    name: "Coming soon",
-    pricing: "Free", // Paid
-    description: "...",
-    gradientStart: "#e63627",
-    gradientEnd: "#cb2525",
-    type: "large",
+    href: "/sponsor",
+    name: "Premium Access",
+    pricing: "Paid",
+    description: "Just a kind gesture",
+    extra: "Not available ticket",
+    button: "Get Premium",
+    gradientStart: "var(--color-emerald-400)",
+    gradientEnd: "var(--color-green-300)",
+    type: 'small',
+    disabled: true,
   },
 ];
 
 export default async function Showcase() {
   return (
     <div className="mt-24">
-      <div className="mx-2 font-mono text-sm/7 font-medium tracking-widest text-gray-500 uppercase">Ecosystem</div>
+      <div className="mx-2 font-mono text-sm/7 font-medium tracking-widest text-gray-500 uppercase">Sponsor</div>
       <GridContainer>
         <h1 className="mx-2 text-4xl tracking-tighter text-balance sm:text-5xl lg:text-6xl xl:text-8xl">
-          Every great idea is born the moment you have no way to write it down.
+          Completely free open-source packages with no premium restrictions.
         </h1>
       </GridContainer>
 
       <GridContainer className="mt-10">
         <p className="prose mx-2 max-w-(--breakpoint-md) text-lg leading-8 text-gray-600 dark:text-gray-400">
-          Brands, packages, plugins, and everything I've built - with docs.
+          If it was useful, inspiring, or helpful, and you feel like compensating the time invested, all I can do is say thank you. There are no hidden premium features, so support isn't necessary - just a kind gesture.
         </p>
       </GridContainer>
 
@@ -81,23 +80,12 @@ export default async function Showcase() {
 
       <GridContainer className="mt-20">
         <h2 className="mx-2 text-xl tracking-tighter text-balance sm:text-2xl lg:text-3xl xl:text-4xl">
-          Why is there a need for different brands?
+          Why is Premium not available?
         </h2>
       </GridContainer>
       <GridContainer className="mt-10">
         <p className="prose mx-2 max-w-(--breakpoint-md) text-lg leading-8 text-gray-600 dark:text-gray-400">
-          I do not want to distribute tools, plugins, or codebases created for different languages, platforms, or purposes under a single name. This would lead to chaos and make it impossible to clearly address the target audience of the brand. Different brands ensure consistency in the audience, purpose, and area of use.
-        </p>
-      </GridContainer>
-
-      <GridContainer className="mt-20">
-        <h2 className="mx-2 text-xl tracking-tighter text-balance sm:text-2xl lg:text-3xl xl:text-4xl">
-          What guidelines do I follow when naming?
-        </h2>
-      </GridContainer>
-      <GridContainer className="mt-10">
-        <p className="prose mx-2 max-w-(--breakpoint-md) text-lg leading-8 text-gray-600 dark:text-gray-400">
-          I always try to choose a name that is primarily unique and memorable; secondly, it reflects the brand's primary objective. This is not always straightforward - for example, in the case of Tsunamaji - but its alignment with Tailwind already helps convey the concept.
+          My goal is not to restrict my open source projects. In the future, I may release paid packages built on these free projects, but this does not mean the free projects will end or be limited. Therefore, at most, if you feel like showing support for my work or find any of my packages useful and want to compensate for the effort involved, the Support option is available.
         </p>
       </GridContainer>
 
