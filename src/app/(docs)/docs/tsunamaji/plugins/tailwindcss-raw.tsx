@@ -51,6 +51,7 @@ export let steps: Step[] = [
     },
   },
   {
+    tabs: ["node"],
     title: "Pass your RAW HTML string to Tsunamaji",
     body: (
       <p>
@@ -69,6 +70,7 @@ export let steps: Step[] = [
     },
   },
   {
+    tabs: ["node"],
     title: "You can optionally pass your custom configuration",
     body: (
       <>
@@ -96,38 +98,7 @@ export let steps: Step[] = [
     },
   },
   {
-    tabs: ["standalone"],
-    title: "Start the Tailwind CLI build process",
-    body: (
-      <p>
-        Run the executable CLI tool to scan your source files for classes and build your CSS.
-      </p>
-    ),
-    code: {
-      name: "Terminal",
-      lang: "shell",
-      code: (
-        <CodeExampleGroup filenames={["Windows", "macOS", "Linux"]}>
-          <CodeBlock
-            example={sh`
-              ./tailwindcss.exe -i ./src/input.css -o ./src/output.css --watch
-            `}
-          />
-          <CodeBlock
-            example={sh`
-              ./tailwindcss -i ./src/input.css -o ./src/output.css --watch
-            `}
-          />
-          <CodeBlock
-            example={sh`
-              ./tailwindcss -i ./src/input.css -o ./src/output.css --watch
-            `}
-          />
-        </CodeExampleGroup>
-      )
-    }
-  },
-  {
+    tabs: ["node"],
     title: "Start using plugin on your project",
     body: (
       <>
@@ -149,25 +120,28 @@ export let steps: Step[] = [
       lang: "js",
       code: dedent`
         import { useEffect, useState } from "react";
+        // [!code highlight:2]
         import { compileTw } from "@tsunamaji/tailwindcss-raw";
 
         export default function App() {
           // State to hold the dynamic HTML content
+          // [!code highlight:4]
           const [htmlString, setHtmlString] = useState(
             \`<div class="text-lg bg-tsunamaji">Lorem Ipsum</div>\`
           );
 
           // State to store the generated CSS for the current HTML content
+          // [!code highlight:2]
           const [generatedCSS, setGeneratedCSS] = useState("");
 
           // Update the generated CSS whenever the HTML string changes
+          // [!code highlight:10]
           useEffect(() => {
             const theme = \`@theme {
               --color-tsunamaji: #77c69e;
             }\`;
 
             compileTw(htmlString, theme).then((css) => {
-              // Only update the state with the new CSS
               setGeneratedCSS(css);
             });
           }, [htmlString]);
@@ -219,6 +193,188 @@ export let steps: Step[] = [
             </div>
           );
         }
+      `,
+    },
+  },
+
+  // Play esm.sh
+  {
+    tabs: ["play-esm"],
+    title: "Start using plugin on your project",
+    body: (
+      <>
+        <p>
+          This is a JSX example, but of course the plugin works in any JavaScript framework according to your needs.
+        </p>
+        <TipWarning>
+          In a production environment, it's better to generate the CSS once (with <code>compileTw</code>) when saving the content and store the generated output. This results in faster load times and less load on the client.
+        </TipWarning>
+        <TipLearn>
+          <p>The <code>compileTw</code> function is clearly intended for generating the CSS for dynamic content in production, but not at runtime.</p>          
+          <p>Generating the CSS at runtime would be unnecessary, as it would regenerate the CSS for every client repeatedly, even when the content isn't changing.</p>
+          <p>If the content does change, it would be possible to update the generated CSS once on the server side.</p>
+        </TipLearn>
+      </>
+    ),
+    code: {
+      name: "index.html",
+      lang: "html",
+      code: dedent`
+        <div id="root"></div>
+
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        <script type="text/babel" data-type="module">
+        import { useState, useEffect } from "https://esm.sh/react";
+        import ReactDOM from "https://esm.sh/react-dom";
+        // [!code highlight:2]
+        import { compileTw } from "https://esm.sh/@tsunamaji/tailwindcss-raw";
+
+        function App() {
+          // State to hold the dynamic HTML content
+          // [!code highlight:4]
+          const [htmlString, setHtmlString] = useState(
+            \`<div class="text-lg bg-tsunamaji">Lorem Ipsum</div>\`
+          );
+
+          // State to store the generated CSS for the current HTML content
+          // [!code highlight:2]
+          const [generatedCSS, setGeneratedCSS] = useState("");
+
+          // Update the generated CSS whenever the HTML string changes
+          // [!code highlight:10]
+          useEffect(() => {
+            const theme = \`@theme {
+              --color-tsunamaji: #77c69e;
+            }\`;
+
+            compileTw(htmlString, theme).then((css) => {
+              setGeneratedCSS(css);
+            });
+          }, [htmlString]);
+
+          // Insert or update the <style> element whenever the generated CSS changes
+          useEffect(() => {
+            if (!generatedCSS) return;
+
+            // Remove the previous style element if it exists
+            const existingStyle = document.getElementById("generated-css");
+            if (existingStyle) existingStyle.remove();
+
+            // Create a new <style> element and append it to the document head
+            const style = document.createElement("style");
+            style.id = "generated-css";
+            style.textContent = generatedCSS;
+            document.head.appendChild(style);
+          }, [generatedCSS]);
+
+          // Example save function that sends both HTML and generated CSS
+          function handleSave() {
+            console.log("Saving content...");
+            console.log("HTML:", htmlString);
+            console.log("Generated CSS:", generatedCSS);
+
+            // Here you could send htmlString and generatedCSS to an API or backend
+          }
+
+          return (
+            <div id="app">
+              {/* Editable area for dynamic HTML content */}
+              <textarea
+                value={htmlString}
+                onChange={(e) => setHtmlString(e.target.value)}
+                rows={5}
+                cols={50}
+              />
+
+              {/* Preview of the dynamic HTML content */}
+              <div
+                style={{ marginTop: "20px", padding: "10px", border: "1px solid #ccc" }}
+                dangerouslySetInnerHTML={{ __html: htmlString }}
+              />
+
+              {/* Save button to persist content and generated CSS */}
+              <button onClick={handleSave} style={{ marginTop: "10px" }}>
+                Save
+              </button>
+            </div>
+          );
+        }
+
+        ReactDOM.render(<App />, document.getElementById("root"));
+        </script>
+      `,
+    },
+  },
+
+  // Play CDN
+  {
+    tabs: ["play-cdn"],
+    title: "Add the Play CDN script to your HTML",
+    body: (
+      <>
+        <p>
+          Add the Play CDN script tag to the <code>&lt;head&gt;</code> of your HTML file, and start using Tailwind’s
+          utility classes to style your content.
+        </p>
+        <TipWarning>
+          Using Tailwind Raw is not necessary, since the Tailwind CDN provides runtime compilation, and it is not recommended for production use. Therefore, Tailwind Raw is even less suitable for running in this kind of setup.
+        </TipWarning>
+      </>
+    ),
+    code: {
+      name: "index.html",
+      lang: "html",
+      code: dedent`
+        <!doctype html>
+        <html>
+          <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <!-- [!code highlight:2] -->
+            <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+          </head>
+          <body>
+            <!-- [!code highlight:4] -->
+            <h1 class="text-3xl font-bold underline">
+              Hello world!
+            </h1>
+          </body>
+        </html>
+      `,
+    },
+  },
+  {
+    tabs: ["play-cdn"],
+    title: "Try adding some custom CSS",
+    body: (
+      <p>
+        Use <code>type="text/tailwindcss"</code> to add custom CSS that supports all of Tailwind's CSS features.
+      </p>
+    ),
+    code: {
+      name: "index.html",
+      lang: "html",
+      code: dedent`
+        <!doctype html>
+        <html>
+          <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+            <!-- [!code highlight:6] -->
+            <style type="text/tailwindcss">
+              @theme {
+                --color-clifford: #da373d;
+              }
+            </style>
+          </head>
+          <body>
+            <!-- [!code word:text-clifford] -->
+            <h1 class="text-3xl font-bold underline text-clifford">
+              Hello world!
+            </h1>
+          </body>
+        </html>
       `,
     },
   },
