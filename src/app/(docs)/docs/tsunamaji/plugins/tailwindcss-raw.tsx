@@ -1,7 +1,7 @@
-import { TipWarning } from "@/components/tips";
+import { TipLearn, TipWarning } from "@/components/tips";
 import { Step, Tab } from "./utils";
 import { type Page, type Tile } from "./utils";
-import Logo from "@/docs/img/guides/tailwindcss.react.svg";
+import Logo from "@/docs/img/guides/tsunamaji.react.svg";
 import { CodeExampleGroup, CodeBlock, sh } from "@/components/code-example";
 import { TabPanel } from '@headlessui/react';
 import dedent from "dedent";
@@ -128,31 +128,97 @@ export let steps: Step[] = [
     }
   },
   {
-    title: "Start using Tailwind in your HTML",
+    title: "Start using plugin on your project",
     body: (
-      <p>
-        Add the <code>@import "tailwindcss";</code> import to your main CSS file.
-      </p>
+      <>
+        <p>
+          This is a JSX example, but of course the plugin works in any JavaScript framework according to your needs.
+        </p>
+        <TipWarning>
+          In a production environment, it's better to generate the CSS once (with <code>compileTw</code>) when saving the content and store the generated output. This results in faster load times and less load on the client.
+        </TipWarning>
+        <TipLearn>
+          <p>The <code>compileTw</code> function is clearly intended for generating the CSS for dynamic content in production, but not at runtime.</p>          
+          <p>Generating the CSS at runtime would be unnecessary, as it would regenerate the CSS for every client repeatedly, even when the content isn't changing.</p>
+          <p>If the content does change, it would be possible to update the generated CSS once on the server side.</p>
+        </TipLearn>
+      </>
     ),
     code: {
-      name: "src/index.html",
-      lang: "html",
+      name: "src/Component.jsx",
+      lang: "js",
       code: dedent`
-        <!doctype html>
-        <html>
-        <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <!-- [!code highlight:2] -->
-          <link href="./output.css" rel="stylesheet">
-        </head>
-        <body>
-          <!-- [!code highlight:4] -->
-          <h1 class="text-3xl font-bold underline">
-            Hello world!
-          </h1>
-        </body>
-        </html>
+        import { useEffect, useState } from "react";
+        import { compileTw } from "@tsunamaji/tailwindcss-raw";
+
+        export default function App() {
+          // State to hold the dynamic HTML content
+          const [htmlString, setHtmlString] = useState(
+            \`<div class="text-lg bg-tsunamaji">Lorem Ipsum</div>\`
+          );
+
+          // State to store the generated CSS for the current HTML content
+          const [generatedCSS, setGeneratedCSS] = useState("");
+
+          // Update the generated CSS whenever the HTML string changes
+          useEffect(() => {
+            const theme = \`@theme {
+              --color-tsunamaji: #77c69e;
+            }\`;
+
+            compileTw(htmlString, theme).then((css) => {
+              // Only update the state with the new CSS
+              setGeneratedCSS(css);
+            });
+          }, [htmlString]);
+
+          // Insert or update the <style> element whenever the generated CSS changes
+          useEffect(() => {
+            if (!generatedCSS) return;
+
+            // Remove the previous style element if it exists
+            const existingStyle = document.getElementById("generated-css");
+            if (existingStyle) existingStyle.remove();
+
+            // Create a new <style> element and append it to the document head
+            const style = document.createElement("style");
+            style.id = "generated-css";
+            style.textContent = generatedCSS;
+            document.head.appendChild(style);
+          }, [generatedCSS]);
+
+          // Example save function that sends both HTML and generated CSS
+          function handleSave() {
+            console.log("Saving content...");
+            console.log("HTML:", htmlString);
+            console.log("Generated CSS:", generatedCSS);
+
+            // Here you could send htmlString and generatedCSS to an API or backend
+          }
+
+          return (
+            <div id="app">
+              {/* Editable area for dynamic HTML content */}
+              <textarea
+                value={htmlString}
+                onChange={(e) => setHtmlString(e.target.value)}
+                rows={5}
+                cols={50}
+              />
+
+              {/* Preview of the dynamic HTML content */}
+              <div
+                style={{ marginTop: "20px", padding: "10px", border: "1px solid #ccc" }}
+                dangerouslySetInnerHTML={{ __html: htmlString }}
+              />
+
+              {/* Save button to persist content and generated CSS */}
+              <button onClick={handleSave} style={{ marginTop: "10px" }}>
+                Save
+              </button>
+            </div>
+          );
+        }
       `,
     },
   },
