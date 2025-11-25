@@ -1,8 +1,6 @@
 import { loadGuide, loadGuides } from "@/app/(docs)/docs/tsunamaji/plugins";
 import { Steps } from "@/components/installation-steps";
 import { TabBar } from "@/components/installation-tabs";
-import { TipLearn } from "@/components/tips";
-import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { Metadata } from "next/types";
 
