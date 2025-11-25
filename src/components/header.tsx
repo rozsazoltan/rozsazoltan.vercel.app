@@ -155,7 +155,7 @@ export function Header(props: React.PropsWithChildren) {
           <Link href="/sponsor" className="text-sm/6 text-gray-950 dark:text-white">
             Sponsor
           </Link>
-          <Link href="https://github.com/rozsazoltan/rozsazoltan.vercel.app" aria-label="GitHub repository">
+          <Link href="https://github.com/rozsazoltan/rozsazoltan.vercel.app" target="_blank" aria-label="GitHub repository">
             <GitHubLogo className="size-5 fill-black/40 dark:fill-gray-400" />
           </Link>
         </div>
@@ -210,7 +210,20 @@ export function Header(props: React.PropsWithChildren) {
                   Showcase
                 </Link>
                 <Link
+                  href="/ecosystem"
+                  className="rounded-lg px-3 py-2 text-xl/9 font-medium text-gray-950 data-active:bg-gray-950/5 dark:text-white dark:hover:bg-white/10"
+                >
+                  Ecosystem
+                </Link>
+                <Link
+                  href="/sponsor"
+                  className="rounded-lg px-3 py-2 text-xl/9 font-medium text-gray-950 data-active:bg-gray-950/5 dark:text-white dark:hover:bg-white/10"
+                >
+                  Sponsor
+                </Link>
+                <Link
                   href="https://github.com/rozsazoltan"
+                  target="_blank"
                   className="rounded-lg px-3 py-2 text-xl/9 font-medium text-gray-950 data-active:bg-gray-950/5 dark:text-white dark:hover:bg-white/10"
                 >
                   GitHub
