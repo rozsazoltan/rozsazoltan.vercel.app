@@ -13,6 +13,7 @@ const guides: Guide[] = await create({
   'tailwindcss-utilities': () => import("./tailwindcss-utilities"),
   'tailwindcss-grouping': () => import("./tailwindcss-grouping"),
   'tsunamaji-obfuscator': () => import("./tsunamaji-obfuscator"),
+  'tsunamaji-uilab': () => import("./tsunamaji-uilab"),
 });
 
 async function create(list: Record<string, () => Promise<any>>): Promise<Guide[]> {
