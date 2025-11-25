@@ -1,0 +1,241 @@
+import Link from "next/link";
+import { rozsazoltan } from "@/app/blog/authors";
+import { CodeExampleStack, CodeExample, php } from "@/components/code-example";
+import { TipLearn, TipHighlight, TipCompat } from "@/components/tips";
+
+export const meta = {
+  title: "PHP Attributes: From DocBlocks to Modern Syntax with Examples",
+  description: `Discover how PHP attributes change how we express intent in code, with before-and-after examples and explanations of key built-in attributes.`,
+  date: "2025-11-25T12:00:00.000Z",
+  authors: [rozsazoltan],
+  excerpt: (
+    <>
+      Modern PHP versions introduce attributes, a structured and machine-readable way to express
+      developer intent. This post walks through the most common built-in attributes with clear before-and-after examples.
+    </>
+  ),
+};
+
+PHP has traditionally relied on docblocks and runtime conventions to provide metadata, enforce conventions, or signal deprecated functionality. Starting with PHP 8.0 and evolving in later versions, **attributes** allow developers to attach structured, machine-readable metadata directly to classes, methods, parameters, and properties.
+
+Attributes improve code clarity, enable static analysis, and allow frameworks and libraries to operate more reliably without parsing docblocks. Below we explore some of the most important built-in PHP attributes with **before-and-after examples**.
+
+---
+
+## Deprecated Attribute
+
+Indicates that a function, method, or class should no longer be used. IDEs and static analyzers can warn developers when using deprecated code.
+
+<CodeExampleStack>
+  ```php
+  // [!code filename:PHP 8.3 or older]
+  // [!code highlight:4]
+  /**
+   * @deprecated Use safe_replacement() instead (since 1.5)
+   */
+  function unsafe_function() {
+      // [!code highlight:2]
+      trigger_error('Function unsafe_function() is deprecated since 1.5, use safe_replacement() instead', E_USER_DEPRECATED);
+
+      echo "This is unsafe", PHP_EOL;
+  }
+
+  unsafe_function();
+  ```
+
+  ```php
+  // [!code filename:PHP 8.4]
+  // [!code highlight:2]
+  #[\Deprecated(message: "use safe_replacement() instead", since: "1.5")]
+  function unsafe_function()
+  {
+    echo "This is unsafe", PHP_EOL;
+  }
+
+  unsafe_function();
+  ```
+</CodeExampleStack>
+
+<TipLearn>
+`#[Deprecated]` marks code as deprecated and helps tooling warn about usage.
+</TipLearn>
+
+In many languages, developers often mark a feature as Deprecated using a docblock. However, this does not provide any feedback during runtime if a deprecated function is used; it only alerts the developer in the IDE during development when they attempt to use a function that is already obsolete.
+
+For this reason, until the introduction of the <code>Deprecated Attribute</code>, runtime warnings had to be captured using <code>trigger_error()</code>, which needed to be placed manually inside the function. It was often used together with the <code>@deprecated</code> docblock.
+
+With the <code>Deprecated Attribute</code>, the code has become much more readable, and the message only needs to be communicated once - for both the IDE and runtime. There's no need to modify the inside of the deprecated function. Additionally, starting from PHP 8.5, it can also be applied to traits and constants.
+
+### Backward Compatibility
+
+It may happen that you're working on a dependency project that still supports PHP 8.3, but you want to use the new feature. Well, after PHP 8.0, using non-existent Attributes isn't a problem, and by checking the PHP version in an if clause and using <code>trigger_error()</code>, <Link href="https://stackoverflow.com/a/79827790/15167500" target="_blank">you can ensure backward compatibility</Link>.
+
+
+```php
+// [!code filename:Deprecated Attribute with PHP 8.0+ Backward Support]
+// [!code highlight:2]
+#[\Deprecated(message: "use safe_replacement() instead", since: "1.5")]
+function unsafe_function() {
+    // [!code ++:4]
+    if (\PHP_VERSION_ID < 80400) {
+        trigger_error('Function unsafe_function() is deprecated since 1.5, use safe_replacement() instead', E_USER_DEPRECATED);
+    }
+
+    echo "This is unsafe", PHP_EOL;
+}
+
+unsafe_function();
+```
+
+---
+
+## SensitiveParameter Attribute
+
+Marks parameters containing sensitive information (e.g., passwords or API keys) to prevent them from appearing in stack traces.
+
+<CodeExampleStack>
+  ```php
+  // [!code filename:PHP 8.1 or older]
+  function login($username, $password) {
+      // The value of $password can also leak in stack traces
+  }
+  ```
+
+  ```php
+  // [!code filename:PHP 8.2]
+  // [!code word:\#\[SensitiveParameter\]]
+  function login(
+      string $username,
+      #[SensitiveParameter] string $password
+  ) {
+      // $password is hidden in stack traces
+  }
+  ```
+</CodeExampleStack>
+
+<TipLearn>
+Prevents sensitive parameters from being exposed in error logs or stack traces.
+</TipLearn>
+
+---
+
+## Override Attribute
+
+Ensures a method truly overrides a parent method, helping catch typos and incorrect overrides.
+
+<CodeExampleStack>
+  ```php
+  // [!code filename:PHP 8.3 or older]
+  class Base {
+      public function run() {
+          echo "Base::run()";
+      }
+  }
+
+  class Child extends Base {
+      // [!code warning:4]
+      // Typo: rn() - this does NOT override Base::run()
+      // silently creates new method
+      public function rn() {
+        echo "Child::run()";
+      }
+  }
+
+  // Even though you *think* you're calling the child's override,
+  // PHP actually calls Base::run(), because Child::run() does not exist.
+  $child = new Child();
+  $child->run(); // "Base::run()"
+  ```
+
+  ```php
+  // [!code filename:PHP 8.4]
+  class Base {
+      public function run() {
+          echo "Base::run()";
+      }
+  }
+
+  class Child extends Base {
+      // [!code highlight:4]
+      // Get a warning if the method name doesn't exist in the Base class
+      #[Override]
+      public function run() {
+          echo "Child::run()";
+      }
+  }
+
+  $child = new Child();
+  $child->run(); // "Child::run()"
+  ```
+</CodeExampleStack>
+
+<TipLearn>
+`#[Override]` throws an error if the method does not actually override a parent method.
+</TipLearn>
+
+---
+
+## ReturnTypeWillChange Attribute
+
+Suppresses deprecation warnings about missing return types when implementing legacy internal PHP interfaces.
+
+<CodeExampleStack>
+  ```php
+  // [!code filename:PHP 8.0 or older]
+  class MyArrayObject extends ArrayObject {
+      public function offsetGet($key) {}
+  }
+  ```
+
+  ```php
+  // [!code filename:PHP 8.1]
+  class MyArrayObject extends ArrayObject {
+      #[ReturnTypeWillChange]
+      public function offsetGet($key) {}
+  }
+  ```
+</CodeExampleStack>
+
+<TipLearn>
+Suppresses warnings when a method overrides an internal class without a declared return type.
+</TipLearn>
+
+---
+
+## AllowDynamicProperties Attribute
+
+Allows a class to define dynamic properties without triggering deprecation notices (PHP 8.2+).
+
+<CodeExampleStack>
+  ```php
+  // [!code filename:PHP 8.1 or older]
+  class User {}
+
+  $u = new User();
+  $u->foo = 123; // always allowed
+  ```
+
+  ```php
+  // [!code filename:PHP 8.2]
+  // [!code highlight:3]
+  #[AllowDynamicProperties]
+  class User {}
+
+  $u = new User();
+  $u->foo = 123; // allowed for this class only by AllowDynamicProperties Attribute
+  ```
+</CodeExampleStack>
+
+<TipLearn>
+Without this attribute, adding new properties at runtime triggers a deprecation notice.
+</TipLearn>
+
+---
+
+<TipHighlight>
+PHP attributes provide **structured, machine-readable metadata**, replacing docblocks and runtime conventions. They enable frameworks to safely use annotations for routing, validation, dependency injection, ORM metadata, and more.
+</TipHighlight>
+
+<TipCompat>
+Attributes require **PHP 8.0+**. Using them in older versions results in a parse error.
+</TipCompat>
