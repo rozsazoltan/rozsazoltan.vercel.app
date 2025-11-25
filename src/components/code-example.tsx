@@ -201,14 +201,14 @@ export function RawHighlightedCode({
       theme: theme.name,
       transformers: [
         transformerNotationHighlight({
-          classActiveLine: "-mx-5 pl-[calc(var(--spacing)*5-2px)] border-l-2 pr-5 border-sky-400 bg-sky-300/15",
+          classActiveLine: "highlighted-line -mx-5 pl-[calc(var(--spacing)*5-2px)] border-l-2 pr-5 border-sky-400 bg-sky-300/15",
         }),
         transformerNotationDiff({
           classLineAdd:
-            "relative -mx-5 border-l-4 border-teal-400 bg-teal-300/15 pr-5 pl-8 before:absolute before:left-4 before:text-teal-400 before:content-['+']",
+            "relative -mx-5 border-l-2 border-teal-400 bg-teal-300/15 pr-5 pl-8 before:absolute before:left-4 before:text-teal-400 before:content-['+']",
           classLineRemove:
-            "relative -mx-5 border-l-4 border-red-400 bg-red-300/15 pr-5 pl-8 before:absolute before:left-4 before:text-red-400 before:content-['-']",
-          classActivePre: "[:where(&_.line)]:pl-4",
+            "relative -mx-5 border-l-2 border-red-400 bg-red-300/15 pr-5 pl-8 before:absolute before:left-4 before:text-red-400 before:content-['-']",
+          classActivePre: "[:where(&_.line)]:pl-4 [:where(&_.highlighted-line)]:pl-[calc(var(--spacing)*9-2px)]!",
         }),
         transformerNotationWordHighlight({
           classActiveWord:
@@ -223,12 +223,16 @@ export function RawHighlightedCode({
         transformerNotationErrorLevel({
           classMap: {
             warning:
-              "warning relative -mx-5 border-l-4 border-amber-400 bg-amber-300/20 pr-5 pl-8 before:absolute before:left-3 before:text-amber-400 before:content-['⚠'] after:absolute after:right-2 after:px-2 after:text-amber-400 after:bg-amber-950 after:content-['Warning'] after:max-md:hidden",
+              "warning relative -mx-5 border-l-2 border-amber-400 bg-amber-300/20 pr-5 pl-8 before:absolute before:left-3 before:text-amber-400 after:absolute after:right-2 after:px-2 after:text-amber-400 after:bg-amber-950 after:max-md:hidden",
             error:
-              "error relative -mx-5 border-l-4 border-red-400 bg-red-300/20 pr-5 pl-8 before:absolute before:left-3 before:text-red-400 before:content-['⚠'] after:absolute after:right-2 after:px-2 after:text-red-400 after:bg-red-950 after:content-['Error'] after:max-md:hidden",
+              "error relative -mx-5 border-l-2 border-red-400 bg-red-300/20 pr-5 pl-8 before:absolute before:left-3 before:text-red-400 after:absolute after:right-2 after:px-2 after:text-red-400 after:bg-red-950 after:max-md:hidden",
           },
           classActivePre:
-            "[:where(&_.line)]:pl-4",
+            "[:where(&_.line)]:pl-4 [:where(&_.highlighted-line)]:pl-[calc(var(--spacing)*9-2px)]!" +
+            // Warning: Multiple line should title only first line
+            " [:where(&_.warning)]:before:content-['⚠'] [:where(&_.warning~.warning)]:before:content-[''] [:where(&_.warning)]:after:content-['Warning'] [:where(&_.warning~.warning)]:after:content-['']" +
+            // Error: Multiple line should title only first line
+            " [:where(&_.error)]:before:content-['⚠'] [:where(&_.error~.error)]:before:content-[''] [:where(&_.error)]:after:content-['Error'] [:where(&_.warning~.error)]:after:content-['']",
         }),
         highlightClasses({
           highlightedClassName:
