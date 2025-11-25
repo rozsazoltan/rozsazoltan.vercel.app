@@ -1,6 +1,7 @@
 import { type Guide, loadGuides } from "@/app/(docs)/docs/tsunamaji/plugins";
 import { Cta } from "@/components/cta";
 import { Metadata } from "next";
+import { TipHighlight } from "@/components/tips";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -41,6 +42,12 @@ export default async function FrameworkGuides() {
           <p className="mt-4 text-base/7 text-gray-700 dark:text-gray-300">
             Ship spells. Surf code. RAW HTML source injection, baseline-based utility packs, classname grouping, and much more.
           </p>
+
+          <div className="mt-10">
+            <TipHighlight>
+              Oh, hello! I'm working on an open source project. If you have some free time and interest, I'd gladly welcome logo ideas for the plugins.
+            </TipHighlight>
+          </div>
 
           <div className="mt-10" data-content="true">
             <section className="relative mb-16">
