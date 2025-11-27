@@ -49,7 +49,7 @@ Your code retrieves and interprets them via the Reflection API.
 
 Attributes allow frameworks and libraries to attach configuration without forcing inheritance or additional interfaces.
 
-## Attribute Syntax
+## Attribute syntax
 
 Attributes are declared using the `#[ ... ]` syntax.
 
@@ -97,13 +97,18 @@ Attributes may receive constructor arguments.
   ```
 </CodeExampleStack>
 
-Valid parameter types:
+#### Valid parameter types:
 
-- scalars  
-- arrays  
-- class constants  
-- magic constants  
-- simple expressions  
+- scalars
+- arrays
+- class constants
+- magic constants
+- simple expressions
+
+<TipLearn>
+  From PHP 8, attributes let you attach metadata without changing class inheritance,
+  method signatures, or requiring interface implementations.
+</TipLearn>
 
 ---
 
@@ -195,23 +200,15 @@ Reflection retrieves attributes as `ReflectionAttribute` objects.
 
 ### Useful ReflectionAttribute methods
 
-- `getName()` - resolved class name  
-- `getArguments()` - raw constructor arguments  
-- `newInstance()` - instantiate the attribute  
-
----
-
-<TipLearn>
-  Attributes let you attach metadata without changing class inheritance,
-  method signatures, or requiring interface implementations.
-</TipLearn>
+- `getName()` - resolved class name
+- `getArguments()` - raw constructor arguments
+- `newInstance()` - instantiate the attribute
 
 ---
 
 ## Backwards Compatibility
 
-A key design choice:  
-`#` starts a comment in older PHP versions.
+A key design choice: `#` starts a comment in older PHP versions.
 
 This means that **as long as each attribute is placed on its own line**, PHP 7.x and older simply ignore them.
 
@@ -225,6 +222,7 @@ This means that **as long as each attribute is placed on its own line**, PHP 7.x
 But using attributes inline (on the same line as other code) breaks older parsers:
 
 ```php
-function foo(#[Test] $bar) {}
 // Parse error on PHP < 8
+// [!code error:2]
+function foo(#[Test] $bar) {}
 ```
