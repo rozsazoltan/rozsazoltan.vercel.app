@@ -20,6 +20,10 @@ PHP has traditionally relied on docblocks and runtime conventions to provide met
 
 Attributes improve code clarity, enable static analysis, and allow frameworks and libraries to operate more reliably without parsing docblocks. Below we explore some of the most important built-in PHP attributes with **before-and-after examples**.
 
+<TipCompat>
+Attributes require **PHP 8.0+**. Using them in older versions results in a parse error.
+</TipCompat>
+
 ---
 
 ## Deprecated Attribute
@@ -33,7 +37,8 @@ Indicates that a function, method, or class should no longer be used. IDEs and s
   /**
    * @deprecated Use safe_replacement() instead (since 1.5)
    */
-  function unsafe_function() {
+  function unsafe_function()
+  {
       // [!code highlight:2]
       trigger_error('Function unsafe_function() is deprecated since 1.5, use safe_replacement() instead', E_USER_DEPRECATED);
 
@@ -75,9 +80,11 @@ It may happen that you're working on a dependency project that still supports PH
 // [!code filename:Deprecated Attribute with PHP 8.0+ Backward Support]
 // [!code highlight:2]
 #[\Deprecated(message: "use safe_replacement() instead", since: "1.5")]
-function unsafe_function() {
-    // [!code ++:4]
-    if (\PHP_VERSION_ID < 80400) {
+function unsafe_function()
+{
+    // [!code ++:5]
+    if (\PHP_VERSION_ID < 80400)
+    {
         trigger_error('Function unsafe_function() is deprecated since 1.5, use safe_replacement() instead', E_USER_DEPRECATED);
     }
 
@@ -86,6 +93,80 @@ function unsafe_function() {
 
 unsafe_function();
 ```
+
+### References
+
+* <Link href="https://php.watch/rfcs/deprecated_attribute" target="_blank">PHP 8.4 RFC: <code>#[\Deprecated]</code> Attribute</Link>
+* <Link href="https://php.watch/versions/8.4/Deprecated" target="_blank">PHP 8.4: <code>#[\Deprecated]</code> Attribute</Link>
+
+---
+
+## Override Attribute
+
+Ensures a method truly overrides a parent method, helping catch typos and incorrect overrides.
+
+<CodeExampleStack>
+  ```php
+  // [!code filename:PHP 8.2 or older]
+  class Base
+  {
+      public function run()
+      {
+          echo "Base::run()";
+      }
+  }
+
+  class Child extends Base
+  {
+      // [!code warning:4]
+      // Typo: rn() - this does NOT override Base::run()
+      // silently creates new method
+      public function rn()
+      {
+        echo "Child::run()";
+      }
+  }
+
+  // Even though you *think* you're calling the child's override,
+  // PHP actually calls Base::run(), because Child::run() does not exist.
+  $child = new Child();
+  $child->run(); // "Base::run()"
+  ```
+
+  ```php
+  // [!code filename:PHP 8.3]
+  class Base
+  {
+      public function run()
+      {
+          echo "Base::run()";
+      }
+  }
+
+  class Child extends Base
+  {
+      // [!code highlight:4]
+      // Get a warning if the method name doesn't exist in the Base class
+      #[Override]
+      public function run()
+      {
+          echo "Child::run()";
+      }
+  }
+
+  $child = new Child();
+  $child->run(); // "Child::run()"
+  ```
+</CodeExampleStack>
+
+<TipLearn>
+`#[Override]` throws an error if the method does not actually override a parent method.
+</TipLearn>
+
+### References
+
+* <Link href="https://php.watch/rfcs/marking_overriden_methods" target="_blank">PHP 8.3 RFC: Marking overridden methods (<code>#[\Override]</code>)</Link>
+* <Link href="https://php.watch/versions/8.3/override-attr" target="_blank">PHP 8.3: New <code>#[\Override]</code> attribute</Link>
 
 ---
 
@@ -96,7 +177,8 @@ Marks parameters containing sensitive information (e.g., passwords or API keys) 
 <CodeExampleStack>
   ```php
   // [!code filename:PHP 8.1 or older]
-  function login($username, $password) {
+  function login($username, $password)
+  {
       // The value of $password can also leak in stack traces
   }
   ```
@@ -117,88 +199,10 @@ Marks parameters containing sensitive information (e.g., passwords or API keys) 
 Prevents sensitive parameters from being exposed in error logs or stack traces.
 </TipLearn>
 
----
+### References
 
-## Override Attribute
-
-Ensures a method truly overrides a parent method, helping catch typos and incorrect overrides.
-
-<CodeExampleStack>
-  ```php
-  // [!code filename:PHP 8.3 or older]
-  class Base {
-      public function run() {
-          echo "Base::run()";
-      }
-  }
-
-  class Child extends Base {
-      // [!code warning:4]
-      // Typo: rn() - this does NOT override Base::run()
-      // silently creates new method
-      public function rn() {
-        echo "Child::run()";
-      }
-  }
-
-  // Even though you *think* you're calling the child's override,
-  // PHP actually calls Base::run(), because Child::run() does not exist.
-  $child = new Child();
-  $child->run(); // "Base::run()"
-  ```
-
-  ```php
-  // [!code filename:PHP 8.4]
-  class Base {
-      public function run() {
-          echo "Base::run()";
-      }
-  }
-
-  class Child extends Base {
-      // [!code highlight:4]
-      // Get a warning if the method name doesn't exist in the Base class
-      #[Override]
-      public function run() {
-          echo "Child::run()";
-      }
-  }
-
-  $child = new Child();
-  $child->run(); // "Child::run()"
-  ```
-</CodeExampleStack>
-
-<TipLearn>
-`#[Override]` throws an error if the method does not actually override a parent method.
-</TipLearn>
-
----
-
-## ReturnTypeWillChange Attribute
-
-Suppresses deprecation warnings about missing return types when implementing legacy internal PHP interfaces.
-
-<CodeExampleStack>
-  ```php
-  // [!code filename:PHP 8.0 or older]
-  class MyArrayObject extends ArrayObject {
-      public function offsetGet($key) {}
-  }
-  ```
-
-  ```php
-  // [!code filename:PHP 8.1]
-  class MyArrayObject extends ArrayObject {
-      #[ReturnTypeWillChange]
-      public function offsetGet($key) {}
-  }
-  ```
-</CodeExampleStack>
-
-<TipLearn>
-Suppresses warnings when a method overrides an internal class without a declared return type.
-</TipLearn>
+* <Link href="https://php.watch/rfcs/redact_parameters_in_back_traces" target="_blank">PHP 8.2 RFC: Sensitive Parameter value redaction support</Link>
+* <Link href="https://php.watch/versions/8.2/backtrace-parameter-redaction" target="_blank">PHP 8.2: Sensitive Parameter value redaction support</Link>
 
 ---
 
@@ -230,12 +234,47 @@ Allows a class to define dynamic properties without triggering deprecation notic
 Without this attribute, adding new properties at runtime triggers a deprecation notice.
 </TipLearn>
 
+### References
+
+* <Link href="https://php.watch/rfcs/deprecate_dynamic_properties" target="_blank">PHP 8.2 RFC: Deprecate dynamic properties</Link>
+* <Link href="https://php.watch/versions/8.2/AllowDynamicProperties" target="_blank">PHP 8.2: <code>#[AllowDynamicProperties]</code> attribute</Link>
+
 ---
 
-<TipHighlight>
-PHP attributes provide **structured, machine-readable metadata**, replacing docblocks and runtime conventions. They enable frameworks to safely use annotations for routing, validation, dependency injection, ORM metadata, and more.
-</TipHighlight>
+## ReturnTypeWillChange Attribute
 
-<TipCompat>
-Attributes require **PHP 8.0+**. Using them in older versions results in a parse error.
-</TipCompat>
+Suppresses deprecation warnings about missing return types when implementing legacy internal PHP interfaces.
+
+<CodeExampleStack>
+  ```php
+  // [!code filename:PHP 8.0 or older]
+  class MyArrayObject extends ArrayObject
+  {
+      public function offsetGet($key) {}
+  }
+  ```
+
+  ```php
+  // [!code filename:PHP 8.1]
+  class MyArrayObject extends ArrayObject
+  {
+      #[ReturnTypeWillChange]
+      public function offsetGet($key) {}
+  }
+  ```
+</CodeExampleStack>
+
+<TipLearn>
+Suppresses warnings when a method overrides an internal class without a declared return type.
+</TipLearn>
+
+### References
+
+* <Link href="https://php.watch/rfcs/internal_method_return_types" target="_blank">PHP 8.1 RFC: Add return type declarations for internal methods</Link>
+* <Link href="https://php.watch/versions/8.1/ReturnTypeWillChange" target="_blank">PHP 8.1: New <code>#[ReturnTypeWillChange]</code> attribute</Link>
+
+---
+
+## Can I create my own attribute as well?
+
+In the next post, we'll dive into <Link href="/blog/2025-11-27-understanding-php-attributes#declaring-a-custom-attribute">creating your own custom PHP attributes</Link>, exploring how to implement them, set targets, and leverage reflection for powerful, reusable metadata in your applications.
