@@ -1,0 +1,228 @@
+import Link from "next/link";
+import { rozsazoltan } from "@/app/blog/authors";
+import { CodeExampleStack, CodeBlock, php } from "@/components/code-example";
+import { TipGood, TipLearn, TipHighlight } from "@/components/tips";
+
+export const meta = {
+  title: "PHP 8: Understanding Attributes (Complete Guide)",
+  description: `A clear, modern explanation of PHP Attributes - syntax, parameters, metadata, repeatables, reflection, and practical usage.`,
+  date: "2025-11-27T12:00:00.000Z",
+  authors: [rozsazoltan],
+  excerpt: (
+    <>
+      PHP Attributes provide a structured way to attach machine-readable metadata
+      to classes, methods, functions, properties, parameters, and constants.
+      This guide walks through how they work under the hood, how to declare them,
+      and how to access them via Reflection.
+    </>
+  ),
+};
+
+PHP 8 introduced a powerful feature: **Attributes**, a native syntax for attaching structured metadata to your code.
+Unlike docblocks, attributes are machine-readable and can be instantiated, validated, and interpreted at runtime.
+
+This post summarizes the full feature - syntax, behavior, targets, reflection, repeatable attributes, and backwards compatibility - based on the PHP.watch technical specification.
+
+## What are attributes?
+
+Attributes provide **static metadata** for:
+
+- classes
+- methods
+- functions
+- parameters
+- properties
+- constants
+- closures
+- anonymous classes
+
+They do not execute automatically.
+Your code retrieves and interprets them via the Reflection API.
+
+<CodeExampleStack>
+  ```php
+  // [!code filename:Basic attribute usage]
+  #[ExampleAttribute('foo', 'bar')]
+  function example() {}
+  ```
+</CodeExampleStack>
+
+Attributes allow frameworks and libraries to attach configuration without forcing inheritance or additional interfaces.
+
+## Attribute syntax
+
+Attributes are declared using the `#[ ... ]` syntax.
+
+<CodeExampleStack>
+  ```php
+  #[MyAttribute]
+  #[AnotherAttr(42)]
+  function demo() {}
+  ```
+</CodeExampleStack>
+
+### Multiple attributes on the same target
+
+```php
+#[Attr]
+#[OtherAttr]
+function foo() {}
+```
+
+Or using a single pair of brackets:
+
+```php
+#[Attr, OtherAttr]
+function bar() {}
+```
+
+### Attributes can resolve to class names
+
+Attribute names follow PHP's standard class name resolution rules:
+
+- they can be imported with `use`
+- they can be namespaced
+- they may, but don't have to, map to an actual class
+
+If the attribute name does **not** correspond to a class, you can still read it as metadata - you simply cannot instantiate it through reflection.
+
+### Attributes can have parameters
+
+Attributes may receive constructor arguments.
+
+<CodeExampleStack>
+  ```php
+  #[Route('/home', methods: ['GET', 'POST'])]
+  function homePage() {}
+  ```
+</CodeExampleStack>
+
+#### Valid parameter types:
+
+- scalars
+- arrays
+- class constants
+- magic constants
+- simple expressions
+
+<TipLearn>
+  From PHP 8, attributes let you attach metadata without changing class inheritance,
+  method signatures, or requiring interface implementations.
+</TipLearn>
+
+---
+
+## Declaring a custom attribute
+
+To create your own attribute, declare a class and mark it with `#[Attribute]`.
+
+You may also specify valid **targets** using the `Attribute::TARGET_*` bitmask.
+
+<CodeExampleStack>
+  ```php
+  // [!code filename:PHP 8.0: declaring a custom attribute]
+  #[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
+  class MyAttribute {
+      public function __construct(
+          public ?string $info = null
+      ) {}
+  }
+  ```
+
+  ```php
+  // [!code filename:Usage example]
+  // [!code highlight:2]
+  #[MyAttribute('controller')]
+  class HomeController {
+      #[MyAttribute('action')]
+      public function index() {}
+  }
+  ```
+</CodeExampleStack>
+
+### Supported targets
+
+- `Attribute::TARGET_CLASS`
+- `Attribute::TARGET_FUNCTION`
+- `Attribute::TARGET_METHOD`
+- `Attribute::TARGET_PROPERTY`
+- `Attribute::TARGET_CLASS_CONSTANT`
+- `Attribute::TARGET_PARAMETER`
+- `Attribute::TARGET_ALL`
+
+`TARGET_ALL` is equivalent to all others combined.
+
+### Repeatable attributes
+
+By default, the *same* attribute cannot be applied twice.
+
+To allow repetition:
+
+<CodeExampleStack>
+  ```php
+  // [!code filename:PHP 8.0: declaring a custom attribute]
+  #[Attribute(Attribute::IS_REPEATABLE)]
+  class Tag {
+      public function __construct(public string $name) {}
+  }
+  ```
+
+  ```php
+  // [!code filename:Repeatable usage]
+  // [!code highlight:2]
+  #[Tag('api'), Tag('v1')]
+  class ApiController {}
+  ```
+</CodeExampleStack>
+
+---
+
+## Accessing attributes via Reflection
+
+Reflection retrieves attributes as `ReflectionAttribute` objects.
+
+<CodeExampleStack>
+  ```php
+  // [!code filename:Reflection: reading attributes]
+  // [!code word:Tag\:\:class]
+  // [!code word:Tag\:\:class]
+  $ref = new ReflectionClass(ApiController::class);
+
+  foreach ($ref->getAttributes(Tag::class) as $attr) {
+      $instance = $attr->newInstance();
+      var_dump($instance->name);
+      // [!code log:3]
+      // string(3) "api"
+      // string(2) "v1"
+  }
+  ```
+</CodeExampleStack>
+
+### Useful ReflectionAttribute methods
+
+- `getName()` - resolved class name
+- `getArguments()` - raw constructor arguments
+- `newInstance()` - instantiate the attribute
+
+---
+
+## Backwards Compatibility
+
+A key design choice: `#` starts a comment in older PHP versions.
+
+This means that **as long as each attribute is placed on its own line**, PHP 7.x and older simply ignore them.
+
+<CodeExampleStack>
+  ```php
+  #[ExampleAttribute("Hello", 42)]
+  class Foo {}
+  ```
+</CodeExampleStack>
+
+But using attributes inline (on the same line as other code) breaks older parsers:
+
+```php
+// Parse error on PHP < 8
+// [!code error:2]
+function foo(#[Test] $bar) {}
+```
