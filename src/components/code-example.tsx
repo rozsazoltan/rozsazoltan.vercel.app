@@ -222,6 +222,8 @@ export function RawHighlightedCode({
         }),
         transformerNotationErrorLevel({
           classMap: {
+            log:
+              "log relative -mx-5 border-l-2 border-indigo-400 bg-indigo-300/20 pr-5 pl-8 before:absolute before:left-3 before:text-indigo-400 after:absolute after:right-2 after:px-2 after:text-indigo-400 after:bg-indigo-950 after:max-md:hidden",
             warning:
               "warning relative -mx-5 border-l-2 border-amber-400 bg-amber-300/20 pr-5 pl-8 before:absolute before:left-3 before:text-amber-400 after:absolute after:right-2 after:px-2 after:text-amber-400 after:bg-amber-950 after:max-md:hidden",
             error:
@@ -229,6 +231,8 @@ export function RawHighlightedCode({
           },
           classActivePre:
             "[:where(&_.line)]:pl-4 [:where(&_.highlighted-line)]:pl-[calc(var(--spacing)*9-2px)]!" +
+            // Log: Multiple line should title only first line
+            " [:where(&_.log)]:before:content-['i'] [:where(&_.log~.log)]:before:content-[''] [:where(&_.log)]:after:content-['Log'] [:where(&_.log~.log)]:after:content-['']" +
             // Warning: Multiple line should title only first line
             " [:where(&_.warning)]:before:content-['⚠'] [:where(&_.warning~.warning)]:before:content-[''] [:where(&_.warning)]:after:content-['Warning'] [:where(&_.warning~.warning)]:after:content-['']" +
             // Error: Multiple line should title only first line
