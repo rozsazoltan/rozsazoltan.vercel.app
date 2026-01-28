@@ -85,7 +85,7 @@ export default async function Showcase() {
       </GridContainer>
       <GridContainer className="mt-10">
         <p className="prose mx-2 max-w-(--breakpoint-md) text-lg leading-8 text-gray-600 dark:text-gray-400">
-          My goal is not to restrict my open source projects. In the future, I may release paid packages built on these free projects, but this does not mean the free projects will end or be limited. Therefore, at most, if you feel like showing support for my work or find any of my packages useful and want to compensate for the effort involved, the Support option is available.
+          My goal is not to restrict my open source projects. In the future, I may release paid packages built on these free projects, but this does not mean the free projects will end or be limited. Therefore, at most, if you feel like showing appreciation or simply want to make a voluntary gesture of thanks, the Support option is available.
         </p>
       </GridContainer>
 

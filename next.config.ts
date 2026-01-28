@@ -47,7 +47,7 @@ const nextConfig = {
         permanent: false,
       },
 
-      // Framework guides
+      // Laravel installation
       {
         source: "/docs/laravel",
         destination: "/docs/laravel/installation",
@@ -58,6 +58,7 @@ const nextConfig = {
         destination: "/docs/laravel/installation/whats-new",
         permanent: false,
       },
+      // Vue.js installation
       {
         source: "/docs/vuejs",
         destination: "/docs/vuejs/installation",
@@ -68,6 +69,7 @@ const nextConfig = {
         destination: "/docs/vuejs/installation/whats-new",
         permanent: false,
       },
+      // TailwindCSS installation
       {
         source: "/docs/tailwindcss",
         destination: "/docs/tailwindcss/installation",
@@ -78,6 +80,20 @@ const nextConfig = {
         destination: "/docs/tailwindcss/installation/whats-new",
         permanent: false,
       },
+
+      // TailwindCSS version picker
+      {
+        source: "/docs/tailwindcss/v4",
+        destination: "/docs/tailwindcss",
+        permanent: false,
+      },
+      {
+        source: "/docs/tailwindcss/v3",
+        destination: "/docs/tailwindcss/v3/browser-support",
+        permanent: false,
+      },
+
+      // Tsunamaji
       {
         source: "/docs/tsunamaji",
         destination: "/docs/tsunamaji/project",

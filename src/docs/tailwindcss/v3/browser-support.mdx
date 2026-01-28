@@ -1,0 +1,30 @@
+import Link from "next/link";
+import { TipGood, TipBad, TipCompat, TipInfo, TipLearn, TipHighlight, TipWarning, TipStar } from "@/components/tips";
+import { CodeExampleStack } from "@/components/code-example";
+
+export const title = "Browser support";
+export const description = "Tailwind CSS v3 produces CSS suitable for legacy-era support and IE 11.";
+
+### Tailwind CSS v3 — with legacy-era support
+
+TailwindCSS v3 produces CSS output that is fully standards-compliant and works flawlessly on IE 11 as well as all stable browsers. The advantage of this is that websites built with it are **accessible even on very legacy browsers and devices**. The downside is that most modern CSS standards cannot be used, so many solutions are completely off-limits, and the compiled CSS is generally larger.
+
+<TipHighlight>
+  v3 is no longer actively supported, but it shaped web development for a long time and powered many websites. If you need an efficient, legacy-supported framework, it can still be a suitable choice today.
+</TipHighlight>
+<br/>
+<a href="https://v3.tailwindcss.com" target="_blank">Go to Tailwind CSS v3 - legacy docs</a>
+
+### Tailwind CSS v4 — improved developer experience from Baseline 2023
+
+v3 was replaced by v4 in January 2025. v4 marks a milestone in TailwindCSS’s history, bringing major updates in CSS standards support — it fully supports everything up to **Baseline 2023**, and the compiled CSS reflects this codebase. The downside is that most legacy browsers no longer provide the same experience, but the upside is improved developer experience and access to features that were previously unavailable.
+
+<TipHighlight>
+  The future is about progress — we can’t stay stuck on legacy versions forever, and visitors should be encouraged to use modern, secure browsers. v4 also enables access to numerous developer-friendly CSS features.
+</TipHighlight>
+<br/>
+<Link href="/docs/tailwindcss/v4">Go to Tailwind CSS v4</Link>
+
+### It’s important to be able to decide which version you need
+
+Stop! Consider carefully which version your project needs. Do you want your site to display perfectly in any extreme scenario? In that case, the legacy v3 might be your companion. If it’s acceptable that your site looks exactly as intended only on browsers supporting Baseline 2023, you can continue with v4.

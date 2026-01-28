@@ -1,0 +1,273 @@
+import Link from "next/link";
+import { TipGood, TipBad, TipCompat, TipInfo, TipLearn, TipHighlight, TipWarning, TipStar } from "@/components/tips";
+import { CodeExampleStack } from "@/components/code-example";
+
+export const title = "Upgrade guide";
+export const description = "v3 legacy support — transitioning to v4 with modern Baseline 2023 support";
+
+## Browser support
+
+The first and most noticeable change is browser support. It’s important to understand that CSS evolves, standards get refined, and eventually we need to keep up. With v4, we’ve come closer to modern CSS. One consequence of Baseline 2023 support is the dropping of legacy browser support. Most older browsers will no longer display the site exactly as intended, and this must be taken into account.
+
+For a portfolio landing page, this is likely a disadvantage, as you could potentially lose clients simply because the website doesn’t look as expected. For software where requirements can be enforced, it can be an advantage, since all users can be guided to use modern, up-to-date, secure browsers. If most of your visitors use the latest versions — something you can determine through preliminary research — switching to v4 can become a win-win situation: better developer experience and more features.
+
+v4 is compatible with the following browser versions at a minimum:
+* **Chrome 111** (released March 2023)
+* **Safari 16.4** (released March 2023)
+* **Firefox 128** (released July 2024)
+
+It also works with earlier versions, but with some limitations — some CSS properties introduced up to Baseline 2023 may not work as expected or at all, though the basic functionality remains available.
+
+## Deprecated: Sass, less and Stylus preprocessors support
+
+The use of preprocessors is **no longer supported**. Since modern CSS supports a lot of features, Tailwind CSS v4 allows you to achieve the same experience without preprocessors. If preprocessors are still needed, they can be used alongside Tailwind CSS, but not nested within it.
+
+Unfortunately, there is no option to migrate `.scss` or `.less` files automatically. These must be converted manually.
+
+<TipWarning>
+  Preprocessors alongside Tailwind CSS don’t work when nested — but they do work side by side. Here’s some guidance:
+  * [How to upgrade Tailwind CSS with preprocessor](https://stackoverflow.com/a/79403000/15167500)
+  * [How to use `@apply` in Tailwind v4 with Sass?](https://stackoverflow.com/a/79743713/15167500)
+  * [Sass and Tailwind CSS v4 don't work together, but can be used separately - How to use with CSS modules (`*.module.css` and `<style>`), `@reference`, `@apply`](https://stackoverflow.com/a/79767026/15167500)
+  * [`tailwindlabs/tailwindcss` discussion #18364: Support Angular SCSS with Tailwind CSS v4](https://github.com/tailwindlabs/tailwindcss/discussions/18364#discussioncomment-13542127)
+</TipWarning>
+
+<TipWarning>
+  The use of `.scss`, `.less` or `.pcss` files is not supported.
+  * [`@import "tailwindcss";` does not work when used in a file with an `.scss` extension](https://stackoverflow.com/a/79753232/15167500)
+  * [Angular not detecting changes in `.scss` files](https://stackoverflow.com/a/79761697/15167500)
+</TipWarning>
+
+Although the included references are framework-specific in some places, the underlying principles of operation and integration are similar for other frameworks as well.
+
+## Pre- and post-processing tools
+
+Under the hood, Tailwind CSS now uses <a href="https://lightningcss.dev" target="_blank">Lightning CSS</a>. This means there’s no need for autoprefixer or postcss — nor for postcss-import.
+
+### Build-time imports
+
+Tailwind will **automatically bundle other CSS files you include with `@import`**, without the need for a separate preprocessing tool.
+
+```css
+/* [!code filename:app.css] */
+@import "tailwindcss";
+@import "./typography.css";
+```
+
+In this example, the `typography.css` file will be bundled into your compiled CSS for you by Tailwind, **without any other tooling like Sass or `postcss-import`**.
+
+### Nesting
+
+Baseline 2023 now natively supports CSS nesting by default.
+
+```css
+/* [!code filename:typography.css] */
+.typography {
+  p {
+    font-size: var(--text-base);
+  }
+  img {
+    border-radius: var(--radius-lg);
+  }
+}
+```
+
+It’s important to know that **Lightning CSS optimizations are not applied by Tailwind CSS during development**. They are only **enforced before production build**. At that point, Lightning CSS processes it in a more compatible form when compile production:
+
+```css
+/* [!code filename:output.css] */
+.typography p {
+  font-size: var(--text-base);
+}
+.typography img {
+  border-radius: var(--radius-lg);
+}
+```
+
+## Configuration
+
+There is no longer a need for `tailwind.config.js`. Consequently, running `npx tailwindcss init` during installation — which used to create this file — is no longer necessary. Instead, only CSS-first configuration should be used.
+
+```js
+// [!code filename:tailwind.config.js]
+// [!code --:9]
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+There is no longer a need for the `@tailwind` directive; instead, a single central import must be known and used.
+
+```css
+/* [!code filename:input.css] */
+/* [!code --:4] */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* [!code ++:2] */
+@import "tailwindcss";
+```
+
+### New CSS-first configuration
+
+With the new CSS-based configuration, many things have changed. It’s now possible to declare functional utilities, manage namespaces, introduce new variants, or override existing ones.
+
+<TipStar>
+  CSS-first alternatives to the JS config are listed in [discussion #19020](https://github.com/tailwindlabs/tailwindcss/discussions/19020).
+</TipStar>
+
+### Legacy v3 support
+
+`tailwind.config.js` can still be used, and it can even be used alongside a CSS-first configuration. Without the init process, the file must be created manually if it doesn’t exist. In all cases, an `@config` declaration referencing the file relatively is required:
+
+
+```css
+/* [!code filename:src/input.css] */
+@import "tailwindcss";
+
+/* [!code highlight:2] */
+@config "./../tailwind.config.js";
+```
+
+## Plugins
+
+Since the `init` process is no longer needed, there’s no reason to include the Tailwind CLI in the main package by default. For this reason, the original package has been split into three parts:
+* <a href="https://npmjs.com/package/tailwindcss" target="_blank">`tailwindcss`</a> — contains only the interpreter required for CSS imports
+* <a href="https://npmjs.com/package/@tailwindcss/cli" target="_blank">`@tailwindcss/cli`</a> — provides the Tailwind CLI without the init process
+* <a href="https://npmjs.com/package/@tailwindcss/postcss" target="_blank">`@tailwindcss/postcss`</a> — provides the PostCSS plugin
+
+Therefore, using Tailwind CSS in any way requires installing `tailwindcss` itself plus at least one of the other plugins.
+
+Since Tailwind CSS relies on Lightning CSS under the hood, it makes sense to drop PostCSS wherever possible. For this reason, another plugin has been released:
+* <a href="https://npmjs.com/package/@tailwindcss/vite" target="_blank">`@tailwindcss/vite`</a> — provides a Vite plugin that allows using Tailwind CSS without PostCSS.
+
+Broader support is also planned:
+* `@tailwindcss/bun` — not yet available. (<a href="https://github.com/tailwindlabs/tailwindcss/pull/16295" target="_blank">PR #16295</a>)
+
+For example, Webpack requires the `tailwindcss` and `@tailwindcss/postcss` packages, Vite requires `tailwindcss` and `@tailwindcss/vite`, and projects without a bundler require `tailwindcss` and `@tailwindcss/cli`.
+
+### Tailwind CLI
+
+Since the CLI was moved out of the `tailwindcss` package into a new `@tailwindcss/cli` package, the CLI commands have also changed:
+```bash
+# [!code filename:Terminal]
+# [!code --:2]
+npx tailwindcss -i input.css -o output.css
+# [!code ++:2]
+npx @tailwindcss/cli -i input.css -o output.css
+```
+
+### Tailwind CSS via PostCSS
+
+Since separate plugins like `postcss-import` or `autoprefixer` are no longer needed, only `@tailwindcss/postcss` needs to be added on its own. It’s important to place it in a `postcss.config.mjs` file due to ESM support.
+
+```js
+// [!code filename:postcss.config.mjs]
+export default {
+  plugins: {
+    // [!code --:4]
+    "postcss-import": {},
+    tailwindcss: {},
+    autoprefixer: {},
+    // [!code ++:2]
+    "@tailwindcss/postcss": {},
+  },
+};
+```
+
+### Tailwind CSS via Vite
+
+Although Vite supports PostCSS, Tailwind no longer really needs it and relies on Lightning CSS instead, so using the Vite plugin reduces the project overhead.
+
+```js
+// [!code filename:vite.config.ts]
+import { defineConfig } from "vite";
+// [!code highlight:2]
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+  plugins: [
+    // [!code highlight:2]
+    tailwindcss(),
+  ],
+});
+```
+
+#### Rolldown-Vite compatibility
+
+Rolldown-Vite (expected to become the default from Vite 8) replaces the previous Vite engine. It relies on Rust instead of JS; and **Lightning CSS** (Rust based) instead of **esbuild** (JS based).
+
+However, Rolldown-Vite applies Lightning CSS to the CSS output even during development. Clear, correct support between Tailwind CSS v4 and Rolldown does not yet exist. It is necessary for the Vite Lightning CSS configuration to be aware of the Lightning CSS settings preferred by Tailwind CSS; otherwise, it may produce incorrect or unexpected results.
+
+* [OKLCH colors are converted to LAB colors when I start using Rolldown-Vite instead of Vite](https://stackoverflow.com/q/79829663/15167500)
+
+Currently, **Tailwind CSS does not provide its Lightning CSS configuration** in an exportable form.
+
+<TipWarning>
+  Temporary suggestion — subject to change in the future.
+</TipWarning>
+
+<TipCompat>
+  As a workaround, it’s possible to temporarily revert to **esbuild** processing in Rolldown until a fully stable configuration can be passed to Lightning CSS.
+</TipCompat>
+
+```js
+// [!code filename:vite.config.ts]
+import { defineConfig } from "vite";
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+  // [!code highlight:4]
+  build: {
+    cssMinify: 'esbuild', // default: 'lightningcss'
+  },
+  plugins: [
+    tailwindcss(),
+  ],
+});
+```
+
+## Other
+
+Here’s a brief overview of the remaining changes that will be covered later.
+
+<TipHighlight>
+  All changes can be viewed <a href="https://tailwindcss.com/docs/upgrade-guide#changes-from-v3" target="_blank">here</a>.
+</TipHighlight>
+
+### Breaking changes
+
+* Prefixes from class name prefixes (e.g., `hover:tw-bg-sky-500`) became primary variants: `tw:hover:bg-sky-500`.
+* The `!important` modifier moved from the start (`!bg-sky-500`) to the end (`bg-sky-500!`).
+* `{bg/text/border/...}-opacity-*` utilities were removed; opacity can now be specified in the color modifier, e.g., `{bg/text/border/...}-sky-500/{opacity}`.
+* The `container` setting was removed; similar behavior can now be declared via `@utility`.
+* `preflight` received minor adjustments.
+* Variant stacking order changed: from `first:*:pt-0` to a reversed order `*:first:pt-0` (both assign `pt-0` to the first child of each element, but v4’s order is more consistent).
+* Arbitrary values for variables now use parentheses: `bg-(--brand-color)` instead of `bg-[--brand-color]`.
+* TailwindCSS does not apply by default in CSS modules; it must be referenced with `@reference`.
+
+### Fixes
+
+* Due to performance issues, `space-x-*` and `space-y-*` utilities were changed; `gap-*` is recommended for flex and grid.
+* Due to performance issues, `divide-x-*` and `divide-y-*` utilities were changed.
+
+### Upgrade tool
+
+If you'd like to upgrade a project from v3 to v4, you can use upgrade tool to do the vast majority of the heavy lifting for you:
+
+```bash
+# [!code filename:Terminal]
+npx @tailwindcss/upgrade
+```
+
+<TipWarning>
+  It’s important to **create a new branch before running**, as the pre-run content cannot be restored afterward except from a backup.
+</TipWarning>
+
+The automated update is not comprehensive and does not always result in a 100% immediate merge. Therefore, it’s very important to be aware of the changes so you can manually fix issues if necessary.
+
