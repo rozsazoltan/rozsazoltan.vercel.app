@@ -58,6 +58,28 @@ const versionMap: VersionMap = {
 const normalizePath = (path: string) =>
   path.length > 1 && path.endsWith("/") ? path.slice(0, -1) : path;
 
+// Helper function: extract major version from version string (e.g., "v4.1" -> 4)
+const getMajorVersion = (versionName: string): number | null => {
+  const match = versionName.match(/^v(\d+)/);
+  return match ? parseInt(match[1], 10) : null;
+};
+
+// Helper function: parse version for comparison (e.g., "v4.1" -> [4, 1])
+const parseVersion = (versionName: string): number[] => {
+  const parts = versionName.replace(/^v/, "").split(".").map(Number);
+  return parts;
+};
+
+// Helper function: compare two version arrays
+const compareVersions = (a: number[], b: number[]): number => {
+  for (let i = 0; i < Math.max(a.length, b.length); i++) {
+    const aPart = a[i] || 0;
+    const bPart = b[i] || 0;
+    if (aPart !== bPart) return aPart - bPart;
+  }
+  return 0;
+};
+
 export default function VersionPicker({
   mapKey,
   label,
@@ -81,10 +103,49 @@ export default function VersionPicker({
   );
 
   // Determine selected version
+  // Determine selected version
   let selectedVersion;
   if (force) {
-    selectedVersion = sortedVersions.find((v) => v.name === force || v.url === force)
+    // First try exact match
+    selectedVersion = sortedVersions.find((v) => v.name === force || v.url === force);
+    
+    // If no exact match, find closest version with same or higher version number
+    if (!selectedVersion) {
+      const forceMajor = getMajorVersion(force);
+      const forceVersionParts = parseVersion(force);
+      
+      if (forceMajor !== null) {
+        const candidateVersions = sortedVersions.filter((v) => {
+          const vMajor = getMajorVersion(v.name);
+          return vMajor === forceMajor;
+        });
+        
+        if (candidateVersions.length > 0) {
+          // Find versions that are >= force version
+          const validCandidates = candidateVersions.filter((v) => {
+            const versionParts = parseVersion(v.name);
+            return compareVersions(versionParts, forceVersionParts) >= 0;
+          });
+          
+          if (validCandidates.length > 0) {
+            // Sort by distance from force version (ascending)
+            selectedVersion = validCandidates.reduce((closest, current) => {
+              const currentParts = parseVersion(current.name);
+              const closestParts = parseVersion(closest.name);
+              
+              // Compare distances from force version
+              const currentDistance = compareVersions(currentParts, forceVersionParts);
+              const closestDistance = compareVersions(closestParts, forceVersionParts);
+              
+              // Choose the one with smaller distance (closer to force)
+              return currentDistance < closestDistance ? current : closest;
+            });
+          }
+        }
+      }
+    }
   }
+  
   selectedVersion = selectedVersion ||
     sortedVersions.find((v) => pathname === normalizePath(v.url) || pathname.startsWith(`${normalizePath(v.url)}/`)) ||
     sortedVersions.find((v) => v.latest) ||
