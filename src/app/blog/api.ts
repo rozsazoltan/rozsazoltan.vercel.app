@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { Author } from "./authors";
+import type { VersionPickerProps } from "@/components/version-picker";
 
 export async function getBlogPostBySlug(slug: string): Promise<{
   Component: React.FC;
@@ -14,6 +15,7 @@ export async function getBlogPostBySlug(slug: string): Promise<{
       src: string;
     };
     private?: boolean;
+    versionpicker?: VersionPickerProps
   };
   slug: string;
 } | null> {
@@ -32,6 +34,7 @@ export async function getBlogPostBySlug(slug: string): Promise<{
       Component: module.default,
       meta: {
         authors: [],
+        versionpicker: {},
         ...module.meta,
       },
       slug,
