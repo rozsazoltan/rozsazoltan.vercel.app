@@ -36,7 +36,7 @@ function TopNav(props: { navs: DocsNavs }) {
 
   return (
     <ul className="flex flex-col gap-2">
-      {Object.keys(props.navs).map((path) => {
+      {Object.keys(props.navs).filter((path) => !props.navs[path].archived).map((path) => {
         const { label, icon } = props.navs[path];
         return (
           <li key={path} className="[&:not(:hover):not(:has([aria-current]))]:grayscale-50">
