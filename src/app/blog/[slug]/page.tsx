@@ -6,6 +6,7 @@ import { Share } from "@/components/share";
 import GridContainer from "@/components/grid-container";
 import type { Metadata } from "next/types";
 import { FooterSitemap, FooterMeta } from "@/components/footer";
+import { BlogLayoutWrapper } from "@/components/blog/blog-layout-wrapper";
 
 type Props = {
   params: Promise<{
@@ -64,8 +65,13 @@ export default async function DocPage(props: Props) {
     return notFound();
   }
 
+  // Prepare the VersionPicker props from post.meta.versionpicker
+  const versionPickerProps = post.meta.versionpicker || {};
+
   return (
     <>
+      <BlogLayoutWrapper versionPickerProps={versionPickerProps} />
+
       {/* Add a placeholder div so the Next.js router can find the scrollable element. */}
       <div hidden />
 
@@ -108,7 +114,7 @@ export default async function DocPage(props: Props) {
           <GridContainer className="mt-16 px-4 py-4 sm:py-2 lg:px-2">
             <section>
               <h2 className="text-3xl font-medium tracking-tight text-slate-900 dark:text-white">
-              Do you find this content useful? <span className="underline">Help by sharing it.</span>
+                Do you find this content useful? <span className="underline">Help by sharing it.</span>
                 <br />
                 <span className="text-rose-500">Knowledge is power.</span>
               </h2>
