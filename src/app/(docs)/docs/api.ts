@@ -52,8 +52,11 @@ export async function generateTableOfContents(slug: string) {
 
 export async function generateTableOfContentsFromMarkdown(markdown: string) {
   let headings = [
-    // Match Markdown and HTML headings (e.g., ## Heading, <h2>Heading</h2>)
-    ...markdown.matchAll(/^(#+)\s+(.+)$|^<h([1-6])(?:\s+[^>]*\bid=["'](.*?)["'][^>]*)?>(.*?)<\/h\3>/gm),
+    ...markdown
+      // Remove code blocks
+      .replace(/```[\s\S]*?```/g, '')
+      // Match Markdown and HTML headings (e.g., ## Heading, <h2>Heading</h2>)
+      .matchAll(/^(#+)\s+(.+)$|^<h([1-6])(?:\s+[^>]*\bid=["'](.*?)["'][^>]*)?>(.*?)<\/h\3>/gm),
   ].map((match) => {
     let level;
     let text;
